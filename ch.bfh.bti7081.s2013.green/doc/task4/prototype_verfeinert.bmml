@@ -1,0 +1,287 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1773" measuredH="658" mockupW="1761" mockupH="647">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::iPhone" x="306" y="17" w="-1" h="-1" measuredW="282" measuredH="510" zOrder="0" locked="false" isInGroup="-1"/>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::TabBar" x="337" y="169" w="214" h="257" measuredW="222" measuredH="100" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>1</selectedIndex>
+        <text>Akte%2C%20ToDo%2C%20Spesen%2C%20Zeit</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::iPhone" x="12" y="17" w="-1" h="-1" measuredW="282" measuredH="510" zOrder="2" locked="false" isInGroup="-1"/>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::DataGrid" x="337" y="192" w="214" h="234" measuredW="172" measuredH="111" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Task%2C%20Erledigt%0AEinkaufen%20gehen%2C%20%5Bx%5D%0APizza%20kochen%2C%20%5Bx%5D%0AAbwaschen%2C%20%5Bx%5D</text>
+      </controlProperties>
+    </control>
+    <control controlID="8" controlTypeID="com.balsamiq.mockups::List" x="40" y="165" w="221" h="232" measuredW="100" measuredH="126" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <selectedIndex>0</selectedIndex>
+        <text>0700-0800%20Harry%20Hasler%0A1100-1300%20Fritz%20B%FCehler%0A1400-1500%20Ursula%20Andres%0A1700-2200%20Larry%20King</text>
+      </controlProperties>
+    </control>
+    <control controlID="10" controlTypeID="com.balsamiq.mockups::Title" x="78" y="129" w="-1" h="-1" measuredW="146" measuredH="19" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>16</size>
+        <text>Spitapp%20-%20Tageslpan</text>
+      </controlProperties>
+    </control>
+    <control controlID="13" controlTypeID="com.balsamiq.mockups::iPhone" x="897" y="14" w="-1" h="-1" measuredW="282" measuredH="510" zOrder="6" locked="false" isInGroup="-1"/>
+    <control controlID="14" controlTypeID="com.balsamiq.mockups::PointyButton" x="189" y="407" w="-1" h="-1" measuredW="72" measuredH="27" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Vorw%E4rts</text>
+      </controlProperties>
+    </control>
+    <control controlID="15" controlTypeID="com.balsamiq.mockups::PointyButton" x="47" y="407" w="-1" h="-1" measuredW="80" measuredH="27" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>left</direction>
+        <text>R%FCckw%E4rts</text>
+      </controlProperties>
+    </control>
+    <control controlID="16" controlTypeID="com.balsamiq.mockups::PointyButton" x="127" y="407" w="-1" h="-1" measuredW="58" measuredH="27" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>center</direction>
+        <text>Datum</text>
+      </controlProperties>
+    </control>
+    <control controlID="17" controlTypeID="com.balsamiq.mockups::Title" x="360" y="133" w="-1" h="-1" measuredW="164" measuredH="19" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>16</size>
+        <text>Spitapp%20-%20Harry%20Hasler</text>
+      </controlProperties>
+    </control>
+    <control controlID="22" controlTypeID="com.balsamiq.mockups::Icon" x="224" y="165" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>GeoLocation2Icon%7Csmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="25" controlTypeID="com.balsamiq.mockups::iPhone" x="1194" y="11" w="-1" h="-1" measuredW="282" measuredH="510" zOrder="12" locked="false" isInGroup="-1"/>
+    <control controlID="26" controlTypeID="com.balsamiq.mockups::TabBar" x="1228" y="158" w="214" h="257" measuredW="221" measuredH="100" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>2</selectedIndex>
+        <text>Akte%2C%20Todo%2C%20Spesen%2C%20Zeit</text>
+      </controlProperties>
+    </control>
+    <control controlID="28" controlTypeID="com.balsamiq.mockups::Title" x="1251" y="122" w="-1" h="-1" measuredW="164" measuredH="19" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>16</size>
+        <text>Spitapp%20-%20Harry%20Hasler</text>
+      </controlProperties>
+    </control>
+    <control controlID="30" controlTypeID="com.balsamiq.mockups::TabBar" x="929" y="161" w="214" h="257" measuredW="222" measuredH="100" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>0</selectedIndex>
+        <text>Akte%2C%20ToDo%2C%20Spesen%2C%20Zeit</text>
+      </controlProperties>
+    </control>
+    <control controlID="31" controlTypeID="com.balsamiq.mockups::Title" x="954" y="125" w="-1" h="-1" measuredW="164" measuredH="19" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>16</size>
+        <text>Spitapp%20-%20Harry%20Hasler</text>
+      </controlProperties>
+    </control>
+    <control controlID="33" controlTypeID="com.balsamiq.mockups::ComboBox" x="959" y="379" w="-1" h="-1" measuredW="155" measuredH="24" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Dokument%20ausw%E4hlen</text>
+      </controlProperties>
+    </control>
+    <control controlID="34" controlTypeID="com.balsamiq.mockups::Label" x="957" y="206" w="-1" h="-1" measuredW="50" measuredH="21" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Alter%3A%2087</text>
+      </controlProperties>
+    </control>
+    <control controlID="35" controlTypeID="com.balsamiq.mockups::Label" x="957" y="235" w="-1" h="-1" measuredW="90" measuredH="21" zOrder="19" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Pflegestufe%3A%208b</text>
+      </controlProperties>
+    </control>
+    <control controlID="36" controlTypeID="com.balsamiq.mockups::Label" x="959" y="267" w="-1" h="-1" measuredW="137" measuredH="21" zOrder="20" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Hobbys%3A%20Jassen%2C%20Essen</text>
+      </controlProperties>
+    </control>
+    <control controlID="37" controlTypeID="com.balsamiq.mockups::Label" x="969" y="360" w="-1" h="-1" measuredW="142" measuredH="21" zOrder="21" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Erweitere%20Informationen</text>
+      </controlProperties>
+    </control>
+    <control controlID="39" controlTypeID="com.balsamiq.mockups::StickyNote" x="911" y="508" w="254" h="150" measuredW="109" measuredH="123" zOrder="22" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Wichtige%20Informationen%20werden%20direkt%20angezeigt%20oder%20als%20Preview.%20Weitere%20Dokumenten%20k%F6nnen%20als%20PDF%20von%20Server%20geholt%20und%20dann%20Fullscreen%20angezeigt%20werden.%0AM%F6gliche%20Dokumente%20sind%20Krankheitsgeschichte%20etc.</text>
+      </controlProperties>
+    </control>
+    <control controlID="40" controlTypeID="com.balsamiq.mockups::StickyNote" x="27" y="508" w="252" h="86" measuredW="109" measuredH="123" zOrder="23" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Zum%20ausgew%E4hlten%20Element%20gibt%20es%20die%20Option%20gerade%20Google%20Navigate%20einzusetzen.</text>
+      </controlProperties>
+    </control>
+    <control controlID="41" controlTypeID="com.balsamiq.mockups::StickyNote" x="323" y="508" w="259" h="101" measuredW="109" measuredH="123" zOrder="34" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Beim%20Klick%20auf%20Erledigt%2C%20kommt%20ein%20Popup%20um%20die%20Zeit%20zu%20erfassen%2C%0Adiese%20kann%20sp%E4ter%20im%20Zeit-Tab%20noch%20bearbeitet%20werden.</text>
+      </controlProperties>
+    </control>
+    <control controlID="42" controlTypeID="com.balsamiq.mockups::ComboBox" x="1236" y="370" w="-1" h="-1" measuredW="103" measuredH="24" zOrder="24" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Verpflegung</text>
+      </controlProperties>
+    </control>
+    <control controlID="44" controlTypeID="com.balsamiq.mockups::NumericStepper" x="1339" y="370" w="-1" h="-1" measuredW="49" measuredH="24" zOrder="25" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>30</text>
+      </controlProperties>
+    </control>
+    <control controlID="45" controlTypeID="com.balsamiq.mockups::PointyButton" x="1394" y="370" w="-1" h="-1" measuredW="28" measuredH="27" zOrder="26" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>+</text>
+      </controlProperties>
+    </control>
+    <control controlID="46" controlTypeID="com.balsamiq.mockups::List" x="1240" y="203" w="188" h="154" measuredW="100" measuredH="126" zOrder="27" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Benzin%2020%20CHF%0AMittag%20%28ausw%E4rts%29%2030%20CHF</text>
+      </controlProperties>
+    </control>
+    <control controlID="47" controlTypeID="com.balsamiq.mockups::Icon" x="1400" y="203" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="28" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>Trash2Icon%7Csmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="48" controlTypeID="com.balsamiq.mockups::Icon" x="1400" y="224" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="29" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>Trash2Icon%7Csmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="49" controlTypeID="com.balsamiq.mockups::iPhone" x="1491" y="11" w="-1" h="-1" measuredW="282" measuredH="510" zOrder="30" locked="false" isInGroup="-1"/>
+    <control controlID="50" controlTypeID="com.balsamiq.mockups::TabBar" x="1525" y="158" w="214" h="257" measuredW="221" measuredH="100" zOrder="31" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>3</selectedIndex>
+        <text>Akte%2C%20Todo%2C%20Spesen%2C%20Zeit</text>
+      </controlProperties>
+    </control>
+    <control controlID="51" controlTypeID="com.balsamiq.mockups::Title" x="1548" y="122" w="-1" h="-1" measuredW="164" measuredH="19" zOrder="32" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>16</size>
+        <text>Spitapp%20-%20Harry%20Hasler</text>
+      </controlProperties>
+    </control>
+    <control controlID="59" controlTypeID="com.balsamiq.mockups::iPhone" x="603" y="17" w="-1" h="-1" measuredW="282" measuredH="510" zOrder="33" locked="false" isInGroup="-1"/>
+    <control controlID="60" controlTypeID="com.balsamiq.mockups::TabBar" x="637" y="171" w="214" h="257" measuredW="222" measuredH="100" zOrder="35" locked="false" isInGroup="-1">
+      <controlProperties>
+        <selectedIndex>1</selectedIndex>
+        <text>Akte%2C%20ToDo%2C%20Spesen%2C%20Zeit</text>
+      </controlProperties>
+    </control>
+    <control controlID="61" controlTypeID="com.balsamiq.mockups::DataGrid" x="637" y="194" w="214" h="234" measuredW="172" measuredH="111" zOrder="36" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Task%2C%20Erledigt%0AEinkaufen%20gehen%2C%20%5Bx%5D%0APizza%20kochen%2C%20%5Bx%5D%0AAbwaschen%2C%20%5Bx%5D</text>
+      </controlProperties>
+    </control>
+    <control controlID="62" controlTypeID="com.balsamiq.mockups::Title" x="660" y="135" w="-1" h="-1" measuredW="164" measuredH="19" zOrder="37" locked="false" isInGroup="-1">
+      <controlProperties>
+        <size>16</size>
+        <text>Spitapp%20-%20Harry%20Hasler</text>
+      </controlProperties>
+    </control>
+    <control controlID="63" controlTypeID="com.balsamiq.mockups::List" x="637" y="195" w="214" h="231" measuredW="100" measuredH="126" zOrder="38" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20Start%20%20%20%20%20%20%20%20%20Dauer</text>
+      </controlProperties>
+    </control>
+    <control controlID="64" controlTypeID="com.balsamiq.mockups::ComboBox" x="641" y="222" w="-1" h="-1" measuredW="64" measuredH="24" zOrder="39" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>09%3A00</text>
+      </controlProperties>
+    </control>
+    <control controlID="65" controlTypeID="com.balsamiq.mockups::NumericStepper" x="708" y="222" w="-1" h="-1" measuredW="49" measuredH="24" zOrder="40" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>30</text>
+      </controlProperties>
+    </control>
+    <control controlID="66" controlTypeID="com.balsamiq.mockups::PointyButton" x="760" y="221" w="-1" h="-1" measuredW="85" measuredH="27" zOrder="41" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>center</direction>
+        <text>Hinzuf%FCgen</text>
+      </controlProperties>
+    </control>
+    <control controlID="67" controlTypeID="com.balsamiq.mockups::StickyNote" x="615" y="508" w="259" h="101" measuredW="109" measuredH="123" zOrder="42" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Es%20muss%20die%20Startzeit%20der%20Aufgabe%20und%20die%20Dauer%20%28in%20Min.%29%20angegeben%20werden.%0ADurch%20Klick%20auf%20Hinzuf%FCgen%20landet%20der%20Benutzer%20wieder%20auf%20der%20ToDo-Liste</text>
+      </controlProperties>
+    </control>
+    <control controlID="70" controlTypeID="com.balsamiq.mockups::ComboBox" x="1577" y="206" w="-1" h="-1" measuredW="64" measuredH="24" zOrder="44" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>09%3A00</text>
+      </controlProperties>
+    </control>
+    <control controlID="71" controlTypeID="com.balsamiq.mockups::NumericStepper" x="1642" y="206" w="-1" h="-1" measuredW="49" measuredH="24" zOrder="45" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>30</text>
+      </controlProperties>
+    </control>
+    <control controlID="72" controlTypeID="com.balsamiq.mockups::PointyButton" x="1692" y="205" w="-1" h="-1" measuredW="43" measuredH="27" zOrder="46" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>center</direction>
+        <text>Edit</text>
+      </controlProperties>
+    </control>
+    <control controlID="73" controlTypeID="com.balsamiq.mockups::List" x="1529" y="206" w="48" h="25" measuredW="100" measuredH="126" zOrder="47" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>none</borderStyle>
+        <text>1642</text>
+      </controlProperties>
+    </control>
+    <control controlID="74" controlTypeID="com.balsamiq.mockups::List" x="1525" y="182" w="214" h="231" measuredW="100" measuredH="126" zOrder="43" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Task%20%20%20%20%20%20Start%20%20%20%20%20%20%20Dauer</text>
+      </controlProperties>
+    </control>
+    <control controlID="75" controlTypeID="com.balsamiq.mockups::ComboBox" x="1577" y="236" w="-1" h="-1" measuredW="62" measuredH="24" zOrder="48" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>10%3A00</text>
+      </controlProperties>
+    </control>
+    <control controlID="76" controlTypeID="com.balsamiq.mockups::NumericStepper" x="1642" y="236" w="-1" h="-1" measuredW="50" measuredH="24" zOrder="49" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>60</text>
+      </controlProperties>
+    </control>
+    <control controlID="77" controlTypeID="com.balsamiq.mockups::PointyButton" x="1692" y="235" w="-1" h="-1" measuredW="43" measuredH="27" zOrder="50" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>center</direction>
+        <text>Edit</text>
+      </controlProperties>
+    </control>
+    <control controlID="78" controlTypeID="com.balsamiq.mockups::List" x="1529" y="236" w="48" h="25" measuredW="100" measuredH="126" zOrder="51" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>none</borderStyle>
+        <text>1650</text>
+      </controlProperties>
+    </control>
+    <control controlID="87" controlTypeID="com.balsamiq.mockups::ComboBox" x="1577" y="267" w="-1" h="-1" measuredW="63" measuredH="24" zOrder="52" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>14%3A00</text>
+      </controlProperties>
+    </control>
+    <control controlID="88" controlTypeID="com.balsamiq.mockups::NumericStepper" x="1642" y="267" w="-1" h="-1" measuredW="46" measuredH="24" zOrder="53" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>15</text>
+      </controlProperties>
+    </control>
+    <control controlID="89" controlTypeID="com.balsamiq.mockups::PointyButton" x="1692" y="266" w="-1" h="-1" measuredW="43" measuredH="27" zOrder="54" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>center</direction>
+        <text>Edit</text>
+      </controlProperties>
+    </control>
+    <control controlID="90" controlTypeID="com.balsamiq.mockups::List" x="1529" y="267" w="48" h="25" measuredW="100" measuredH="126" zOrder="55" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>none</borderStyle>
+        <text>1701</text>
+      </controlProperties>
+    </control>
+    <control controlID="91" controlTypeID="com.balsamiq.mockups::StickyNote" x="1505" y="500" w="254" h="150" measuredW="109" measuredH="123" zOrder="56" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Beim%20Task%20werden%20gleich%20die%20internen%20Abrechnungsnummern%20verwendet%2C%20per%20Tooltip%20kann%20die%20volle%20Bezeichnung%20angezeigt%20werden.</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
