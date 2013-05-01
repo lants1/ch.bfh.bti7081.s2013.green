@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.s2013.ch.bfh.bti7081.s2013.green;
+package ch.bfh.bti7081.s2013.green;
 
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Button;
