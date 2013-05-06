@@ -7,9 +7,7 @@
     <artifactId>spitapp-master-pom</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>ch.bfh.bti7081.s2013.green</groupId>
   <artifactId>spitapp-core</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <name>spitapp-core</name>
   <url>http://maven.apache.org</url>
   <properties>
@@ -22,6 +20,11 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+   	<dependency>
+    	<groupId>postgresql</groupId>
+    	<artifactId>postgresql</artifactId>
+    		<version>9.1-901.jdbc4</version>
+		</dependency>
     <!-- Hibernate dependencies -->
     	<dependency>
 			<groupId>mysql</groupId>
