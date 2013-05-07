@@ -5,8 +5,8 @@
 <hibernate-mapping>
 	<class name="spitapp.core.model.Patient" table="PATIENT"
 		catalog="spitapp">
-		<id name="empId" type="java.lang.Long">
-			<column name="emp_id" />
+		<id name="patId" type="java.lang.Long">
+			<column name="pat_id" />
 			<generator class="identity" />
 		</id>
 		<property name="firstName" type="string">

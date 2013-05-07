@@ -5,18 +5,18 @@ import org.hibernate.annotations.Entity;
 @Entity
 public class Patient {
 
-	private Long empId;
+	private Long patId;
 
 	private String firstName;
 
 	private String lastName;
 
-	public Long getEmpId() {
-		return empId;
+	public Long getPatId() {
+		return patId;
 	}
 
-	public void setEmpId(Long empId) {
-		this.empId = empId;
+	public void setPatId(Long patId) {
+		this.patId = patId;
 	}
 
 	public String getFirstName() {
