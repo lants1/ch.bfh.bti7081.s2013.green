@@ -9,8 +9,11 @@
 			<column name="SpesenEintID" />
 			<generator class="identity" />
 		</id>
-		<property name="Desc" type="string">
-			<column name="DESC" length="100" not-null="true" />
+		<property name="SpesenDesc" type="string">
+			<column name="SpesenDesc" length="100" not-null="true" />
+		</property>		
+		<property name="Price" type="double">
+			<column name="Price" not-null="true" />
 		</property>
 	</class>
 </hibernate-mapping>
