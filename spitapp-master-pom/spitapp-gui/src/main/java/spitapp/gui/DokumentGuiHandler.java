@@ -7,7 +7,7 @@ import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Label;
 
-public class DokumentGuiHandler extends CustomComponent {
+public class DokumentGuiHandler extends DetailGuiHandler {
 
 	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
 
