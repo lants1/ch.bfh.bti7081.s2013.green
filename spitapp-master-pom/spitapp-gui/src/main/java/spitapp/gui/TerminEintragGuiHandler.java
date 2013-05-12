@@ -58,7 +58,7 @@ public class TerminEintragGuiHandler extends CustomComponent {
 		// table_termine
 		table_termine = new Table();
 		table_termine.setImmediate(false);
-		table_termine.setWidth("100.0%");
+		table_termine.setWidth("80.0%");
 		table_termine.setHeight("-1px");
 		mainLayout.addComponent(table_termine, "top:17.0px;left:20.0px;");
 		
