@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="spitapp.core.model.Dokument" table="DOKUMENT"
+		catalog="spitapp">
+		<id name="documentId" type="java.lang.Long">
+			<column name="document_id" />
+			<generator class="identity" />
+		</id>
+		<property name="FileName" type="string">
+			<column name="FileName" length="100" not-null="true" />
+		</property>
+		<property name="FilePath" type="string">
+			<column name="FilePath" length="100" not-null="true" />
+		</property>
+	</class>
+</hibernate-mapping>
