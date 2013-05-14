@@ -5,18 +5,18 @@ import org.hibernate.annotations.Entity;
 @Entity
 public class Dokument {
 	
-	private long DocId;
+	private long documentId;
 	
 	private String FileName;
 	
 	private String FilePath;
 
-	public long getDocId() {
-		return DocId;
+	public long getDocumentId() {
+		return documentId;
 	}
 
-	public void setDocId(long docId) {
-		this.DocId = docId;
+	public void setDocumentId(long documentId) {
+		this.documentId = documentId;
 	}
 	
 	public String getFileName() {

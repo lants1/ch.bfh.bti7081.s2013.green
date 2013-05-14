@@ -15,5 +15,20 @@
 		<property name="lastName" type="string">
 			<column name="last_name" length="20" not-null="true" />
 		</property>
+		 <list name="spesenEintraege" cascade="all">
+            <key column="spesen_id"/>
+            <index column="idx"/>
+            <one-to-many class="spitapp.core.model.SpesenEintrag"/>
+        </list>
+       	<list name="dokumente" cascade="all">
+            <key column="dokumente_id"/>
+            <index column="idx"/>
+            <one-to-many class="spitapp.core.model.Dokument"/>
+        </list>
+         <list name="tasks" cascade="all">
+            <key column="task_id"/>
+            <index column="idx"/>
+            <one-to-many class="spitapp.core.model.Task"/>
+        </list>
 	</class>
 </hibernate-mapping>
