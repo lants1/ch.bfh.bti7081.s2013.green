@@ -17,7 +17,18 @@ import spitapp.core.model.TerminEintrag;
 
 
 public class DatabaseService {
-
+	Session session;
+	
+	public DatabaseService(){
+		SessionFactory sessionFactory = new AnnotationConfiguration()
+		.configure().buildSessionFactory();
+		session = sessionFactory.getCurrentSession();
+		
+		//:)
+		initTestData();
+	}
+	
+	
 	/**
 	 * 
 	 * @param args
@@ -35,16 +46,34 @@ public class DatabaseService {
 	}
 	
 	public List<TerminEintrag> getTermine(Date date){
-		List<TerminEintrag> result = new ArrayList<TerminEintrag>();
-		
+
 		SessionFactory sessionFactory = new AnnotationConfiguration()
 		.configure().buildSessionFactory();
 		Session session = sessionFactory.getCurrentSession();
 
 		Transaction tx = session.beginTransaction();
+		List<TerminEintrag> terminEintraege = session.createCriteria(TerminEintrag.class).list();
+		List<TerminEintrag> result = new ArrayList<TerminEintrag>();
+		
+		for(TerminEintrag termin : terminEintraege){
+			termin.updateState(date);
+			if(termin.isRelevant()){
+			result.add(termin);
+			}
+		}
+
+		tx.commit();
+		session.close();
+		
+		return result;
+	}
+	
+	private void initTestData(){
+		Transaction tx = session.beginTransaction();
 
 		TerminEintrag termin = new TerminEintrag();
 		termin.setBeschreibung("testermin");
+		termin.setTerminDate(new Date());
 
 		Patient patient = new Patient();
 		patient.setFirstName("Swen");
@@ -70,16 +99,10 @@ public class DatabaseService {
 		patient.setDokumente(doks);
 		patient.setSpesenEintraege(spesenList);
 
-		List<Patient> patienten = new ArrayList<Patient>();
-		patienten.add(patient);
-		termin.setPatienten(patienten);
+		termin.setPatient(patient);
 		session.save(termin);
 
 		tx.commit();
-		result.add(termin);
-		result.add(termin);
-		// TODO
-		return result;
 	}
 	
 }
