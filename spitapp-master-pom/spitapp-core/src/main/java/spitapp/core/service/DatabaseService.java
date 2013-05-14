@@ -1,6 +1,7 @@
 package spitapp.core.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -18,47 +19,67 @@ import spitapp.core.model.TerminEintrag;
 public class DatabaseService {
 
 	/**
+	 * 
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public void saveOrUpdate(TerminEintrag termin) {
 		SessionFactory sessionFactory = new AnnotationConfiguration()
 				.configure().buildSessionFactory();
 		Session session = sessionFactory.getCurrentSession();
 
 		Transaction tx = session.beginTransaction();
 
+		session.saveOrUpdate(termin);
+
+		tx.commit();
+	}
+	
+	public List<TerminEintrag> getTermine(Date date){
+		List<TerminEintrag> result = new ArrayList<TerminEintrag>();
+		
+		SessionFactory sessionFactory = new AnnotationConfiguration()
+		.configure().buildSessionFactory();
+		Session session = sessionFactory.getCurrentSession();
+
+		Transaction tx = session.beginTransaction();
+
 		TerminEintrag termin = new TerminEintrag();
 		termin.setBeschreibung("testermin");
-		
+
 		Patient patient = new Patient();
 		patient.setFirstName("Swen");
 		patient.setLastName("Lanthemann");
-		
+
 		Dokument dok = new Dokument();
 		dok.setFileName("test");
 		dok.setFilePath("path");
 		List<Dokument> doks = new ArrayList<Dokument>();
 		doks.add(dok);
-		
+
 		Task task = new Task();
 		task.setDescription("test2");
 		List<Task> tasks = new ArrayList<Task>();
 		tasks.add(task);
-		
+
 		SpesenEintrag spesen = new SpesenEintrag();
 		spesen.setSpesenDesc("test3");
 		List<SpesenEintrag> spesenList = new ArrayList<SpesenEintrag>();
 		spesenList.add(spesen);
-		
+
 		patient.setTasks(tasks);
 		patient.setDokumente(doks);
 		patient.setSpesenEintraege(spesenList);
-		
+
 		List<Patient> patienten = new ArrayList<Patient>();
 		patienten.add(patient);
 		termin.setPatienten(patienten);
 		session.save(termin);
 
 		tx.commit();
+		result.add(termin);
+		result.add(termin);
+		// TODO
+		return result;
 	}
+	
 }
