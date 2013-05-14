@@ -1,7 +1,5 @@
 package spitapp.gui;
 
-import java.util.Date;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -105,7 +103,7 @@ public class TerminEintragGuiHandler extends CustomComponent {
 				dateField_datum.setValue(date);
 			}
 		}); 
-		mainLayout.addComponent(button_vorwaerts, "top:357.0px;left:281.0px;");
+		mainLayout.addComponent(button_vorwaerts, "top:357.0px;left:210.0px;");
 		
 		return mainLayout;
 	}
