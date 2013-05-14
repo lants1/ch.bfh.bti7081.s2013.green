@@ -73,6 +73,7 @@ public class TerminEintragGuiHandler extends CustomComponent {
 		button_rueckwaerts.setHeight("-1px");
 		button_rueckwaerts.addClickListener(new Button.ClickListener() {
 			public void buttonClick(ClickEvent event) {
+				calendar.setTime(dateField_datum.getValue());
 				calendar.add(Calendar.DAY_OF_MONTH, -1);
 				date = calendar.getTime();
 				dateField_datum.setValue(date);
@@ -82,11 +83,10 @@ public class TerminEintragGuiHandler extends CustomComponent {
 		
 		// dateField_datum
 		dateField_datum = new PopupDateField();
-		dateField_datum.setCaption("Datum");
 		dateField_datum.setImmediate(true);
 		dateField_datum.setWidth("-1px");
 		dateField_datum.setHeight("-1px");
-		dateField_datum.setDateFormat("yyyy-MM-dd");
+		dateField_datum.setDateFormat("dd-MM-yyyy");
 		dateField_datum.setValue(date);
 		mainLayout.addComponent(dateField_datum, "top:357.0px;left:106.0px;");
 		
@@ -98,12 +98,13 @@ public class TerminEintragGuiHandler extends CustomComponent {
 		button_vorwaerts.setHeight("-1px");
 		button_vorwaerts.addClickListener(new Button.ClickListener() {
 			public void buttonClick(ClickEvent event) {
+				calendar.setTime(dateField_datum.getValue());
 				calendar.add(Calendar.DAY_OF_MONTH, 1);
 				date = calendar.getTime();
 				dateField_datum.setValue(date);
 			}
 		}); 
-		mainLayout.addComponent(button_vorwaerts, "top:357.0px;left:210.0px;");
+		mainLayout.addComponent(button_vorwaerts, "top:357.0px;left:208.0px;");
 		
 		return mainLayout;
 	}
