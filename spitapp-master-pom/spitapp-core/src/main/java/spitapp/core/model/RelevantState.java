@@ -14,7 +14,7 @@ public class RelevantState implements TerminState {
 	
 	public boolean isRelevant() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	public void updateState(Date date) {

@@ -17,27 +17,15 @@ import spitapp.core.model.TerminEintrag;
 
 
 public class DatabaseService {
-	Session session;
-	
-	public DatabaseService(){
-		SessionFactory sessionFactory = new AnnotationConfiguration()
-		.configure().buildSessionFactory();
-		session = sessionFactory.getCurrentSession();
-		
-		//:)
-		initTestData();
-	}
-	
-	
+
 	/**
 	 * 
 	 * @param args
 	 */
 	public void saveOrUpdate(TerminEintrag termin) {
 		SessionFactory sessionFactory = new AnnotationConfiguration()
-				.configure().buildSessionFactory();
+		.configure().buildSessionFactory();
 		Session session = sessionFactory.getCurrentSession();
-
 		Transaction tx = session.beginTransaction();
 
 		session.saveOrUpdate(termin);
@@ -46,15 +34,13 @@ public class DatabaseService {
 	}
 	
 	public List<TerminEintrag> getTermine(Date date){
-
 		SessionFactory sessionFactory = new AnnotationConfiguration()
 		.configure().buildSessionFactory();
 		Session session = sessionFactory.getCurrentSession();
-
 		Transaction tx = session.beginTransaction();
 		List<TerminEintrag> terminEintraege = session.createCriteria(TerminEintrag.class).list();
 		List<TerminEintrag> result = new ArrayList<TerminEintrag>();
-		
+		System.out.println(terminEintraege.size());
 		for(TerminEintrag termin : terminEintraege){
 			termin.updateState(date);
 			if(termin.isRelevant()){
@@ -63,12 +49,18 @@ public class DatabaseService {
 		}
 
 		tx.commit();
-		session.close();
 		
 		return result;
 	}
 	
-	private void initTestData(){
+	public static void main(String[] args) {
+	      initTestData();
+	}
+	
+	private static void initTestData(){
+		SessionFactory sessionFactory = new AnnotationConfiguration()
+		.configure().buildSessionFactory();
+		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
 
 		TerminEintrag termin = new TerminEintrag();
