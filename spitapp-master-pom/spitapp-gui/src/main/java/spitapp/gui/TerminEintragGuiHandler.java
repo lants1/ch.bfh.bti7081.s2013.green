@@ -59,7 +59,11 @@ public class TerminEintragGuiHandler extends CustomComponent {
 	}
 	
 	public boolean clearTermine() {
-		return table_termine.removeAllItems();
+		if(table_termine.removeAllItems()) {
+			this.eintraege.clear();
+			return true;
+		}
+		return false;
 	}
 	
 	public boolean addTermin(TerminEintrag termin) {
