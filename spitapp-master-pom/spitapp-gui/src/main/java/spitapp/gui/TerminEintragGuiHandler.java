@@ -55,9 +55,7 @@ public class TerminEintragGuiHandler extends CustomComponent {
 	}
 	
 	public void TerminEintragChanged(Integer newTerminId) {
-		table_termine.setCaption("Selected: " + table_termine.getValue());
-		
-		
+		table_termine.setCaption("Selected: " + table_termine.getValue());	
 	}
 	
 	public boolean clearTermine() {
@@ -101,7 +99,7 @@ public class TerminEintragGuiHandler extends CustomComponent {
 		setWidth("100.0%");
 		setHeight("100.0%");
 		
-		//layout for TerminEintrag Sektion
+		//layout for TerminEintrag section
 		VerticalLayout terminLayout = new VerticalLayout();
 		terminLayout.setMargin(true);
 		
@@ -119,10 +117,8 @@ public class TerminEintragGuiHandler extends CustomComponent {
 		table_termine.addContainerProperty("Uhrzeit",  String.class,  null);
 		// Allow selecting items from the table.
 		table_termine.setSelectable(true);
-
 		// Send changes in selection immediately to server.
 		table_termine.setImmediate(true);
-
 		// Handle selection change.
 		table_termine.addValueChangeListener(new ValueChangeListener() {
 		    public void valueChange(ValueChangeEvent event) {
@@ -139,7 +135,6 @@ public class TerminEintragGuiHandler extends CustomComponent {
 		button_rueckwaerts.setHeight("-1px");
 		button_rueckwaerts.addClickListener(new Button.ClickListener() {
 			public void buttonClick(ClickEvent event) {
-				
 				Calendar calendar = new GregorianCalendar();
 				calendar.setTime(dateField_datum.getValue());
 				calendar.add(Calendar.DAY_OF_MONTH, -1);
