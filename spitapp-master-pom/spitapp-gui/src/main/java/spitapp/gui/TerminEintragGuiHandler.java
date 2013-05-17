@@ -16,8 +16,10 @@ import com.vaadin.ui.AbsoluteLayout;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.CustomComponent;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.Table;
+import com.vaadin.ui.VerticalLayout;
 
 public class TerminEintragGuiHandler extends CustomComponent {
 
@@ -99,10 +101,17 @@ public class TerminEintragGuiHandler extends CustomComponent {
 		setWidth("100.0%");
 		setHeight("100.0%");
 		
+		//layout for TerminEintrag Sektion
+		VerticalLayout terminLayout = new VerticalLayout();
+		terminLayout.setMargin(true);
+		
+		//layout for the buttons vorwärts, datum, rückwärts
+		HorizontalLayout buttonLayout = new HorizontalLayout();
+
 		// table_termine
 		table_termine = new Table("Termine");
 		table_termine.setImmediate(false);
-		table_termine.setWidth("80.0%");
+		table_termine.setWidth("100.0%");
 		table_termine.setHeight("-1px");
 		/* Define the names and data types of columns.
 		 * The "default value" parameter is meaningless here. */
@@ -122,8 +131,6 @@ public class TerminEintragGuiHandler extends CustomComponent {
 		    }
 		});
 		
-		mainLayout.addComponent(table_termine, "top:17.0px;left:20.0px;");
-		
 		// button_rueckwaerts
 		button_rueckwaerts = new Button();
 		button_rueckwaerts.setCaption("Rückwärts");
@@ -138,8 +145,7 @@ public class TerminEintragGuiHandler extends CustomComponent {
 				calendar.add(Calendar.DAY_OF_MONTH, -1);
 				dateField_datum.setValue(calendar.getTime());
 			}
-		}); 
-		mainLayout.addComponent(button_rueckwaerts, "top:357.0px;left:20.0px;");
+		}); 	
 		
 		// dateField_datum
 		dateField_datum = new PopupDateField();
@@ -153,8 +159,6 @@ public class TerminEintragGuiHandler extends CustomComponent {
 		        DateChanged(dateField_datum.getValue());
 		    }
 		});
-		mainLayout.addComponent(dateField_datum, "top:357.0px;left:106.0px;");
-		
 		
 		// button_vorwaerts
 		button_vorwaerts = new Button();
@@ -169,9 +173,15 @@ public class TerminEintragGuiHandler extends CustomComponent {
 				calendar.add(Calendar.DAY_OF_MONTH, 1);
 				dateField_datum.setValue(calendar.getTime());
 			}
-		}); 
-		mainLayout.addComponent(button_vorwaerts, "top:357.0px;left:208.0px;");
+		}); 		
 		
+		//Set the layout together
+		buttonLayout.addComponent(button_rueckwaerts);
+		buttonLayout.addComponent(dateField_datum);
+		buttonLayout.addComponent(button_vorwaerts);
+		terminLayout.addComponent(table_termine);
+		terminLayout.addComponent(buttonLayout);
+		mainLayout.addComponent(terminLayout);
 		return mainLayout;
 	}
 }

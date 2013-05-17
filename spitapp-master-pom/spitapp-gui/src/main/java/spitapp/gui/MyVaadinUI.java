@@ -1,5 +1,8 @@
 package spitapp.gui;
 
+import java.util.Locale;
+
+import com.vaadin.annotations.Theme;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -23,12 +26,12 @@ public class MyVaadinUI extends UI
     	// Set the root layout for the UI
     	VerticalLayout content = new VerticalLayout();
     	setContent(content);
+    	content.setLocale(Locale.GERMAN);
     	 
     	// Add the topmost component.
     	Label titletext = new Label("SpitApp Webfrontend made with Vaadin by Swen, Pascal[1], Pascal[2] and Roger");
     	titletext.setWidth(800, Unit.PIXELS);
     	titletext.setHeight(50, Unit.PIXELS);
-    	
     	content.addComponent(titletext);
     	content.setComponentAlignment(titletext, Alignment.MIDDLE_LEFT);
     	 
