@@ -19,30 +19,36 @@ import spitapp.core.model.TerminEintrag;
 public class DatabaseService {
 
 	/**
+	 * General method to save or update something
 	 * 
-	 * @param args
+	 * @param Object somethingToSave
 	 */
-	public void saveOrUpdate(TerminEintrag termin) {
+	public void saveOrUpdate(Object somethingToSave) {
 		SessionFactory sessionFactory = new AnnotationConfiguration()
 		.configure().buildSessionFactory();
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
 
-		session.saveOrUpdate(termin);
+		session.saveOrUpdate(somethingToSave);
 
 		tx.commit();
 	}
 	
+	/**
+	 * Get all "Termine" from Database with in this case useless State Pattern.
+	 */
 	public List<TerminEintrag> getTermine(Date date){
 		SessionFactory sessionFactory = new AnnotationConfiguration()
 		.configure().buildSessionFactory();
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
+		// Get all TerminEintrag from db without restriction o_O evil thing
 		List<TerminEintrag> terminEintraege = session.createCriteria(TerminEintrag.class).list();
 		List<TerminEintrag> result = new ArrayList<TerminEintrag>();
-		System.out.println(terminEintraege.size());
 		for(TerminEintrag termin : terminEintraege){
+			// Call the Statepattern mechanism on each termin
 			termin.updateState(date);
+			// Only add the termin if, according to the statepattern, relevant...
 			if(termin.isRelevant()){
 			result.add(termin);
 			}
@@ -53,10 +59,17 @@ public class DatabaseService {
 		return result;
 	}
 	
+	/**
+	 * Only here to generate Testdata easily:)
+	 * @param args
+	 */
 	public static void main(String[] args) {
 	      initTestData();
 	}
 	
+	/**
+	 * Only here to generate Testdata easily:)
+	 */
 	private static void initTestData(){
 		SessionFactory sessionFactory = new AnnotationConfiguration()
 		.configure().buildSessionFactory();
