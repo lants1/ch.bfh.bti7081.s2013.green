@@ -1,7 +1,6 @@
 package spitapp.core.model;
 
 import java.util.Date;
-import java.util.List;
 
 import org.hibernate.annotations.Entity;
 
@@ -75,6 +74,4 @@ public class TerminEintrag {
 	public void setPatient(Patient patient) {
 		this.patient = patient;
 	}
-	
-
 }
