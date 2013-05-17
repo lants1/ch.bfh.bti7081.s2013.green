@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.hibernate.annotations.Entity;
 
+import spitapp.core.model.state.IrrelevantState;
+import spitapp.core.model.state.TerminState;
+
 @Entity
 public class TerminEintrag {
 

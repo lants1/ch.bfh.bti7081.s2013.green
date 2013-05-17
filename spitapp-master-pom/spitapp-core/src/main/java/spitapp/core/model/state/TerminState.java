@@ -1,4 +1,4 @@
-package spitapp.core.model;
+package spitapp.core.model.state;
 
 import java.util.Date;
 

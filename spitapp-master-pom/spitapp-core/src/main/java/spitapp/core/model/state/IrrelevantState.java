@@ -1,8 +1,10 @@
-package spitapp.core.model;
+package spitapp.core.model.state;
 
 import java.util.Date;
 
 import org.apache.commons.lang3.time.DateUtils;
+
+import spitapp.core.model.TerminEintrag;
 
 public class IrrelevantState implements TerminState {
 
