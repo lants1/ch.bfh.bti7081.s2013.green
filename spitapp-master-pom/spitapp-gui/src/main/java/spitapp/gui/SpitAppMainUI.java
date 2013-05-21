@@ -44,11 +44,6 @@ public class SpitAppMainUI extends UI
     	// Add a horizontal layout for the bottom part.
     	HorizontalLayout bottom = new HorizontalLayout();
     	content.addComponent(bottom);
-    	
-    	// Add the appointments
-        AppointmentGuiHandler appointments = new AppointmentGuiHandler(controller);
-        appointments.setWidth(300, Unit.PIXELS);
-        appointments.setHeight(600, Unit.PIXELS);
         
         // Add a tabsheet with the other GUI components
         TabSheet tabsheet = new TabSheet();
@@ -58,7 +53,12 @@ public class SpitAppMainUI extends UI
         tabsheet.addTab(new ExpensesGuiHandler(controller) , "Spesen");
         tabsheet.addTab(new TaskListGuiHandler(controller), "ToDo's");
         tabsheet.addTab(new TaskTimeGuiHandler(controller), "Zeitrapporte");
-       
+ 
+    	// Add the appointments
+        AppointmentGuiHandler appointments = new AppointmentGuiHandler(controller, tabsheet);
+        appointments.setWidth(300, Unit.PIXELS);
+        appointments.setHeight(600, Unit.PIXELS);
+        
         // Add the components to the buttom layout
     	bottom.addComponent(appointments);
     	bottom.addComponent(tabsheet);
