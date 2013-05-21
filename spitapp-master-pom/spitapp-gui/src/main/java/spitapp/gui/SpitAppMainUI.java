@@ -5,10 +5,7 @@ import java.util.Locale;
 import spitapp.controller.AppointmentController;
 import spitapp.core.service.DatabaseService;
 
-import com.vaadin.annotations.Theme;
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
@@ -30,9 +27,7 @@ public class SpitAppMainUI extends UI
     protected void init(VaadinRequest request) {
     	
     	dbservice = new DatabaseService();
-    	
     	controller = new AppointmentController(dbservice);
-    	
     	
     	// Set the root layout for the UI
     	VerticalLayout content = new VerticalLayout();
