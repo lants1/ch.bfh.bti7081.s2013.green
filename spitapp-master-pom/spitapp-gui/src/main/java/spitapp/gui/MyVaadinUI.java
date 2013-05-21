@@ -29,11 +29,11 @@ public class MyVaadinUI extends UI
     	content.setLocale(Locale.GERMAN);
     	 
     	// Add the topmost component.
-    	Label titleText = new Label("SpitApp Webfrontend made with Vaadin by Swen, Pascal[1], Pascal[2] and Roger");
-    	titleText.setWidth(800, Unit.PIXELS);
-    	titleText.setHeight(50, Unit.PIXELS);
-    	content.addComponent(titleText);
-    	content.setComponentAlignment(titleText, Alignment.MIDDLE_LEFT);
+    	Label title = new Label("SpitApp Webfrontend made with Vaadin by Swen, Pascal[1], Pascal[2] and Roger");
+    	title.setWidth(800, Unit.PIXELS);
+    	title.setHeight(50, Unit.PIXELS);
+    	content.addComponent(title);
+    	content.setComponentAlignment(title, Alignment.MIDDLE_LEFT);
     	 
     	// Add a horizontal layout for the bottom part.
     	HorizontalLayout bottom = new HorizontalLayout();
