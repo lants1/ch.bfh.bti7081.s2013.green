@@ -76,7 +76,7 @@ public class AppointmentGuiHandler extends CustomComponent {
 	 * @return true if method succeeded
 	 */
 	public boolean addAppointment(Appointment appointment) {
-		Date fullDate = appointment.getTerminDate();
+		Date fullDate = appointment.getFromDate();
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 		String shortTimeStr = sdf.format(fullDate);
 		Integer pos = (Integer)appointments.addItem(new Object[] { appointment.getPatient().getFirstName() + " " + appointment.getPatient().getLastName(), shortTimeStr }, null);
@@ -95,7 +95,7 @@ public class AppointmentGuiHandler extends CustomComponent {
 		clearAppointments();
 		
 		DatabaseService dbservice = new DatabaseService();
-		List<Appointment> termine = dbservice.getTermine(newDate);
+		List<Appointment> termine = dbservice.getAppointment(newDate);
 		
 		for (Appointment termin: termine) {
 			this.addAppointment(termin);
