@@ -107,8 +107,8 @@ public class DatabaseService {
 		spesenList.add(spesen);
 
 		patient.setTasks(tasks);
-		patient.setDokumente(doks);
-		patient.setSpesenEintraege(spesenList);
+		patient.setDocuments(doks);
+		patient.setExpenses(spesenList);
 
 		termin.setPatient(patient);
 		session.save(termin);
