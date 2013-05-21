@@ -14,6 +14,10 @@ import org.hibernate.annotations.Entity;
 public class Patient {
 
 	private Long patId;
+	
+	private int age;
+	
+	private String hobbies;
 
 	private String firstName;
 
@@ -25,6 +29,22 @@ public class Patient {
 	
 	private List<Document> documents;
 
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public String getHobbies() {
+		return hobbies;
+	}
+
+	public void setHobbies(String hobbies) {
+		this.hobbies = hobbies;
+	}
+	
 	public Long getPatId() {
 		return patId;
 	}

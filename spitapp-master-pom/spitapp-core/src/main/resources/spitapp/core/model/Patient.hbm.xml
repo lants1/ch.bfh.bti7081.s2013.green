@@ -9,6 +9,13 @@
 			<column name="pat_id" />
 			<generator class="identity" />
 		</id>
+		<property name="age" type="java.lang.Integer">
+			<column name="age" length="20" not-null="true" />
+		</property>
+		
+		<property name="hobbies" type="string">
+			<column name="hobbies" length="50" not-null="true" />
+		</property>
 		<property name="firstName" type="string">
 			<column name="first_name" length="20" not-null="true" />
 		</property>
