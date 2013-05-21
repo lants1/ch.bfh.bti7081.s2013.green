@@ -48,12 +48,11 @@ public class AppointmentController {
 	}
 	
 	/**
-	 * Gets an appointment object by it's GUI id
-	 * @param guiid the gui id
-	 * @return an appointment object or null if not found
+	 * Returns the appointment list with their associeted gui-IDs
+	 * @return map of appointments
 	 */
-	public Appointment getAppointmentByID(Integer guiid) {
-		return this.appointments.get(guiid);
+	public HashMap<Integer, Appointment> getAppointments() {
+		return this.appointments;
 	}
 
 	/**
@@ -80,13 +79,7 @@ public class AppointmentController {
 		return true;
 	}
 	
-	/**
-	 * method is called when the date changes
-	 * @return true if method succeeded
-	 */
-	public void clearAppointments() {
-		this.appointments.clear();
-	}
+	
 	
 	/**
 	 * method is called when the date changes
@@ -103,6 +96,8 @@ public class AppointmentController {
 	 * @return the count of appointments loaded
 	 */
 	public Integer loadAppointmentsByDate(Date datetoload) {
+		this.appointments.clear();
+		
 		List<Appointment> entries = this.dbservice.getAppointment(datetoload);
 		
 		for (Appointment entry: entries) {
