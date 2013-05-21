@@ -1,5 +1,11 @@
 package spitapp.core.model;
 
+/**
+ * Hibernate Mappingclass for SpesenEintrag table
+ * 
+ * @author green
+ *
+ */
 public class SpesenEintrag {
 	private long SpesenEintID;
 	

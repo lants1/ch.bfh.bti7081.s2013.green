@@ -8,6 +8,12 @@ import com.lowagie.text.DocumentException;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.pdf.PdfWriter;
 
+/**
+ * Service used to get and create PDF-Documents
+ * 
+ * @author green
+ *
+ */
 public class PdfService {
 
 	 

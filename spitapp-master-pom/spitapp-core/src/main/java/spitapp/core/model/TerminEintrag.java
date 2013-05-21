@@ -7,6 +7,12 @@ import org.hibernate.annotations.Entity;
 import spitapp.core.model.state.IrrelevantState;
 import spitapp.core.model.state.TerminState;
 
+/**
+ * Hibernate Mappingclass for table TerminEintrag
+ * 
+ * @author green
+ *
+ */
 @Entity
 public class TerminEintrag {
 

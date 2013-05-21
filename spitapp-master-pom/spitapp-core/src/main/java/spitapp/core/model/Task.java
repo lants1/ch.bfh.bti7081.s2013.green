@@ -1,5 +1,11 @@
 package spitapp.core.model;
 
+/**
+ * Hibernate Mapping Class for table Task
+ * 
+ * @author green
+ *
+ */
 public class Task {
 	private Long taskId;
 

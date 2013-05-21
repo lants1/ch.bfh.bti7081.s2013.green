@@ -15,7 +15,12 @@ import spitapp.core.model.SpesenEintrag;
 import spitapp.core.model.Task;
 import spitapp.core.model.TerminEintrag;
 
-
+/**
+ * Single Point for every DB-Call
+ * 
+ * @author green
+ *
+ */
 public class DatabaseService {
 
 	/**

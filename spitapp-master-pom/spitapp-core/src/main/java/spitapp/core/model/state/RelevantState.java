@@ -6,6 +6,12 @@ import org.apache.commons.lang3.time.DateUtils;
 
 import spitapp.core.model.TerminEintrag;
 
+/**
+ * State for Statepattern
+ * 
+ * @author green
+ *
+ */
 public class RelevantState implements TerminState {
 
 	private TerminEintrag termin;
