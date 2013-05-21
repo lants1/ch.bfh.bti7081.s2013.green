@@ -62,26 +62,26 @@ public class AppointmentGuiHandler extends DetailGuiHandler {
 	 * @param newDate the chosen date
 	 */
 	public void DateChanged(Date newDate) {
-		if(appointments.removeAllItems()) {
-			
-			if( controller.loadAppointmentsByDate(newDate) > 0 ) {
-
-				Iterator<Map.Entry<Integer, Appointment>> it = controller.getAppointments().entrySet().iterator();
-			    while (it.hasNext()) {
-			    	Map.Entry<Integer, Appointment> entry = it.next();
-			    	
-					Date fullDate = entry.getValue().getFromDate();
-					SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-					String shortTimeStr = sdf.format(fullDate);
-					
-					// Add a row into the table as object array
-					Integer pos = (Integer)appointments.addItem(new Object[] { entry.getValue().getPatient().getFirstName() + 
-							" " + entry.getValue().getPatient().getLastName(), shortTimeStr }, entry.getKey());
-					
-			        it.remove(); // avoids a ConcurrentModificationException
-			    }
-			}
-		}
+//		if(appointments.removeAllItems()) {
+//			
+//			if( controller.loadAppointmentsByDate(newDate) > 0 ) {
+//
+//				Iterator<Map.Entry<Integer, Appointment>> it = controller.getAppointments().entrySet().iterator();
+//			    while (it.hasNext()) {
+//			    	Map.Entry<Integer, Appointment> entry = it.next();
+//			    	
+//					Date fullDate = entry.getValue().getFromDate();
+//					SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+//					String shortTimeStr = sdf.format(fullDate);
+//					
+//					// Add a row into the table as object array
+//					Integer pos = (Integer)appointments.addItem(new Object[] { entry.getValue().getPatient().getFirstName() + 
+//							" " + entry.getValue().getPatient().getLastName(), shortTimeStr }, entry.getKey());
+//					
+//			        it.remove(); // avoids a ConcurrentModificationException
+//			    }
+//			}
+//		}
 	}
 
 	/**
