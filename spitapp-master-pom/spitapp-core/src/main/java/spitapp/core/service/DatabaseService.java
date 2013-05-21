@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -114,6 +115,11 @@ public class DatabaseService {
 		session.save(termin);
 
 		tx.commit();
+		
+		// Here because of remaining things...
+		session.createSQLQuery("drop table dokument");
+		session.createSQLQuery("drop table spesen");
+		session.createSQLQuery("drop table termin_eintrag");
 	}
 	
 }
