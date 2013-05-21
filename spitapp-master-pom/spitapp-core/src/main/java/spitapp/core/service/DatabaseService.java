@@ -1,5 +1,6 @@
 package spitapp.core.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -9,6 +10,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
+
+import com.lowagie.text.DocumentException;
 
 import spitapp.core.model.Document;
 import spitapp.core.model.Patient;
@@ -68,15 +71,19 @@ public class DatabaseService {
 	/**
 	 * Only here to generate Testdata easily:)
 	 * @param args
+	 * @throws IOException 
+	 * @throws DocumentException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws DocumentException, IOException {
 	      initTestData();
 	}
 	
 	/**
 	 * Only here to generate Testdata easily:)
+	 * @throws IOException 
+	 * @throws DocumentException 
 	 */
-	private static void initTestData(){
+	private static void initTestData() throws DocumentException, IOException{
 		SessionFactory sessionFactory = new AnnotationConfiguration()
 		.configure().buildSessionFactory();
 		Session session = sessionFactory.getCurrentSession();
@@ -88,12 +95,16 @@ public class DatabaseService {
 		termin.setToDate(new Date());
 
 		Patient patient = new Patient();
+		patient.setage(18);
+		patient.setHobbies("Kong-Fu fighting");
 		patient.setFirstName("Swen");
 		patient.setLastName("Lanthemann");
 
 		Document dok = new Document();
-		dok.setFileName("test");
-		dok.setFilePath("path");
+		PdfService pdfService = new PdfService();
+		String fileName = "test";
+		dok.setFileName(fileName);
+		dok.setFile(pdfService.createPdf(fileName));
 		List<Document> docList = new ArrayList<Document>();
 		docList.add(dok);
 
@@ -115,11 +126,6 @@ public class DatabaseService {
 		session.save(termin);
 
 		tx.commit();
-		
-		// Here because of remaining things...
-		session.createSQLQuery("drop table dokument");
-		session.createSQLQuery("drop table spesen");
-		session.createSQLQuery("drop table termin_eintrag");
 	}
 	
 }

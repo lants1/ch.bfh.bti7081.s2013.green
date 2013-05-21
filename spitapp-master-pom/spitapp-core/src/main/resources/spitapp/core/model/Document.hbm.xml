@@ -9,11 +9,11 @@
 			<column name="document_id" />
 			<generator class="identity" />
 		</id>
-		<property name="FileName" type="string">
-			<column name="FileName" length="100" not-null="true" />
+		<property name="fileName" type="string">
+			<column name="fileName" length="100" not-null="true" />
 		</property>
-		<property name="FilePath" type="string">
-			<column name="FilePath" length="100" not-null="true" />
+		<property name="file" type="org.hibernate.type.BinaryType">
+			<column name="file" />
 		</property>
 	</class>
 </hibernate-mapping>

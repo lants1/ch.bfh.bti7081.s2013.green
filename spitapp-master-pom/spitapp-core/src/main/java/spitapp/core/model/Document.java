@@ -13,9 +13,9 @@ public class Document {
 	
 	private long documentId;
 	
-	private String FileName;
+	private String fileName;
 	
-	private String FilePath;
+	private byte[] file;
 
 	public long getDocumentId() {
 		return documentId;
@@ -26,19 +26,28 @@ public class Document {
 	}
 	
 	public String getFileName() {
-		return FileName;
+		return fileName;
 	}
 	
 	public void setFileName(String fileName) {
-		this.FileName = fileName;
+		this.fileName = fileName;
+	}
+
+	/**
+	 * @return the file
+	 */
+	public byte[] getFile() {
+		return file;
+	}
+
+	/**
+	 * @param file the file to set
+	 */
+	public void setFile(byte[] file) {
+		this.file = file;
 	}
 	
-	public String getFilePath() {
-		return FilePath;
-	}
 	
-	public void setFilePath(String filePath) {
-		this.FilePath = filePath;
-	}
+
 
 }
