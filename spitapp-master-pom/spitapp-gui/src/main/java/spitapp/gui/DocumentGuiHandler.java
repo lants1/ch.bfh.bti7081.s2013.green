@@ -135,7 +135,8 @@ public class DocumentGuiHandler extends DetailGuiHandler {
 		// TODO Auto-generated method stub
 		AppointmentController ctrl = (AppointmentController)e.getSource();
 		
-		ageData.setData(ctrl.getCurrentAppointment().getPatient().getFirstName());
+		//ageData.setValue(ctrl.getCurrentAppointment().getPatient().getAge().toString());
+		hobbiesData.setValue(ctrl.getCurrentAppointment().getPatient().getHobbies());
 	}
 
 }

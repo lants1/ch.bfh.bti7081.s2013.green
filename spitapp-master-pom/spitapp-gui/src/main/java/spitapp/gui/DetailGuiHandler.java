@@ -20,9 +20,10 @@ public abstract class DetailGuiHandler extends CustomComponent implements Appoin
 	/**
 	 * Constructor of Base Class for Detail views
 	 */
-	public DetailGuiHandler(AppointmentController controller) {
-		if( controller != null ) {
-			controller.addAppointmentChangedEventListener(this);
+	public DetailGuiHandler(AppointmentController ctrl) {
+		if( ctrl != null ) {
+			this.controller = ctrl;
+			this.controller.addAppointmentChangedEventListener(this);
 		}
 	}
 
