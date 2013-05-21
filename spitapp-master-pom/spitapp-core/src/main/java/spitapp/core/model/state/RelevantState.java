@@ -12,7 +12,7 @@ import spitapp.core.model.Appointment;
  * @author green
  *
  */
-public class RelevantState implements TerminState {
+public class RelevantState implements AppointmentState {
 
 	private Appointment termin;
 	
@@ -26,7 +26,7 @@ public class RelevantState implements TerminState {
 	}
 
 	public void updateState(Date date) {
-		if(!DateUtils.isSameDay(this.termin.getTerminDate(),date)){
+		if(!DateUtils.isSameDay(this.termin.getFromDate(),date)){
 			termin.setState(new IrrelevantState(termin));
 		}
 

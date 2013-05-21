@@ -82,8 +82,9 @@ public class DatabaseService {
 		Transaction tx = session.beginTransaction();
 
 		Appointment termin = new Appointment();
-		termin.setBeschreibung("testermin");
-		termin.setTerminDate(new Date());
+		termin.setAppointmentDescription("testermin");
+		termin.setFromDate(new Date());
+		termin.setToDate(new Date());
 
 		Patient patient = new Patient();
 		patient.setFirstName("Swen");
@@ -101,7 +102,7 @@ public class DatabaseService {
 		tasks.add(task);
 
 		ExpensesEntry spesen = new ExpensesEntry();
-		spesen.setSpesenDesc("test3");
+		spesen.setExpensesDescription("test3");
 		List<ExpensesEntry> spesenList = new ArrayList<ExpensesEntry>();
 		spesenList.add(spesen);
 

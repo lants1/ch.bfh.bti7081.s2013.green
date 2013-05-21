@@ -3,17 +3,17 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="spitapp.core.model.ExpensesEntry" table="SPESEN"
+	<class name="spitapp.core.model.ExpensesEntry" table="EXPENSES"
 		catalog="spitapp">
-		<id name="SpesenEintID" type="java.lang.Long">
-			<column name="SpesenEintID" />
+		<id name="expensesId" type="java.lang.Long">
+			<column name="expensesId" />
 			<generator class="identity" />
 		</id>
-		<property name="SpesenDesc" type="string">
-			<column name="SpesenDesc" length="100" not-null="true" />
+		<property name="expensesDescription" type="string">
+			<column name="expensesDescription" length="100" not-null="true" />
 		</property>		
-		<property name="Price" type="double">
-			<column name="Price" not-null="true" />
+		<property name="price" type="double">
+			<column name="price" not-null="true" />
 		</property>
 	</class>
 </hibernate-mapping>

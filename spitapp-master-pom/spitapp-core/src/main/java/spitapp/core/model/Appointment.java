@@ -4,8 +4,8 @@ import java.util.Date;
 
 import org.hibernate.annotations.Entity;
 
+import spitapp.core.model.state.AppointmentState;
 import spitapp.core.model.state.IrrelevantState;
-import spitapp.core.model.state.TerminState;
 
 /**
  * Hibernate Mappingclass for table Appointment
@@ -18,13 +18,15 @@ public class Appointment {
 
 	private Long terminId;
 	
-	private String beschreibung;
+	private String appointmentDescription;
 
-	private Date terminDate;
+	private Date toDate;
+	
+	private Date fromDate;
 	
 	private Patient patient;
 	
-	private TerminState state;
+	private AppointmentState state;
 
 	public Appointment(){
 		state = new IrrelevantState(this);
@@ -35,11 +37,11 @@ public class Appointment {
 	}
 	
 
-	public TerminState getState() {
+	public AppointmentState getState() {
 		return state;
 	}
 
-	public void setState(TerminState state) {
+	public void setState(AppointmentState state) {
 		this.state = state;
 	}
 
@@ -47,17 +49,20 @@ public class Appointment {
 		this.terminId = terminId;
 	}
 
-	public String getBeschreibung() {
-		return beschreibung;
-	}
-	
-
-	public Date getTerminDate() {
-		return terminDate;
+	public Date getToDate() {
+		return toDate;
 	}
 
-	public void setTerminDate(Date terminDate) {
-		this.terminDate = terminDate;
+	public void setToDate(Date toDate) {
+		this.toDate = toDate;
+	}
+
+	public Date getFromDate() {
+		return fromDate;
+	}
+
+	public void setFromDate(Date fromDate) {
+		this.fromDate = fromDate;
 	}
 
 	public void updateState(Date date){
@@ -68,9 +73,13 @@ public class Appointment {
 	public boolean isRelevant(){
 		return state.isRelevant();
 	}
-	
-	public void setBeschreibung(String beschreibung) {
-		this.beschreibung = beschreibung;
+
+	public String getAppointmentDescription() {
+		return appointmentDescription;
+	}
+
+	public void setAppointmentDescription(String appointmentDescription) {
+		this.appointmentDescription = appointmentDescription;
 	}
 
 	public Patient getPatient() {

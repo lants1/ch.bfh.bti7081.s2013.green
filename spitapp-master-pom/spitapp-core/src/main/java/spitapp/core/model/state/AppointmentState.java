@@ -7,7 +7,7 @@ import java.util.Date;
  * @author green
  *
  */
-public interface TerminState {
+public interface AppointmentState {
 
 	/**
 	 * Is relevant Method returns the State of the Termin according to the concret State.

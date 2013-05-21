@@ -3,17 +3,20 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="spitapp.core.model.Appointment" table="TERMIN_EINTRAG"
+	<class name="spitapp.core.model.Appointment" table="APPOINTMENT"
 		catalog="spitapp">
 		<id name="terminId" type="java.lang.Long">
 			<column name="termin_id" />
 			<generator class="identity" />
 		</id>
-		<property name="beschreibung" type="string">
-			<column name="beschreibung" length="20" not-null="true" />
+		<property name="appointmentDescription" type="string">
+			<column name="appointmentDescription" length="20" not-null="true" />
 		</property>
-		<property name="terminDate" type="date">
-			<column name="terminDate" not-null="true" />
+		<property name="fromDate" type="date">
+			<column name="fromDate" not-null="true" />
+		</property>
+		<property name="toDate" type="date">
+			<column name="toDate" not-null="true" />
 		</property>
         
         <one-to-one name="patient" class="spitapp.core.model.Patient"

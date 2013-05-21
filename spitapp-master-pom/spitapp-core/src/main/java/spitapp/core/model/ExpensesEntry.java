@@ -7,37 +7,34 @@ package spitapp.core.model;
  *
  */
 public class ExpensesEntry {
-	private long SpesenEintID;
+	private long expensesId;
 	
-	private String SpesenDesc;
-	private double Price;
-	
+	private String expensesDescription;
+	private double price;
 	
 
-	public long getSpesenEintID() {
-		return SpesenEintID;
+	public long getExpensesId() {
+		return expensesId;
 	}
 
-	public void setSpesenEintID(long SpesenEintID) {
-		this.SpesenEintID = SpesenEintID;
+	public void setExpensesId(long expensesId) {
+		this.expensesId = expensesId;
+	}
+
+	public String getExpensesDescription() {
+		return expensesDescription;
+	}
+
+	public void setExpensesDescription(String expensesDescription) {
+		this.expensesDescription = expensesDescription;
 	}
 
 	public double getPrice() {
-		return Price;
+		return price;
 	}
 
 	public void setPrice(double price) {
-		this.Price = price;
+		this.price = price;
 	}
-
-	public String getSpesenDesc() {
-		return this.SpesenDesc;
-	}
-
-	public void setSpesenDesc(String spesenDesc) {
-		this.SpesenDesc = spesenDesc;
-	}
-
-	
 
 }
