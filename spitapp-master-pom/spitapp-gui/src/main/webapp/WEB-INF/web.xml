@@ -12,7 +12,7 @@
         <init-param>
             <description>Vaadin UI to display</description>
             <param-name>UI</param-name>
-            <param-value>spitapp.gui.MyVaadinUI</param-value>
+            <param-value>spitapp.gui.SpitAppMainUI</param-value>
         </init-param>
                 <init-param>
             <description>Application widgetset</description>
