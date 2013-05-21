@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="spitapp.core.model.Dokument" table="DOKUMENT"
+	<class name="spitapp.core.model.Document" table="DOCUMENT"
 		catalog="spitapp">
 		<id name="documentId" type="java.lang.Long">
 			<column name="document_id" />

@@ -9,11 +9,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
 
-import spitapp.core.model.Dokument;
+import spitapp.core.model.Document;
 import spitapp.core.model.Patient;
-import spitapp.core.model.SpesenEintrag;
+import spitapp.core.model.ExpensesEntry;
 import spitapp.core.model.Task;
-import spitapp.core.model.TerminEintrag;
+import spitapp.core.model.Appointment;
 
 /**
  * Single Point for every DB-Call
@@ -42,15 +42,15 @@ public class DatabaseService {
 	/**
 	 * Get all "Termine" from Database with in this case useless State Pattern.
 	 */
-	public List<TerminEintrag> getTermine(Date date){
+	public List<Appointment> getTermine(Date date){
 		SessionFactory sessionFactory = new AnnotationConfiguration()
 		.configure().buildSessionFactory();
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-		// Get all TerminEintrag from db without restriction o_O evil thing
-		List<TerminEintrag> terminEintraege = session.createCriteria(TerminEintrag.class).list();
-		List<TerminEintrag> result = new ArrayList<TerminEintrag>();
-		for(TerminEintrag termin : terminEintraege){
+		// Get all Appointment from db without restriction o_O evil thing
+		List<Appointment> terminEintraege = session.createCriteria(Appointment.class).list();
+		List<Appointment> result = new ArrayList<Appointment>();
+		for(Appointment termin : terminEintraege){
 			// Call the Statepattern mechanism on each termin
 			termin.updateState(date);
 			// Only add the termin if, according to the statepattern, relevant...
@@ -81,7 +81,7 @@ public class DatabaseService {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
 
-		TerminEintrag termin = new TerminEintrag();
+		Appointment termin = new Appointment();
 		termin.setBeschreibung("testermin");
 		termin.setTerminDate(new Date());
 
@@ -89,10 +89,10 @@ public class DatabaseService {
 		patient.setFirstName("Swen");
 		patient.setLastName("Lanthemann");
 
-		Dokument dok = new Dokument();
+		Document dok = new Document();
 		dok.setFileName("test");
 		dok.setFilePath("path");
-		List<Dokument> doks = new ArrayList<Dokument>();
+		List<Document> doks = new ArrayList<Document>();
 		doks.add(dok);
 
 		Task task = new Task();
@@ -100,9 +100,9 @@ public class DatabaseService {
 		List<Task> tasks = new ArrayList<Task>();
 		tasks.add(task);
 
-		SpesenEintrag spesen = new SpesenEintrag();
+		ExpensesEntry spesen = new ExpensesEntry();
 		spesen.setSpesenDesc("test3");
-		List<SpesenEintrag> spesenList = new ArrayList<SpesenEintrag>();
+		List<ExpensesEntry> spesenList = new ArrayList<ExpensesEntry>();
 		spesenList.add(spesen);
 
 		patient.setTasks(tasks);

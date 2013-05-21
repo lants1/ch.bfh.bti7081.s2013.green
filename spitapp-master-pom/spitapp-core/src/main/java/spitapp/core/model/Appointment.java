@@ -8,13 +8,13 @@ import spitapp.core.model.state.IrrelevantState;
 import spitapp.core.model.state.TerminState;
 
 /**
- * Hibernate Mappingclass for table TerminEintrag
+ * Hibernate Mappingclass for table Appointment
  * 
  * @author green
  *
  */
 @Entity
-public class TerminEintrag {
+public class Appointment {
 
 	private Long terminId;
 	
@@ -26,7 +26,7 @@ public class TerminEintrag {
 	
 	private TerminState state;
 
-	public TerminEintrag(){
+	public Appointment(){
 		state = new IrrelevantState(this);
 	}
 	

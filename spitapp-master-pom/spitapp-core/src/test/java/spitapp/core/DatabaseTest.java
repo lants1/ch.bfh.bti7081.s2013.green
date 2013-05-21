@@ -8,11 +8,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
 
-import spitapp.core.model.Dokument;
+import spitapp.core.model.Document;
 import spitapp.core.model.Patient;
-import spitapp.core.model.SpesenEintrag;
+import spitapp.core.model.ExpensesEntry;
 import spitapp.core.model.Task;
-import spitapp.core.model.TerminEintrag;
+import spitapp.core.model.Appointment;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -53,7 +53,7 @@ public class DatabaseTest
 
 		Transaction tx = session.beginTransaction();
 
-		TerminEintrag termin = new TerminEintrag();
+		Appointment termin = new Appointment();
 		termin.setBeschreibung("testermin");
 
 		Patient patient = new Patient();
@@ -71,9 +71,9 @@ public class DatabaseTest
 		List<Task> tasks = new ArrayList<Task>();
 		tasks.add(task);
 
-		SpesenEintrag spesen = new SpesenEintrag();
+		ExpensesEntry spesen = new ExpensesEntry();
 		spesen.setSpesenDesc("test3");
-		List<SpesenEintrag> spesenList = new ArrayList<SpesenEintrag>();
+		List<ExpensesEntry> spesenList = new ArrayList<ExpensesEntry>();
 		spesenList.add(spesen);
 
 		patient.setTasks(tasks);

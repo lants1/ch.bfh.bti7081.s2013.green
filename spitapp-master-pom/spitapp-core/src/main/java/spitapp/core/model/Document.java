@@ -9,7 +9,7 @@ import org.hibernate.annotations.Entity;
  *
  */
 @Entity
-public class Dokument {
+public class Document {
 	
 	private long documentId;
 	

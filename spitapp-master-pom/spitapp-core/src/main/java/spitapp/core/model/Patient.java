@@ -21,9 +21,9 @@ public class Patient {
 	
 	private List<Task> tasks;
 	
-	private List<SpesenEintrag> spesenEintraege;
+	private List<ExpensesEntry> spesenEintraege;
 	
-	private List<Dokument> dokumente;
+	private List<Document> dokumente;
 
 	public Long getPatId() {
 		return patId;
@@ -57,19 +57,19 @@ public class Patient {
 		this.tasks = tasks;
 	}
 
-	public List<SpesenEintrag> getSpesenEintraege() {
+	public List<ExpensesEntry> getSpesenEintraege() {
 		return spesenEintraege;
 	}
 
-	public void setSpesenEintraege(List<SpesenEintrag> spesenEintraege) {
+	public void setSpesenEintraege(List<ExpensesEntry> spesenEintraege) {
 		this.spesenEintraege = spesenEintraege;
 	}
 
-	public List<Dokument> getDokumente() {
+	public List<Document> getDokumente() {
 		return dokumente;
 	}
 
-	public void setDokumente(List<Dokument> dokumente) {
+	public void setDokumente(List<Document> dokumente) {
 		this.dokumente = dokumente;
 	}
 	

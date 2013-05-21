@@ -4,7 +4,7 @@ import java.util.Date;
 
 import org.apache.commons.lang3.time.DateUtils;
 
-import spitapp.core.model.TerminEintrag;
+import spitapp.core.model.Appointment;
 
 /**
  * State for Statepattern:)
@@ -14,9 +14,9 @@ import spitapp.core.model.TerminEintrag;
  */
 public class IrrelevantState implements TerminState {
 
-	private TerminEintrag termin;
+	private Appointment termin;
 	
-	public IrrelevantState(TerminEintrag termin){
+	public IrrelevantState(Appointment termin){
 		this.termin = termin;
 	}
 	

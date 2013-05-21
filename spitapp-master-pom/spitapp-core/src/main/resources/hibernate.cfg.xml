@@ -17,9 +17,9 @@
 		<property name="connection.pool_size">1</property>
 		<property name="current_session_context_class">thread</property>
 		<mapping resource="spitapp/core/model/Task.hbm.xml"></mapping>
-		<mapping resource="spitapp/core/model/SpesenEintrag.hbm.xml"></mapping>
-		<mapping resource="spitapp/core/model/Dokument.hbm.xml"></mapping>
+		<mapping resource="spitapp/core/model/ExpensesEntry.hbm.xml"></mapping>
+		<mapping resource="spitapp/core/model/Document.hbm.xml"></mapping>
 		<mapping resource="spitapp/core/model/Patient.hbm.xml"></mapping>
-		<mapping resource="spitapp/core/model/TerminEintrag.hbm.xml"></mapping>
+		<mapping resource="spitapp/core/model/Appointment.hbm.xml"></mapping>
 	</session-factory>
 </hibernate-configuration>

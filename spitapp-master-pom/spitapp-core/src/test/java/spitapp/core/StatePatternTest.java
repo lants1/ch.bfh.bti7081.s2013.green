@@ -1,7 +1,7 @@
 package spitapp.core;
 
 import java.util.Date;
-import spitapp.core.model.TerminEintrag;
+import spitapp.core.model.Appointment;
 import spitapp.core.model.state.IrrelevantState;
 import spitapp.core.model.state.RelevantState;
 import spitapp.core.model.state.TerminState;
@@ -46,7 +46,7 @@ public class StatePatternTest
     }
     
     public void testSettingOfPattern(){
-    	TerminEintrag termin = new TerminEintrag();
+    	Appointment termin = new Appointment();
     	assertFalse(termin.isRelevant());
     	
     	Date date = new Date();

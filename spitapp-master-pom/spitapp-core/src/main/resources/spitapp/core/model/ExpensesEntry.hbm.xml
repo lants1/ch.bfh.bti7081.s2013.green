@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="spitapp.core.model.SpesenEintrag" table="SPESEN"
+	<class name="spitapp.core.model.ExpensesEntry" table="SPESEN"
 		catalog="spitapp">
 		<id name="SpesenEintID" type="java.lang.Long">
 			<column name="SpesenEintID" />
