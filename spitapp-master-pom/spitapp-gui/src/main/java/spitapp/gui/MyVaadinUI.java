@@ -40,7 +40,7 @@ public class MyVaadinUI extends UI
     	content.addComponent(bottom);
     	
     	// Add the appointments
-        TerminEintragGuiHandler appointments = new TerminEintragGuiHandler();
+        AppointmentGuiHandler appointments = new AppointmentGuiHandler();
         appointments.setWidth(300, Unit.PIXELS);
         appointments.setHeight(600, Unit.PIXELS);
         
@@ -48,10 +48,10 @@ public class MyVaadinUI extends UI
         TabSheet tabsheet = new TabSheet();
         tabsheet.setHeight(600, Unit.PIXELS);
         tabsheet.setWidth(600, Unit.PIXELS);
-        tabsheet.addTab(new DokumentGuiHandler(), "Dokumente");
-        tabsheet.addTab(new SpesenGuiHandler() , "Spesen");
-        tabsheet.addTab(new TaskListeGuiHandler(), "ToDo's");
-        tabsheet.addTab(new ZeitAnpassungGuiHandler(), "Zeitrapporte");
+        tabsheet.addTab(new DocumentGuiHandler(), "Dokumente");
+        tabsheet.addTab(new ExpensesGuiHandler() , "Spesen");
+        tabsheet.addTab(new TaskListGuiHandler(), "ToDo's");
+        tabsheet.addTab(new TaskTimeGuiHandler(), "Zeitrapporte");
        
         // Add the components to the buttom layout
     	bottom.addComponent(appointments);
