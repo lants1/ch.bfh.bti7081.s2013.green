@@ -21,6 +21,12 @@ public class AppointmentController {
 	 */
 	protected HashMap<Integer, Appointment> appointments = new HashMap<Integer, Appointment>();
 
+
+	/**
+	 * the GUI Id of the current GUI selection
+	 */
+	protected Integer latestId = 0;
+	
 	/**
 	 * the GUI Id of the current GUI selection
 	 */
@@ -46,8 +52,17 @@ public class AppointmentController {
 	 * @param guiid the gui id
 	 * @return an appointment object or null if not found
 	 */
-	public Appointment getByID(Integer guiid) {
+	public Appointment getAppointmentByID(Integer guiid) {
 		return this.appointments.get(guiid);
+	}
+
+	/**
+	 * Gets an appointment object by it's GUI id
+	 * @param guiid the gui id
+	 * @return an appointment object or null if not found
+	 */
+	public Appointment getCurrentAppointment() {
+		return this.appointments.get(this.currentSelectionGuiId);
 	}
 	
 	/**
@@ -73,9 +88,28 @@ public class AppointmentController {
 		this.appointments.clear();
 	}
 	
-	public boolean loadAppointmentsByDate(Date datetoload) {
+	/**
+	 * method is called when the date changes
+	 * @return true if method succeeded
+	 */
+	public void addAppointment(Appointment entry) {
+		this.latestId += 1;
+		this.appointments.put(this.latestId, entry);
+	}	
+	
+	/**
+	 * Loads appointments by a given date
+	 * @param datetoload the date from that appointments should be loaded
+	 * @return the count of appointments loaded
+	 */
+	public Integer loadAppointmentsByDate(Date datetoload) {
+		List<Appointment> entries = this.dbservice.getAppointment(datetoload);
 		
-		return false;
+		for (Appointment entry: entries) {
+			this.addAppointment(entry);
+		}		
+		
+		return entries.size();
 	}
 
 	/**

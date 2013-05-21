@@ -2,6 +2,9 @@ package spitapp.gui;
 
 import java.util.Locale;
 
+import spitapp.controller.AppointmentController;
+import spitapp.core.service.DatabaseService;
+
 import com.vaadin.annotations.Theme;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Button;
@@ -17,11 +20,19 @@ import com.vaadin.ui.VerticalLayout;
  * The Application's "main" class
  */
 @SuppressWarnings("serial")
-public class MyVaadinUI extends UI
+public class SpitAppMainUI extends UI
 {
-
+	DatabaseService dbservice = null;
+	
+	AppointmentController controller = null;
+	
     @Override
     protected void init(VaadinRequest request) {
+    	
+    	dbservice = new DatabaseService();
+    	
+    	controller = new AppointmentController(dbservice);
+    	
     	
     	// Set the root layout for the UI
     	VerticalLayout content = new VerticalLayout();
@@ -40,7 +51,7 @@ public class MyVaadinUI extends UI
     	content.addComponent(bottom);
     	
     	// Add the appointments
-        AppointmentGuiHandler appointments = new AppointmentGuiHandler();
+        AppointmentGuiHandler appointments = new AppointmentGuiHandler(controller);
         appointments.setWidth(300, Unit.PIXELS);
         appointments.setHeight(600, Unit.PIXELS);
         
@@ -48,10 +59,10 @@ public class MyVaadinUI extends UI
         TabSheet tabsheet = new TabSheet();
         tabsheet.setHeight(600, Unit.PIXELS);
         tabsheet.setWidth(600, Unit.PIXELS);
-        tabsheet.addTab(new DocumentGuiHandler(), "Dokumente");
-        tabsheet.addTab(new ExpensesGuiHandler() , "Spesen");
-        tabsheet.addTab(new TaskListGuiHandler(), "ToDo's");
-        tabsheet.addTab(new TaskTimeGuiHandler(), "Zeitrapporte");
+        tabsheet.addTab(new DocumentGuiHandler(controller), "Dokumente");
+        tabsheet.addTab(new ExpensesGuiHandler(controller) , "Spesen");
+        tabsheet.addTab(new TaskListGuiHandler(controller), "ToDo's");
+        tabsheet.addTab(new TaskTimeGuiHandler(controller), "Zeitrapporte");
        
         // Add the components to the buttom layout
     	bottom.addComponent(appointments);
