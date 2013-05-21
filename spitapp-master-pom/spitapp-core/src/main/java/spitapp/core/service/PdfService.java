@@ -1,12 +1,15 @@
 package spitapp.core.service;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
+import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.PdfWriter;
 
 /**
@@ -55,4 +58,22 @@ public class PdfService {
 
 		return outputStream.toByteArray();
     }
+
+    /**
+     * Convert a ByteArray to Pdf
+     * @param byteArray the Data of Pdf in a ByteArray 
+     * @throws IOException 
+     * @throws DocumentException 
+     */
+    public Document convertByteArrayToPdf (byte[] byteArray) throws IOException, DocumentException
+    {
+    	Document myDocument = new Document(PageSize.A4);
+    	myDocument.open();
+    	myDocument.add(new Paragraph(byteArray.toString()));
+    	myDocument.close();
+    	
+    	return myDocument;
+    	
+    }
+    
 }
