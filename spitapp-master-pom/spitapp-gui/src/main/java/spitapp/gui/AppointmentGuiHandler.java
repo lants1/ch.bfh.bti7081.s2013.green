@@ -6,7 +6,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.HashMap;
 
-import spitapp.core.model.TerminEintrag;
+import spitapp.core.model.Appointment;
 import spitapp.core.service.DatabaseService;
 
 import com.vaadin.data.Property.ValueChangeEvent;
@@ -30,7 +30,7 @@ public class AppointmentGuiHandler extends CustomComponent {
 	private Table appointments;
 	
 	
-	public HashMap<Integer, TerminEintrag> entries = new HashMap<Integer, TerminEintrag>();
+	public HashMap<Integer, Appointment> entries = new HashMap<Integer, Appointment>();
 	
 	/**
 	 * The constructor should first build the main layout, set the
@@ -68,7 +68,7 @@ public class AppointmentGuiHandler extends CustomComponent {
 		return false;
 	}
 	
-	public boolean addTermin(TerminEintrag termin) {
+	public boolean addTermin(Appointment termin) {
 		Integer pos = (Integer)appointments.addItem(new Object[] { termin.getPatient().getFirstName() + " " + termin.getPatient().getLastName(), termin.getTerminDate().toString() }, null);
 		if( pos != null) {
 			this.entries.put(pos, termin);
@@ -81,9 +81,9 @@ public class AppointmentGuiHandler extends CustomComponent {
 		clearTermine();
 		
 		DatabaseService dbservice = new DatabaseService();
-		List<TerminEintrag> termine = dbservice.getTermine(newDate);
+		List<Appointment> termine = dbservice.getTermine(newDate);
 		
-		for (TerminEintrag termin: termine) {
+		for (Appointment termin: termine) {
 			this.addTermin(termin);
 		}
 		
@@ -101,7 +101,7 @@ public class AppointmentGuiHandler extends CustomComponent {
 		setWidth("100.0%");
 		setHeight("100.0%");
 		
-		//layout for TerminEintrag section
+		//layout for Appointment section
 		VerticalLayout terminLayout = new VerticalLayout();
 		terminLayout.setMargin(true);
 		
