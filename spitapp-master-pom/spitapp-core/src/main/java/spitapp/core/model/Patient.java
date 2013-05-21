@@ -21,9 +21,9 @@ public class Patient {
 	
 	private List<Task> tasks;
 	
-	private List<ExpensesEntry> spesenEintraege;
+	private List<ExpensesEntry> expenses;
 	
-	private List<Document> dokumente;
+	private List<Document> documents;
 
 	public Long getPatId() {
 		return patId;
@@ -57,20 +57,35 @@ public class Patient {
 		this.tasks = tasks;
 	}
 
-	public List<ExpensesEntry> getSpesenEintraege() {
-		return spesenEintraege;
+	/**
+	 * @return the expenses
+	 */
+	public List<ExpensesEntry> getExpenses() {
+		return expenses;
 	}
 
-	public void setSpesenEintraege(List<ExpensesEntry> spesenEintraege) {
-		this.spesenEintraege = spesenEintraege;
-	}
-
-	public List<Document> getDokumente() {
-		return dokumente;
-	}
-
-	public void setDokumente(List<Document> dokumente) {
-		this.dokumente = dokumente;
+	/**
+	 * @param expenses the expenses to set
+	 */
+	public void setExpenses(List<ExpensesEntry> expenses) {
+		this.expenses = expenses;
 	}
 	
+
+	/**
+	 * @return the documents
+	 */
+	public List<Document> getDocuments() {
+		return documents;
+	}
+
+	/**
+	 * @param documents the documents to set
+	 */
+	public void setDocuments(List<Document> documents) {
+		this.documents = documents;
+	}
+	
+
+
 }
