@@ -1,5 +1,6 @@
 package spitapp.core.service;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -36,17 +37,22 @@ public class PdfService {
      * @throws    DocumentException 
      * @throws    IOException 
      */
-    public void createPdf(String filename)
+    public byte[] createPdf(String filename)
 	throws DocumentException, IOException {
         // step 1
         Document document = new Document();
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         // step 2
-        PdfWriter.getInstance(document, new FileOutputStream(filename));
+        PdfWriter.getInstance(document, outputStream );
         // step 3
         document.open();
         // step 4
         document.add(new Paragraph("Hello World!"));
         // step 5
         document.close();
+        
+        // return the document as bytearray
+
+		return outputStream.toByteArray();
     }
 }
