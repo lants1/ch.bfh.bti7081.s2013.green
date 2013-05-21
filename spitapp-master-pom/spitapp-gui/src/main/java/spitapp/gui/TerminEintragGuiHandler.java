@@ -30,7 +30,7 @@ public class TerminEintragGuiHandler extends CustomComponent {
 	private Table appointments;
 	
 	
-	public HashMap<Integer, TerminEintrag> eintraege = new HashMap<Integer, TerminEintrag>();
+	public HashMap<Integer, TerminEintrag> entries = new HashMap<Integer, TerminEintrag>();
 	
 	/**
 	 * The constructor should first build the main layout, set the
@@ -48,13 +48,21 @@ public class TerminEintragGuiHandler extends CustomComponent {
 		DateChanged(datePopup.getValue());
 	}
 	
+	/**
+	 * method is called when an appointment selection changes
+	 * @param newTerminId The ID of the selected appointment
+	 */
 	public void TerminEintragChanged(Integer newTerminId) {
 		appointments.setCaption("Selected: " + appointments.getValue());	
 	}
 	
+	/**
+	 * method is called when the date changes
+	 * @return true if method succeeded
+	 */
 	public boolean clearTermine() {
 		if(appointments.removeAllItems()) {
-			this.eintraege.clear();
+			this.entries.clear();
 			return true;
 		}
 		return false;
@@ -63,7 +71,7 @@ public class TerminEintragGuiHandler extends CustomComponent {
 	public boolean addTermin(TerminEintrag termin) {
 		Integer pos = (Integer)appointments.addItem(new Object[] { termin.getPatient().getFirstName() + " " + termin.getPatient().getLastName(), termin.getTerminDate().toString() }, null);
 		if( pos != null) {
-			this.eintraege.put(pos, termin);
+			this.entries.put(pos, termin);
 			return true;
 		}
 		return false;
