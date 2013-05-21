@@ -24,10 +24,11 @@ import com.vaadin.ui.VerticalLayout;
 public class TerminEintragGuiHandler extends CustomComponent {
 
 	private AbsoluteLayout mainLayout;
-	private Button buttonForward;
-	private PopupDateField dateFieldDate;
-	private Button buttonBackward;
-	private Table tableAppointments;
+	private Button forward;
+	private PopupDateField datePopup;
+	private Button backward;
+	private Table appointments;
+	
 	
 	public HashMap<Integer, TerminEintrag> eintraege = new HashMap<Integer, TerminEintrag>();
 	
@@ -44,15 +45,15 @@ public class TerminEintragGuiHandler extends CustomComponent {
 		setCompositionRoot(mainLayout);
 
 		// initialize with actual date
-		DateChanged(dateFieldDate.getValue());
+		DateChanged(datePopup.getValue());
 	}
 	
 	public void TerminEintragChanged(Integer newTerminId) {
-		tableAppointments.setCaption("Selected: " + tableAppointments.getValue());	
+		appointments.setCaption("Selected: " + appointments.getValue());	
 	}
 	
 	public boolean clearTermine() {
-		if(tableAppointments.removeAllItems()) {
+		if(appointments.removeAllItems()) {
 			this.eintraege.clear();
 			return true;
 		}
@@ -60,7 +61,7 @@ public class TerminEintragGuiHandler extends CustomComponent {
 	}
 	
 	public boolean addTermin(TerminEintrag termin) {
-		Integer pos = (Integer)tableAppointments.addItem(new Object[] { termin.getPatient().getFirstName() + " " + termin.getPatient().getLastName(), termin.getTerminDate().toString() }, null);
+		Integer pos = (Integer)appointments.addItem(new Object[] { termin.getPatient().getFirstName() + " " + termin.getPatient().getLastName(), termin.getTerminDate().toString() }, null);
 		if( pos != null) {
 			this.eintraege.put(pos, termin);
 			return true;
@@ -100,74 +101,74 @@ public class TerminEintragGuiHandler extends CustomComponent {
 		HorizontalLayout buttonLayout = new HorizontalLayout();
 
 		// table_termine
-		tableAppointments = new Table("Termine");
-		tableAppointments.setImmediate(false);
-		tableAppointments.setWidth("100.0%");
-		tableAppointments.setHeight("-1px");
+		appointments = new Table("Termine");
+		appointments.setImmediate(false);
+		appointments.setWidth("100.0%");
+		appointments.setHeight("-1px");
 		/* Define the names and data types of columns.
 		 * The "default value" parameter is meaningless here. */
-		tableAppointments.addContainerProperty("Patient", String.class,  null);
-		tableAppointments.addContainerProperty("Uhrzeit",  String.class,  null);
+		appointments.addContainerProperty("Patient", String.class,  null);
+		appointments.addContainerProperty("Uhrzeit",  String.class,  null);
 		// Allow selecting items from the table.
-		tableAppointments.setSelectable(true);
+		appointments.setSelectable(true);
 		// Send changes in selection immediately to server.
-		tableAppointments.setImmediate(true);
+		appointments.setImmediate(true);
 		// Handle selection change.
-		tableAppointments.addValueChangeListener(new ValueChangeListener() {
+		appointments.addValueChangeListener(new ValueChangeListener() {
 		    public void valueChange(ValueChangeEvent event) {
-		    	TerminEintragChanged((Integer)tableAppointments.getValue());
+		    	TerminEintragChanged((Integer)appointments.getValue());
 		        
 		    }
 		});
 		
 		// button_rueckwaerts
-		buttonBackward = new Button();
-		buttonBackward.setCaption("Rückwärts");
-		buttonBackward.setImmediate(true);
-		buttonBackward.setWidth("-1px");
-		buttonBackward.setHeight("-1px");
-		buttonBackward.addClickListener(new Button.ClickListener() {
+		backward = new Button();
+		backward.setCaption("Rückwärts");
+		backward.setImmediate(true);
+		backward.setWidth("-1px");
+		backward.setHeight("-1px");
+		backward.addClickListener(new Button.ClickListener() {
 			public void buttonClick(ClickEvent event) {
 				Calendar calendar = new GregorianCalendar();
-				calendar.setTime(dateFieldDate.getValue());
+				calendar.setTime(datePopup.getValue());
 				calendar.add(Calendar.DAY_OF_MONTH, -1);
-				dateFieldDate.setValue(calendar.getTime());
+				datePopup.setValue(calendar.getTime());
 			}
 		}); 	
 		
 		// dateField_datum
-		dateFieldDate = new PopupDateField();
-		dateFieldDate.setImmediate(true);
-		dateFieldDate.setWidth("-1px");
-		dateFieldDate.setHeight("-1px");
-		dateFieldDate.setDateFormat("dd-MM-yyyy");
-		dateFieldDate.setValue(new Date());
-		dateFieldDate.addValueChangeListener(new ValueChangeListener() {
+		datePopup = new PopupDateField();
+		datePopup.setImmediate(true);
+		datePopup.setWidth("-1px");
+		datePopup.setHeight("-1px");
+		datePopup.setDateFormat("dd-MM-yyyy");
+		datePopup.setValue(new Date());
+		datePopup.addValueChangeListener(new ValueChangeListener() {
 		    public void valueChange(ValueChangeEvent event) {
-		        DateChanged(dateFieldDate.getValue());
+		        DateChanged(datePopup.getValue());
 		    }
 		});
 		
 		// buttonForward
-		buttonForward = new Button();
-		buttonForward.setCaption("Vorwärts");
-		buttonForward.setImmediate(true);
-		buttonForward.setWidth("-1px");
-		buttonForward.setHeight("-1px");
-		buttonForward.addClickListener(new Button.ClickListener() {
+		forward = new Button();
+		forward.setCaption("Vorwärts");
+		forward.setImmediate(true);
+		forward.setWidth("-1px");
+		forward.setHeight("-1px");
+		forward.addClickListener(new Button.ClickListener() {
 			public void buttonClick(ClickEvent event) {
 				Calendar calendar = new GregorianCalendar();
-				calendar.setTime(dateFieldDate.getValue());
+				calendar.setTime(datePopup.getValue());
 				calendar.add(Calendar.DAY_OF_MONTH, 1);
-				dateFieldDate.setValue(calendar.getTime());
+				datePopup.setValue(calendar.getTime());
 			}
 		}); 		
 		
 		//Set the layout together
-		buttonLayout.addComponent(buttonBackward);
-		buttonLayout.addComponent(dateFieldDate);
-		buttonLayout.addComponent(buttonForward);
-		terminLayout.addComponent(tableAppointments);
+		buttonLayout.addComponent(backward);
+		buttonLayout.addComponent(datePopup);
+		buttonLayout.addComponent(forward);
+		terminLayout.addComponent(appointments);
 		terminLayout.addComponent(buttonLayout);
 		mainLayout.addComponent(terminLayout);
 		return mainLayout;
