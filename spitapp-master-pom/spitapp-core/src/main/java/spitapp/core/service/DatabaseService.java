@@ -40,28 +40,28 @@ public class DatabaseService {
 	}
 	
 	/**
-	 * Get all "Termine" from Database with in this case useless State Pattern.
+	 * Get all appointments from Database with in this case useless State Pattern.
 	 */
-	public List<Appointment> getTermine(Date date){
+	public List<Appointment> getAppointment(Date date){
 		SessionFactory sessionFactory = new AnnotationConfiguration()
 		.configure().buildSessionFactory();
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		// Get all Appointment from db without restriction o_O evil thing
-		List<Appointment> terminEintraege = session.createCriteria(Appointment.class).list();
-		List<Appointment> result = new ArrayList<Appointment>();
-		for(Appointment termin : terminEintraege){
+		List<Appointment> appointmentList = session.createCriteria(Appointment.class).list();
+		List<Appointment> resultList = new ArrayList<Appointment>();
+		for(Appointment appointment : appointmentList){
 			// Call the Statepattern mechanism on each termin
-			termin.updateState(date);
-			// Only add the termin if, according to the statepattern, relevant...
-			if(termin.isRelevant()){
-			result.add(termin);
+			appointment.updateState(date);
+			// Only add the appointment if, according to the statepattern, relevant...
+			if(appointment.isRelevant()){
+			resultList.add(appointment);
 			}
 		}
 
 		tx.commit();
 		
-		return result;
+		return resultList;
 	}
 	
 	/**
@@ -93,8 +93,8 @@ public class DatabaseService {
 		Document dok = new Document();
 		dok.setFileName("test");
 		dok.setFilePath("path");
-		List<Document> doks = new ArrayList<Document>();
-		doks.add(dok);
+		List<Document> docList = new ArrayList<Document>();
+		docList.add(dok);
 
 		Task task = new Task();
 		task.setDescription("test2");
@@ -103,12 +103,12 @@ public class DatabaseService {
 
 		ExpensesEntry spesen = new ExpensesEntry();
 		spesen.setExpensesDescription("test3");
-		List<ExpensesEntry> spesenList = new ArrayList<ExpensesEntry>();
-		spesenList.add(spesen);
+		List<ExpensesEntry> expensesList = new ArrayList<ExpensesEntry>();
+		expensesList.add(spesen);
 
 		patient.setTasks(tasks);
-		patient.setDocuments(doks);
-		patient.setExpenses(spesenList);
+		patient.setDocuments(docList);
+		patient.setExpenses(expensesList);
 
 		termin.setPatient(patient);
 		session.save(termin);
