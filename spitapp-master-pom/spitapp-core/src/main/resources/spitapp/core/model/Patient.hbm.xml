@@ -13,6 +13,13 @@
 			<column name="age" length="20" not-null="true" />
 		</property>
 		
+		<property name="careLevel" column="careLevel" not-null="true">
+    		<type name="org.hibernate.type.EnumType">
+        	<param name="enumClass">spitapp.core.model.CareLevel</param>
+        	<param name="type">12</param>
+    		</type> 
+		</property>
+		
 		<property name="hobbies" type="string">
 			<column name="hobbies" length="50" not-null="true" />
 		</property>

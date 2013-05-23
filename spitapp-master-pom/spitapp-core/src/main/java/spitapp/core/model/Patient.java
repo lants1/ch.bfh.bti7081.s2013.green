@@ -28,6 +28,8 @@ public class Patient {
 	private List<ExpensesEntry> expenses;
 	
 	private List<Document> documents;
+	
+	private CareLevel careLevel;
 
 	public int getAge() {
 		return age;
@@ -35,6 +37,14 @@ public class Patient {
 
 	public void setAge(int age) {
 		this.age = age;
+	}
+	
+	public CareLevel getCareLevel() {
+		return careLevel;
+	}
+
+	public void setCareLevel(CareLevel careLevel) {
+		this.careLevel = careLevel;
 	}
 
 	public String getHobbies() {

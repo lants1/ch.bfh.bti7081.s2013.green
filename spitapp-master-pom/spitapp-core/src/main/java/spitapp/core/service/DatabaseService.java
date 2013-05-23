@@ -13,6 +13,7 @@ import org.hibernate.cfg.AnnotationConfiguration;
 
 import com.lowagie.text.DocumentException;
 
+import spitapp.core.model.CareLevel;
 import spitapp.core.model.Document;
 import spitapp.core.model.Patient;
 import spitapp.core.model.ExpensesEntry;
@@ -96,6 +97,7 @@ public class DatabaseService {
 
 		Patient patient = new Patient();
 		patient.setAge(18);
+		patient.setCareLevel(CareLevel.A1);
 		patient.setHobbies("Kong-Fu fighting");
 		patient.setFirstName("Swen");
 		patient.setLastName("Lanthemann");
