@@ -10,4 +10,18 @@
     <module>spitapp-core</module>
     <module>spitapp-gui</module>
   </modules>
+  
+  <properties>
+    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>1.7</maven.compiler.source>
+</properties>
+
+<profiles>
+	<profile>
+	<id>compile-widgetset</id>
+	<activation>
+	<activeByDefault>true</activeByDefault>
+	</activation>
+</profile>
+</profiles> 
 </project>
