@@ -4,7 +4,7 @@
 
 <hibernate-mapping>
 	<class name="spitapp.core.model.ExpensesEntry" table="EXPENSES"
-		catalog="spitapp">
+		catalog="spitapp" lazy="false">
 		<id name="expensesId" type="java.lang.Long">
 			<column name="expensesId" />
 			<generator class="identity" />

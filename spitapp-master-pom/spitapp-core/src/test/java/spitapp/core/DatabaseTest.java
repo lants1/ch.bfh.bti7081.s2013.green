@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.FetchMode;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -114,6 +115,29 @@ public class DatabaseTest
 		
 		assertTrue((patienten.size()>0));
 		tx.commit();
+    }
+
+    @Test
+    public void testLazyLoadingDisabled()
+    {	
+		Session session = sessionFactory.getCurrentSession();
+
+		Transaction tx = session.beginTransaction();
+		List<Appointment> appointments = session.createCriteria(Appointment.class)
+			    .list();
+		
+		assertTrue((appointments.size()>0));
+		
+		tx.commit();
+		
+		for(Appointment appointment : appointments){
+			Patient patient =appointment.getPatient();
+			assertNotNull(patient);
+			List<Document> docs = patient.getDocuments();
+			assertTrue(docs.size()>0);
+			Document doc = docs.get(0);
+			assertFalse(StringUtils.isEmpty(doc.getFileName()));
+		}
     }
     
     @Test

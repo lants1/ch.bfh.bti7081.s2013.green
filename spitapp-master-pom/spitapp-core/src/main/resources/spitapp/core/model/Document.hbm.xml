@@ -4,7 +4,7 @@
 
 <hibernate-mapping>
 	<class name="spitapp.core.model.Document" table="DOCUMENT"
-		catalog="spitapp">
+		catalog="spitapp" lazy="false">
 		<id name="documentId" type="java.lang.Long">
 			<column name="documentId" />
 			<generator class="identity" />

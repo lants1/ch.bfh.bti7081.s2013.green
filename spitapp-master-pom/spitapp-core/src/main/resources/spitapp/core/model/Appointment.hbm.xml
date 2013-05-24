@@ -4,7 +4,7 @@
 
 <hibernate-mapping>
 	<class name="spitapp.core.model.Appointment" table="APPOINTMENT"
-		catalog="spitapp">
+		catalog="spitapp" lazy="false">
 		<id name="terminId" type="java.lang.Long">
 			<column name="termin_id" />
 			<generator class="identity" />
@@ -20,6 +20,6 @@
 		</property>
         
         <one-to-one name="patient" class="spitapp.core.model.Patient"
-			cascade="save-update"></one-to-one>
+			cascade="save-update" lazy="false"></one-to-one>
 	</class>
 </hibernate-mapping>
