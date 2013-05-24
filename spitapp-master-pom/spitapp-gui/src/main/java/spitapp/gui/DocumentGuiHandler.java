@@ -37,7 +37,6 @@ public class DocumentGuiHandler extends DetailGuiHandler {
 		buildMainLayout();
 		setCompositionRoot(mainLayout);
 
-		// TODO add user code here
 		cbxDocuments.addItem("Patienteninfo.pdf");
 		cbxDocuments.addItem("Krankheit xy.pdf");
 		
@@ -55,7 +54,7 @@ public class DocumentGuiHandler extends DetailGuiHandler {
 		setWidth("100.0%");
 		setHeight("100.0%");
 		
-		// label_1
+		// Age title
 		age = new Label();
 		age.setImmediate(false);
 		age.setWidth("-1px");
@@ -63,15 +62,15 @@ public class DocumentGuiHandler extends DetailGuiHandler {
 		age.setValue("Alter:");
 		mainLayout.addComponent(age, "top:24.0px;left:20.0px;");
 		
-		// data_alter
+		// Age data
 		ageData = new Label();
 		ageData.setImmediate(false);
 		ageData.setWidth("90px");
 		ageData.setHeight("-1px");
-		ageData.setValue("84");
+		ageData.setValue("");
 		mainLayout.addComponent(ageData, "top:24.0px;left:110.0px;");
 		
-		// label_pflegestufe
+		// Carelevel title
 		careLevel = new Label();
 		careLevel.setImmediate(false);
 		careLevel.setWidth("-1px");
@@ -79,7 +78,7 @@ public class DocumentGuiHandler extends DetailGuiHandler {
 		careLevel.setValue("Pflegestufe:");
 		mainLayout.addComponent(careLevel, "top:60.0px;left:20.0px;");
 		
-		// data_pflegestufe
+		// Carelevel data
 		careLevelData = new Label();
 		careLevelData.setImmediate(false);
 		careLevelData.setWidth("110px");
@@ -87,7 +86,7 @@ public class DocumentGuiHandler extends DetailGuiHandler {
 		careLevelData.setValue("8b");
 		mainLayout.addComponent(careLevelData, "top:60.0px;left:110.0px;");
 		
-		// label_hobbies
+		// Hobbies title
 		hobbies = new Label();
 		hobbies.setImmediate(false);
 		hobbies.setWidth("-1px");
@@ -95,15 +94,15 @@ public class DocumentGuiHandler extends DetailGuiHandler {
 		hobbies.setValue("Hobbies:");
 		mainLayout.addComponent(hobbies, "top:100.0px;left:20.0px;");
 		
-		// data_hobbies
+		// Hobbies data
 		hobbiesData = new Label();
 		hobbiesData.setImmediate(false);
 		hobbiesData.setWidth("100.0%");
 		hobbiesData.setHeight("40px");
-		hobbiesData.setValue("Jassen, Essen");
+		hobbiesData.setValue("");
 		mainLayout.addComponent(hobbiesData, "top:120.0px;left:20.0px;");
 		
-		// comboBox_Dokumente
+		// ComboBox for pdf-documents
 		cbxDocuments = new ComboBox();
 		cbxDocuments.setImmediate(false);
 		cbxDocuments.setWidth("-1px");
@@ -111,7 +110,7 @@ public class DocumentGuiHandler extends DetailGuiHandler {
 		cbxDocuments.setInvalidAllowed(false);
 		mainLayout.addComponent(cbxDocuments, "top:200.0px;left:22.0px;");
 		
-		// button_dokumente
+		// Document button
 		btnDocument = new Button();
 		btnDocument.setCaption("Öffnen");
 		btnDocument.setImmediate(true);
@@ -119,7 +118,7 @@ public class DocumentGuiHandler extends DetailGuiHandler {
 		btnDocument.setHeight("-1px");
 		mainLayout.addComponent(btnDocument, "top:198.0px;left:214.0px;");
 		
-		// label_dokument
+		// Document label
 		lblDocument = new Label();
 		lblDocument.setImmediate(false);
 		lblDocument.setWidth("-1px");
@@ -130,15 +129,16 @@ public class DocumentGuiHandler extends DetailGuiHandler {
 		return mainLayout;
 	}
 
-	@Override
+	/**
+	 * 
+	 */
 	public void handleAppointmentChangedEvent(AppointmentChangedEvent e) {
-		// TODO Auto-generated method stub
+		
 		AppointmentController ctrl = (AppointmentController)e.getSource();
 		
 		ageData.setValue(Integer.toString(ctrl.getCurrentAppointment().getPatient().getAge()));
-		//careLevel.setValue(ctrl.getCurrentAppointment().getPatient().);
+		careLevel.setValue(ctrl.getCurrentAppointment().getPatient().getCareLevel().toString());
 		hobbiesData.setValue(ctrl.getCurrentAppointment().getPatient().getHobbies());
-		//cbxDocuments.addItem(ctrl.getCurrentAppointment().getPatient().getDocuments().);
 		
 	}
 
