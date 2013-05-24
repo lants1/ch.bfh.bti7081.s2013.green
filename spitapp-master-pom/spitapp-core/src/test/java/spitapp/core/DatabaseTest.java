@@ -38,8 +38,10 @@ public class DatabaseTest
 
 	private static SessionFactory sessionFactory;
 	private static ServiceRegistry serviceRegistry;
-    /**
-     * Rigourous Test :-)
+   
+	
+	/**
+     * Initmethod to generate Testdata
      * @throws IOException 
      * @throws DocumentException 
      */
@@ -114,8 +116,33 @@ public class DatabaseTest
 		tx.commit();
     }
     
+    @Test
+    public void testGetDocumentsPossible()
+    {	
+		Session session = sessionFactory.getCurrentSession();
+
+		Transaction tx = session.beginTransaction();
+		List<Appointment> appointments = session.createCriteria(Appointment.class)
+			    .list();
+		
+		assertTrue((appointments.size()>0));
+		
+		for(Appointment appointment : appointments){
+			Patient patient =appointment.getPatient();
+			assertNotNull(patient);
+			List<Document> docs = patient.getDocuments();
+			assertTrue(docs.size()>0);
+			Document doc = docs.get(0);
+			assertFalse(StringUtils.isEmpty(doc.getFileName()));
+		}
+		tx.commit();
+    }
+    
 	/**
-	 * Register Sessionfactory
+	 * Register Sessionfactory duplicated from DatabaseService
+	 * 
+	 * Duplicated because the modifiers from Databaservice should stay private
+	 * 
 	 * @return
 	 * @throws HibernateException
 	 */
