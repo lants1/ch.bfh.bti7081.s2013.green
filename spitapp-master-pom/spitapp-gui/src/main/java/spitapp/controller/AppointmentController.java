@@ -7,6 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import spitapp.core.model.Appointment;
+import spitapp.core.model.ExpensesEntry;
+import spitapp.core.model.Patient;
 import spitapp.core.service.DatabaseService;
 
 /**
@@ -161,4 +163,39 @@ public class AppointmentController {
 			i.next().handleAppointmentChangedEvent(event);
 		}
 	}
+	
+	public Integer addExpensetoCurrentPatient(String descpription, String amount) {
+		Double value = null;
+		
+		if(amount == null ) {
+			return -1;
+		}
+		try {
+			value = Double.parseDouble(amount);
+		} 
+		catch(NumberFormatException ex) {
+			return -1;
+		}
+		
+		if(descpription == null) {
+			return -2;
+		}
+		if(descpription.isEmpty()) {
+			return -2;
+		}
+		
+		Appointment appointment = this.getCurrentAppointment();
+		
+		Patient patient = appointment.getPatient();
+		
+		ExpensesEntry newexpense = new ExpensesEntry();
+		newexpense.setExpensesDescription(descpription);
+		newexpense.setPrice(value);
+		
+//		patient.getExpenses().add(newexpense);
+//		
+//		this.dbservice.saveOrUpdate(appointment);
+		return 0;
+	}
+	
 }
