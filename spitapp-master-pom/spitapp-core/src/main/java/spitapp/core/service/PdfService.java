@@ -51,6 +51,7 @@ public class PdfService {
         document.open();
         // step 4
         document.add(new Paragraph("Hello World!"));
+        document.setPageCount(1);
         // step 5
         document.close();
         
@@ -65,6 +66,8 @@ public class PdfService {
      * @throws IOException 
      * @throws DocumentException 
      */
+    // TODO LAN this method don't work change it...
+    @Deprecated
     public Document convertByteArrayToPdf (byte[] byteArray) throws IOException, DocumentException
     {
     	Document myDocument = new Document(PageSize.A4);

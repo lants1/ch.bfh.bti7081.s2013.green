@@ -46,6 +46,20 @@ public class DatabaseService {
 	}
 	
 	/**
+	 * General method to delete something
+	 * 
+	 * @param Object somethingToDelete
+	 */
+	public void delete(Object somethingToDelete) {
+		Session session = sessionFactory.getCurrentSession();
+		Transaction tx = session.beginTransaction();
+
+		session.delete(somethingToDelete);
+
+		tx.commit();
+	}
+	
+	/**
 	 * Get all appointments from Database with in this case useless State Pattern.
 	 */
 	public List<Appointment> getAppointment(Date date){
