@@ -122,7 +122,6 @@ public class AppointmentGuiHandler extends DetailGuiHandler {
 
 		// table_termine
 		appointments = new Table("Termine");
-		appointments.setImmediate(false);
 		appointments.setWidth("100.0%");
 		appointments.setHeight("-1px");
 		/* Define the names and data types of columns.
