@@ -6,11 +6,14 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.service.ServiceRegistryBuilder;
 
 import com.lowagie.text.DocumentException;
 
@@ -20,6 +23,7 @@ import spitapp.core.model.Patient;
 import spitapp.core.model.ExpensesEntry;
 import spitapp.core.model.Task;
 import spitapp.core.model.Appointment;
+import spitapp.core.service.DatabaseService;
 import spitapp.core.service.PdfService;
 
 import org.junit.*;
@@ -32,6 +36,8 @@ import static org.junit.Assert.*;
 public class DatabaseTest 
 {
 
+	private static SessionFactory sessionFactory;
+	private static ServiceRegistry serviceRegistry;
     /**
      * Rigourous Test :-)
      * @throws IOException 
@@ -40,8 +46,7 @@ public class DatabaseTest
     @BeforeClass
     public static void initDemoData() throws DocumentException, IOException
     {
-    	SessionFactory sessionFactory = new AnnotationConfiguration()
-		.configure().buildSessionFactory();
+    	configureSessionFactory();
 		Session session = sessionFactory.getCurrentSession();
     	Transaction tx = session.beginTransaction();
 		
@@ -97,10 +102,7 @@ public class DatabaseTest
     
     @Test
     public void testIsDbReadable()
-    {
-		SessionFactory sessionFactory = new AnnotationConfiguration()
-		.configure().buildSessionFactory();
-		
+    {	
 		Session session = sessionFactory.getCurrentSession();
 
 		Transaction tx = session.beginTransaction();
@@ -111,4 +113,17 @@ public class DatabaseTest
 		assertTrue((patienten.size()>0));
 		tx.commit();
     }
+    
+	/**
+	 * Register Sessionfactory
+	 * @return
+	 * @throws HibernateException
+	 */
+	private static SessionFactory configureSessionFactory() throws HibernateException {
+	    Configuration configuration = new Configuration();
+	    configuration.configure();
+	    serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();        
+	    sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+	    return sessionFactory;
+	}
 }

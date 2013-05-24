@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.service.ServiceRegistryBuilder;
 
 import spitapp.core.model.Appointment;
 
@@ -19,14 +23,19 @@ import spitapp.core.model.Appointment;
  */
 public class DatabaseService {
 
+	private SessionFactory sessionFactory;
+	private ServiceRegistry serviceRegistry;
+	
+	public DatabaseService(){
+		this.configureSessionFactory();
+	}
+	
 	/**
 	 * General method to save or update something
 	 * 
 	 * @param Object somethingToSave
 	 */
 	public void saveOrUpdate(Object somethingToSave) {
-		SessionFactory sessionFactory = new AnnotationConfiguration()
-		.configure().buildSessionFactory();
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
 
@@ -39,8 +48,6 @@ public class DatabaseService {
 	 * Get all appointments from Database with in this case useless State Pattern.
 	 */
 	public List<Appointment> getAppointment(Date date){
-		SessionFactory sessionFactory = new AnnotationConfiguration()
-		.configure().buildSessionFactory();
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		// Get all Appointment from db without restriction o_O evil thing
@@ -58,5 +65,18 @@ public class DatabaseService {
 		tx.commit();
 		
 		return resultList;
+	}
+	
+	/**
+	 * Register Sessionfactory
+	 * @return
+	 * @throws HibernateException
+	 */
+	private SessionFactory configureSessionFactory() throws HibernateException {
+	    Configuration configuration = new Configuration();
+	    configuration.configure();
+	    serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();        
+	    sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+	    return sessionFactory;
 	}
 }
