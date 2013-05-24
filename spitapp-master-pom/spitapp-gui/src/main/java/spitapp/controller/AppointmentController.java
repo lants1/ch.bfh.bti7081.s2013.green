@@ -19,7 +19,7 @@ import spitapp.core.service.DatabaseService;
  * 
  */
 public class AppointmentController {
-
+	
 	/**
 	 * the list of appointments of a day
 	 */
@@ -184,18 +184,56 @@ public class AppointmentController {
 			return -2;
 		}
 		
-		Appointment appointment = this.getCurrentAppointment();
+		try {
+			Appointment appointment = this.getCurrentAppointment();
+			
+			Patient patient = appointment.getPatient();
+			
+			ExpensesEntry newexpense = new ExpensesEntry();
+			newexpense.setExpensesDescription(descpription);
+			newexpense.setPrice(value);
+			
+			patient.getExpenses().add(newexpense);
+			
+			this.dbservice.saveOrUpdate(appointment);
+		}
+		catch(NumberFormatException ex) {
+			return -4;
+		}
 		
-		Patient patient = appointment.getPatient();
-		
-		ExpensesEntry newexpense = new ExpensesEntry();
-		newexpense.setExpensesDescription(descpription);
-		newexpense.setPrice(value);
-		
-//		patient.getExpenses().add(newexpense);
-//		
-//		this.dbservice.saveOrUpdate(appointment);
 		return 0;
+	}
+	
+	public Integer deleteExepenseOfCurrentPatient(Long expense_id) {
+		if(expense_id == null) {
+			return -4;
+		}
+		
+		Patient patient = this.getCurrentAppointment().getPatient();
+		if(patient == null) {
+			return -3;
+		}
+		List<ExpensesEntry> expenses = patient.getExpenses();
+		if(expenses == null) {
+			return -1;
+		}
+		else {
+			try { 
+				for(ExpensesEntry entry : expenses) {
+					if(entry.getExpensesId() == expense_id) {
+						expenses.remove(entry);
+						this.dbservice.saveOrUpdate(patient);
+						//this.dbservice.delete(entry); doesnt work
+						return 1;
+					}
+				}
+			}
+			catch(Exception ex) {
+				return -2;
+			}
+		}
+		
+		return 1;
 	}
 	
 }
