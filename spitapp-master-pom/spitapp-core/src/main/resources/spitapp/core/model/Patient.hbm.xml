@@ -29,17 +29,17 @@
 		<property name="lastName" type="string">
 			<column name="last_name" length="20" not-null="true" />
 		</property>
-		 <list name="expenses" cascade="all">
+		 <list name="expenses" inverse="false" cascade="all-delete-orphan">
             <key column="expense_id"/>
             <index column="idx"/>
             <one-to-many class="spitapp.core.model.ExpensesEntry"/>
         </list>
-       	<list name="documents" cascade="all">
+       	<list name="documents" inverse="false" cascade="all-delete-orphan">
             <key column="document_id"/>
             <index column="idx"/>
             <one-to-many class="spitapp.core.model.Document"/>
         </list>
-         <list name="tasks" cascade="all">
+         <list name="tasks" inverse="false" cascade="all-delete-orphan">
             <key column="task_id"/>
             <index column="idx"/>
             <one-to-many class="spitapp.core.model.Task"/>

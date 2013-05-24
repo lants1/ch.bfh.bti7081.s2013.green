@@ -5,46 +5,31 @@ import spitapp.core.model.Appointment;
 import spitapp.core.model.state.AppointmentState;
 import spitapp.core.model.state.IrrelevantState;
 import spitapp.core.model.state.RelevantState;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+
+import org.junit.*;
+import static org.junit.Assert.*;
 
 /**
  * Unit test for simple App.
  */
-public class StatePatternTest 
-    extends TestCase
+public class StatePatternTest
 {
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public StatePatternTest( String testName )
-    {
-        super( testName );
-    }
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( StatePatternTest.class );
-    }
-
+	@Test
     public void testIrrelevantState()
     {
     	AppointmentState state = new IrrelevantState(null);
     	assertFalse(state.isRelevant());
     }
     
+	@Test
     public void testRelevantState()
     {
     	AppointmentState state = new RelevantState(null);
     	assertTrue(state.isRelevant());
     }
     
+	@Test
     public void testSettingOfPattern(){
     	Appointment termin = new Appointment();
     	assertFalse(termin.isRelevant());
