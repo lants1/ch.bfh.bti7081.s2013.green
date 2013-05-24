@@ -6,7 +6,7 @@
 	<class name="spitapp.core.model.Task" table="TASK"
 		catalog="spitapp">
 		<id name="taskId" type="java.lang.Long">
-			<column name="task_id" />
+			<column name="taskId" />
 			<generator class="identity" />
 		</id>
 		<property name="description" type="string">

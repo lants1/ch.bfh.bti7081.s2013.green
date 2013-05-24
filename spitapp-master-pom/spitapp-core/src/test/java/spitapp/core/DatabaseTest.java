@@ -98,9 +98,9 @@ public class DatabaseTest
     @Test
     public void testIsDbReadable()
     {
-    	
 		SessionFactory sessionFactory = new AnnotationConfiguration()
 		.configure().buildSessionFactory();
+		
 		Session session = sessionFactory.getCurrentSession();
 
 		Transaction tx = session.beginTransaction();
