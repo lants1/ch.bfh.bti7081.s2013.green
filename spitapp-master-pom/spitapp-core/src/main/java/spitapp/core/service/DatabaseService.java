@@ -49,6 +49,9 @@ public class DatabaseService {
 	 * Get all appointments from Database with in this case useless State Pattern.
 	 */
 	public List<Appointment> getAppointment(Date date){
+		// TODO Lan with disabling the lazy loading we killed our Performance
+		// and one of the benefit of using hibernate
+		// Is there another better solution for our gui team...???
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		// Get all Appointment from db without restriction o_O evil thing
