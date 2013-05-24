@@ -6,7 +6,7 @@
 	<class name="spitapp.core.model.Document" table="DOCUMENT"
 		catalog="spitapp">
 		<id name="documentId" type="java.lang.Long">
-			<column name="document_id" />
+			<column name="documentId" />
 			<generator class="identity" />
 		</id>
 		<property name="fileName" type="string">

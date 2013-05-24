@@ -46,14 +46,14 @@ public class DatabaseTest
     	Transaction tx = session.beginTransaction();
 		
     	// Delete oldTesttermin
-    /**	List<Appointment> appointmentList = session.createCriteria(Appointment.class).list();
+    	List<Appointment> appointmentList = session.createCriteria(Appointment.class).list();
 		for(Appointment appointment: appointmentList){
 			if(StringUtils.equals(appointment.getAppointmentDescription(), "testermin")){
 				session.delete(appointment);
 				session.delete(appointment.getPatient());
 			}
 		}
-		*/
+		
 		// Create a new Testtermin
 		Appointment termin = new Appointment();
 		termin.setAppointmentDescription("testermin");
