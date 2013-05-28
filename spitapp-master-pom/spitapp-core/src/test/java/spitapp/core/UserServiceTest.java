@@ -19,7 +19,7 @@ public class UserServiceTest
     @Test
     public void testUsernamePasswordValidation() throws DocumentException, IOException
     {	 	
-    	UiServiceFacade userService = new UiServiceFacade();
+    	UiServiceFacade userService = UiServiceFacade.getInstance();
     	userService.createUserLogin("swen", "correct");
     	
     	assertFalse(userService.validateLogin("swen", "wrong"));

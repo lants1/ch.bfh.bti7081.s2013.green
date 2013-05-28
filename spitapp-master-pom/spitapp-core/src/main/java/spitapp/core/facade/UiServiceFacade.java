@@ -23,13 +23,32 @@ public class UiServiceFacade {
 	private DatabaseService dbService;
 	//private PdfService pdfService;
 	private UserService userService;
+	
+	private static UiServiceFacade singleton = null;
 
-	public UiServiceFacade(){
+	private UiServiceFacade(){
 		this.dbService = new DatabaseService();
 		//this.pdfService = new PdfService();
 		this.userService = new UserService();
 	}
 
+	/**
+	 * Singleton instance of UiServiceFacade
+	 * @return
+	 */
+	 public static UiServiceFacade getInstance() {
+	        if (singleton == null) {
+	            singleton = new UiServiceFacade();
+	        }
+	        return singleton;
+	    }
+	
+	 /**
+	  * Get every Appointment by date as parameter
+	  * 
+	  * @param date
+	  * @return List<Appointment>
+	  */
 	public List<Appointment> getAppointments(Date date){
 		return dbService.getAppointment(date);
 	}
