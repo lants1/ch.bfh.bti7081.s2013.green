@@ -11,6 +11,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.TabSheet.SelectedTabChangeEvent;
 
 /**
  * The Application's "main" class
@@ -49,6 +50,14 @@ public class SpitAppMainUI extends UI
         tabsheet.addTab(new ExpensesGuiHandler(controller) , "Spesen");
         tabsheet.addTab(new TaskListGuiHandler(controller), "ToDo's");
         tabsheet.addTab(new TaskTimeGuiHandler(controller), "Zeitrapporte");
+        tabsheet.addSelectedTabChangeListener(new TabSheet.SelectedTabChangeListener() {			
+			@Override
+			public void selectedTabChange(SelectedTabChangeEvent event) {
+				controller.fireAppointmentChangedEvent();
+				//DetailGuiHandler detail = (DetailGuiHandler)event.getTabSheet().getSelectedTab();
+				
+			}
+		});
  
     	// Add the appointments
         AppointmentGuiHandler appointments = new AppointmentGuiHandler(controller, tabsheet);

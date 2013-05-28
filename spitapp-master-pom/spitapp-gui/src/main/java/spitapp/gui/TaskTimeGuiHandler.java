@@ -105,14 +105,16 @@ public class TaskTimeGuiHandler extends DetailGuiHandler {
 		}
 		else {
 			try { 
-				table_task.setCaption("Aufgaben: " + Integer.toString(tasks.size()));
-		
+				int count = 0;
 				for(Task entry : tasks) {
 					// Add a row into the table as object array
 					if(entry.isDone()) {
 						Long id = (Long)table_task.addItem(new Object[] { entry.getDescription(), entry.getStarttime(), entry.getDuration() }, entry.getTaskId());
+						count += 1;
 					}
-				}	
+				}
+				
+				table_task.setCaption("Aufgaben: " + Integer.toString(count) + "/" + Integer.toString(tasks.size()));
 			}
 			catch(Exception ex) {
 				table_task.setCaption(ex.toString());
