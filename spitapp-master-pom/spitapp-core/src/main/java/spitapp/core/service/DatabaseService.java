@@ -11,10 +11,12 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
 import spitapp.core.model.Appointment;
+import spitapp.core.model.User;
 
 /**
  * Single Point for every DB-Call
@@ -83,6 +85,15 @@ public class DatabaseService {
 		tx.commit();
 		
 		return resultList;
+	}
+	
+	public User getUserByUsername(String username){
+		Session session = sessionFactory.getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		User user = (User) session.createCriteria(User.class).add( Restrictions.like("userName", username) ).uniqueResult();
+		tx.commit();
+		
+		return user;
 	}
 	
 	/**

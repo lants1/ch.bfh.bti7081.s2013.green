@@ -13,7 +13,7 @@
  		<property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
 		<property name="show_sql">true</property>
 		<property name="format_sql">true</property>
-		<property name="hbm2ddl.auto">create</property>	
+	 	<!--  <property name="hbm2ddl.auto">create</property>-->
 		<property name="connection.pool_size">1</property>
 		<property name="current_session_context_class">thread</property>
 		<mapping resource="spitapp/core/model/Task.hbm.xml"></mapping>
@@ -21,5 +21,6 @@
 		<mapping resource="spitapp/core/model/Document.hbm.xml"></mapping>
 		<mapping resource="spitapp/core/model/Patient.hbm.xml"></mapping>
 		<mapping resource="spitapp/core/model/Appointment.hbm.xml"></mapping>
+		<mapping resource="spitapp/core/model/User.hbm.xml"></mapping>
 	</session-factory>
 </hibernate-configuration>
