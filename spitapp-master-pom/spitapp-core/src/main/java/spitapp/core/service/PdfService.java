@@ -1,7 +1,6 @@
 package spitapp.core.service;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
