@@ -7,7 +7,6 @@ import spitapp.controller.AppointmentChangedEvent;
 import spitapp.controller.AppointmentController;
 import spitapp.core.model.Patient;
 import spitapp.core.model.Document;
-import spitapp.core.service.PdfService;
 import spitapp.util.PdfStream;
 
 import com.vaadin.server.Resource;

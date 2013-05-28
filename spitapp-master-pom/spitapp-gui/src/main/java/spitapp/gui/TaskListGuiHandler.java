@@ -73,7 +73,7 @@ public class TaskListGuiHandler extends DetailGuiHandler {
 		});
 		mainLayout.addComponent(table_task, "top:17.0px;left:0.0px;");
 
-		// button_delete
+		// button_markasdone
 		button_markasdone = new Button();
 		button_markasdone.setCaption("Als erledigt markieren");
 		button_markasdone.setImmediate(true);

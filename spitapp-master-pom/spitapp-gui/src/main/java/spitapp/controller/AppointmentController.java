@@ -6,13 +6,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.lang3.time.DateUtils;
-
 import spitapp.core.model.Appointment;
 import spitapp.core.model.ExpensesEntry;
 import spitapp.core.model.Patient;
 import spitapp.core.model.Task;
-import spitapp.core.service.DatabaseService;
+import spitapp.core.service.UiServiceFacade;
 import spitapp.util.DateUtil;
 
 /**
@@ -44,7 +42,6 @@ public class AppointmentController {
 	 */
 	private List<AppointmentChangedListener> listeners = new ArrayList<AppointmentChangedListener>();
 
-	protected DatabaseService dbservice = null;
 
 	/**
 	 * the constructor
@@ -52,8 +49,7 @@ public class AppointmentController {
 	 * @param dbservice
 	 *            The reference to the DatabaseService to use
 	 */
-	public AppointmentController(DatabaseService dbservice) {
-		this.dbservice = dbservice;
+	public AppointmentController() {
 	}
 
 	/**
@@ -122,7 +118,7 @@ public class AppointmentController {
 		
 		this.appointments.clear();
 
-		List<Appointment> entries = this.dbservice.getAppointment(datetoload);
+		List<Appointment> entries = UiServiceFacade.getInstance().getAppointments(datetoload);
 		if (entries == null) {
 			return -2;
 		}
@@ -205,7 +201,7 @@ public class AppointmentController {
 			
 			patient.getExpenses().add(newexpense);
 			
-			this.dbservice.saveOrUpdate(appointment);
+			UiServiceFacade.getInstance().saveModel(appointment);
 		}
 		catch(NumberFormatException ex) {
 			return -4;
@@ -237,7 +233,7 @@ public class AppointmentController {
 				for(ExpensesEntry entry : expenses) {
 					if(entry.getExpensesId() == expense_id) {
 						expenses.remove(entry);
-						this.dbservice.saveOrUpdate(patient);
+						UiServiceFacade.getInstance().saveModel(patient);
 						//this.dbservice.delete(entry); doesnt work
 						return 1;
 					}
@@ -323,7 +319,29 @@ public class AppointmentController {
 		theTask.setStarttime(starttime);
 		theTask.setDuration(duration);
 		
-		this.dbservice.saveOrUpdate(theTask);
+		
+		UiServiceFacade.getInstance().saveModel(theTask);
+		
+		return 1;
+	}
+	
+	/**
+	 * Reactivates a task of the current patient
+	 * @param task_id the id of the task
+	 * @return 1 on success or -1 on failure
+	 */
+	public Integer reactivateTaskOfCurrentPatient(Long task_id) {
+				
+		Task theTask = getTaskById(task_id);
+		if(theTask == null) {
+			return -1;
+		}
+		
+		theTask.setDone(false);
+		theTask.setStarttime(null);
+		theTask.setDuration(0);
+		
+		UiServiceFacade.getInstance().saveModel(theTask);
 		
 		return 1;
 	}

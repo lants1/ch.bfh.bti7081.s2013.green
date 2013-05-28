@@ -3,7 +3,6 @@ package spitapp.gui;
 import java.util.Locale;
 
 import spitapp.controller.AppointmentController;
-import spitapp.core.service.DatabaseService;
 
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Alignment;
@@ -19,15 +18,12 @@ import com.vaadin.ui.VerticalLayout;
 @SuppressWarnings("serial")
 public class SpitAppMainUI extends UI
 {
-	DatabaseService dbservice = null;
-	
 	AppointmentController controller = null;
 	
     @Override
     protected void init(VaadinRequest request) {
     	
-    	dbservice = new DatabaseService();
-    	controller = new AppointmentController(dbservice);
+    	controller = new AppointmentController();
     	
     	// Set the root layout for the UI
     	VerticalLayout content = new VerticalLayout();
