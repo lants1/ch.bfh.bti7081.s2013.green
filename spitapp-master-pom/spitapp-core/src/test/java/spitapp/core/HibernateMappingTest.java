@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.FetchMode;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -24,7 +23,6 @@ import spitapp.core.model.Patient;
 import spitapp.core.model.ExpensesEntry;
 import spitapp.core.model.Task;
 import spitapp.core.model.Appointment;
-import spitapp.core.service.DatabaseService;
 import spitapp.core.service.PdfService;
 
 import org.junit.*;
@@ -54,7 +52,8 @@ public class HibernateMappingTest
     	Transaction tx = session.beginTransaction();
 		
     	// Delete oldTesttermin
-    	List<Appointment> appointmentList = session.createCriteria(Appointment.class).list();
+    	@SuppressWarnings("unchecked")
+		List<Appointment> appointmentList = session.createCriteria(Appointment.class).list();
 		for(Appointment appointment: appointmentList){
 			if(StringUtils.equals(appointment.getAppointmentDescription(), "testermin")){
 				session.delete(appointment);
@@ -109,6 +108,7 @@ public class HibernateMappingTest
 		Session session = sessionFactory.getCurrentSession();
 
 		Transaction tx = session.beginTransaction();
+		@SuppressWarnings("unchecked")
 		List<Patient> patienten = session.createCriteria(Patient.class).add( Restrictions.like("firstName", "S%"))
 			    .setMaxResults(50)
 			    .list();
@@ -123,6 +123,7 @@ public class HibernateMappingTest
 		Session session = sessionFactory.getCurrentSession();
 
 		Transaction tx = session.beginTransaction();
+		@SuppressWarnings("unchecked")
 		List<Appointment> appointments = session.createCriteria(Appointment.class)
 			    .list();
 		
@@ -146,6 +147,7 @@ public class HibernateMappingTest
 		Session session = sessionFactory.getCurrentSession();
 
 		Transaction tx = session.beginTransaction();
+		@SuppressWarnings("unchecked")
 		List<Appointment> appointments = session.createCriteria(Appointment.class)
 			    .list();
 		

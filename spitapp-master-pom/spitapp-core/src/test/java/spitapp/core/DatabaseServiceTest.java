@@ -7,13 +7,11 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
-import org.hibernate.FetchMode;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
@@ -55,7 +53,8 @@ public class DatabaseServiceTest
     	Transaction tx = session.beginTransaction();
 		
     	// Delete oldTesttermin
-    	List<Appointment> appointmentList = session.createCriteria(Appointment.class).list();
+    	@SuppressWarnings("unchecked")
+		List<Appointment> appointmentList = session.createCriteria(Appointment.class).list();
 		for(Appointment appointment: appointmentList){
 			if(StringUtils.equals(appointment.getAppointmentDescription(), "testermin2")){
 				session.delete(appointment);
