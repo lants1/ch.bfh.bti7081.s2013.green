@@ -1,7 +1,6 @@
 package spitapp.gui;
 
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
+import java.util.List;
 
 import spitapp.controller.AppointmentChangedEvent;
 import spitapp.controller.AppointmentController;
@@ -9,10 +8,7 @@ import spitapp.core.model.Patient;
 import spitapp.core.model.Document;
 import spitapp.util.PdfStream;
 
-import com.vaadin.server.Resource;
 import com.vaadin.server.StreamResource;
-import com.vaadin.server.StreamResource.StreamSource;
-import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.AbsoluteLayout;
 import com.vaadin.ui.BrowserFrame;
 import com.vaadin.ui.Button;
@@ -20,7 +16,6 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Embedded;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
 @SuppressWarnings("serial")
@@ -127,28 +122,35 @@ public class DocumentGuiHandler extends DetailGuiHandler {
 		btnDocument.setHeight("-1px");
 		btnDocument.addClickListener(new Button.ClickListener() {
 			public void buttonClick(ClickEvent event) {
-				PdfStream pdf = new PdfStream();
-		        pdf.setResource(controller.getCurrentAppointment().getPatient().getDocuments().get(0).getFile());
-		        
-				// A resource reference to some object
-				StreamResource resource = new StreamResource(pdf, "test.pdf?" + System.currentTimeMillis());
-				 
-				// Display the object
-				Embedded object = new Embedded("My PDF", resource);
-				object.setMimeType("application/pdf"); // Unnecessary
 				
-				Window window = new Window();
-		        window.setResizable(true);
+				Document currentDocument = controller.getCurrentAppointment().getPatient().getDocuments().get((int)cbxDocuments.getValue());
+				String docFileName = currentDocument.getFileName();
+				PdfStream pdf = new PdfStream();
+		        pdf.setResource(currentDocument.getFile());
+		        
+				// A resource reference to the pdf
+				StreamResource resource = new StreamResource(pdf, docFileName + ".pdf?" + System.currentTimeMillis());
+				 
+				// Embedded object for the pdf view
+				Embedded object = new Embedded("PDF Object", resource);
+				object.setMimeType("application/pdf");
+				
+				// Popup window
+				Window window = new Window(docFileName + ".pdf");
+		        window.setResizable(false);
 		        window.setWidth("800");
 		        window.setHeight("600");
 		        window.center();
+		        
+		        // Browser frame for the embedded pdf object
 		        BrowserFrame frame = new BrowserFrame();
-		        frame.setSizeFull();
+		        frame.setWidth(795, Unit.PIXELS);
+		        frame.setHeight(555, Unit.PIXELS);
 		        frame.setSource(resource);
+		        
+		        //Display the pdf
 		        window.setContent(frame);
-		        getUI().addWindow(window);
-				//cbxDocuments.getValue();
-
+		        getUI().addWindow(window);	        
 			}
 		}); 
 		mainLayout.addComponent(btnDocument, "top:198.0px;left:214.0px;");
@@ -164,6 +166,7 @@ public class DocumentGuiHandler extends DetailGuiHandler {
 		return mainLayout;
 	}
 
+
 	/**
 	 * method is called when the appointment changes to handle the new entries
 	 */
@@ -176,9 +179,11 @@ public class DocumentGuiHandler extends DetailGuiHandler {
 		careLevelData.setValue(patient.getCareLevel().toString());
 		hobbiesData.setValue(patient.getHobbies());
 		cbxDocuments.removeAllItems();
+		int i = 0;
 		for(Document doc : patient.getDocuments()) {
-			cbxDocuments.addItem(doc.getFileName());
-		}
-		
+			cbxDocuments.addItem(i);
+			cbxDocuments.setItemCaption(i, doc.getFileName());
+			++i;
+		}	
 	}
 }
