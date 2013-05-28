@@ -29,6 +29,12 @@
 		<property name="lastName" type="string">
 			<column name="last_name" length="20" not-null="true" />
 		</property>
+		<property name="street" type="string">
+			<column name="street" length="50" not-null="true" />
+		</property>
+		<property name="city" type="string">
+			<column name="city" length="50" not-null="true" />
+		</property>
 		 <list name="expenses" inverse="false" cascade="all-delete-orphan" lazy="false">
             <key column="expense_patient_ref"/>
             <index column="idx"/>
