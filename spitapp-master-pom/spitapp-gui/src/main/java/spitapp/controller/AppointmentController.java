@@ -9,6 +9,7 @@ import java.util.List;
 import spitapp.core.model.Appointment;
 import spitapp.core.model.ExpensesEntry;
 import spitapp.core.model.Patient;
+import spitapp.core.model.Task;
 import spitapp.core.service.DatabaseService;
 
 /**
@@ -164,6 +165,12 @@ public class AppointmentController {
 		}
 	}
 	
+	/**
+	 * Adds a new expense entry to current selected patient (via appointment)
+	 * @param descpription the descpription of the expense
+	 * @param amount the amount as decimal value in a string
+	 * @return 0 if successfull or lesser than 0 on failure
+	 */
 	public Integer addExpensetoCurrentPatient(String descpription, String amount) {
 		Double value = null;
 		
@@ -204,6 +211,11 @@ public class AppointmentController {
 		return 0;
 	}
 	
+	/**
+	 * Deletes an expesense on the current selected patient
+	 * @param expense_id the id of the expense to delete
+	 * @return 1 if successfull, 0 if not found or lesser than 0 on failure
+	 */
 	public Integer deleteExepenseOfCurrentPatient(Long expense_id) {
 		if(expense_id == null) {
 			return -4;
@@ -236,4 +248,96 @@ public class AppointmentController {
 		return 1;
 	}
 	
+	/**
+	 * Get's a task from the CURRENT PATIENT by Id
+	 * @param task_id the id of the task
+	 * @return The Task or null if not found
+	 */
+	public Task getTaskById(Long task_id) {
+		if(task_id == null) {
+			return null;
+		}
+		
+		Patient patient = this.getCurrentAppointment().getPatient();
+		if(patient == null) {
+			return null;
+		}
+		List<Task> tasks = patient.getTasks();
+		if(tasks == null) {
+			return null;
+		}
+		else {
+			try { 
+				for(Task entry : tasks) {
+					if(entry.getTaskId() == task_id) {
+						return entry;
+					}
+				}
+			}
+			catch(Exception ex) {
+				
+			}
+		}
+		
+		return null;
+	}
+
+	/**
+	 * Marks a task on the current selected patient as completed and adds a time record
+	 * @param task_id the id of the expense to delete
+	 * @return 1 if successfull, 0 if not found or lesser than 0 on failure
+	 */
+	public Integer completeTaskOfCurrentPatient(Long task_id, String starttime, String duration_input) {
+		
+		if(starttime == null || starttime.isEmpty()) {
+			return -4;
+		}
+				
+		if(duration_input == null || duration_input.isEmpty()) {
+			return -3;
+		}
+
+		// Let's prepare the input
+		String[] parts = starttime.split(":");
+		
+		if(parts.length != 2) {
+			return -2;
+		}
+		
+		Integer hours = null;
+		Integer minutes = null;
+		try {
+			hours = Integer.parseInt(parts[0]);
+			minutes = Integer.parseInt(parts[1]);
+		} 
+		catch(NumberFormatException ex) {
+			return -2;
+		}
+		
+		if(hours > 24 || hours < 0 || minutes > 59 || minutes < 0) {
+			return -2;
+		}
+		
+		Date theDate = new Date();
+		theDate.setHours(hours);
+		theDate.setMinutes(minutes);
+				
+		Integer duration = null;
+		try {
+			duration = Integer.parseInt(duration_input);
+		} 
+		catch(NumberFormatException ex) {
+			return -1;
+		}
+		
+		Task theTask = getTaskById(task_id);
+		if(theTask == null) {
+			return 0;
+		}
+		
+		theTask.setDone(true);
+		this.dbservice.saveOrUpdate(theTask);
+		
+		return 1;
+	}
 }
