@@ -85,6 +85,8 @@ public class DatabaseServiceTest
 
 		Task task = new Task();
 		task.setDescription("HighPrio");
+		task.setDuration(70);
+		task.setStarttime(new Date());
 		List<Task> tasks = new ArrayList<Task>();
 		tasks.add(task);
 

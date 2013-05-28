@@ -84,6 +84,8 @@ public class HibernateMappingTest
 
 		Task task = new Task();
 		task.setDescription("test2");
+		task.setStarttime(new Date());
+		task.setDuration(100);
 		List<Task> tasks = new ArrayList<Task>();
 		tasks.add(task);
 

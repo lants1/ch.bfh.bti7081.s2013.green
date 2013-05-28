@@ -12,6 +12,12 @@
 		<property name="description" type="string">
 			<column name="description" length="100" not-null="true" />
 		</property>
+		<property name="starttime" type="date">
+			<column name="starttime"/>
+		</property>
+		<property name="duration" type="int">
+			<column name="duration" />
+		</property>
 		<property name="done" type="boolean">
 			<column name="done" not-null="true" />
 		</property>

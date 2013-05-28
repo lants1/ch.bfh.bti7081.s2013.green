@@ -1,5 +1,7 @@
 package spitapp.core.model;
 
+import java.util.Date;
+
 /**
  * Hibernate Mapping Class for table Task
  * 
@@ -11,6 +13,10 @@ public class Task {
 
 	private String description;
 	
+	private Date starttime;
+	
+	private int duration;
+	
 	private boolean done;
 
 
@@ -20,6 +26,22 @@ public class Task {
 
 	public void setTaskId(Long taskId) {
 		this.taskId = taskId;
+	}
+	
+	public Date getStarttime() {
+		return starttime;
+	}
+
+	public void setStarttime(Date starttime) {
+		this.starttime = starttime;
+	}
+
+	public int getDuration() {
+		return duration;
+	}
+
+	public void setDuration(int duration) {
+		this.duration = duration;
 	}
 
 	public String getDescription() {
