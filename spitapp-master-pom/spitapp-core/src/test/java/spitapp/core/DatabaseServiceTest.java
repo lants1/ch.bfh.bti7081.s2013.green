@@ -83,12 +83,12 @@ public class DatabaseServiceTest
 		
 		Document dok = new Document();
 		dok.setFileName("Krankenakte");
-		dok.setFile(pdfService.createPdf("Krankenakte" + patientFirstName + patientLastName));
+		dok.setFile(pdfService.createPdf("Krankenakte " + patientFirstName + " " + patientLastName));
 		docList.add(dok);
 
 		Document dok2 = new Document();
 		dok2.setFileName("Allgemeine Infos");
-		dok2.setFile(pdfService.createPdf("Allgemeine Infos" + patientFirstName + patientLastName));
+		dok2.setFile(pdfService.createPdf("Allgemeine Infos " + patientFirstName+ " " + patientLastName));
 		docList.add(dok2);
 
 		Task task = new Task();
