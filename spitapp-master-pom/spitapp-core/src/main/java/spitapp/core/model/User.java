@@ -1,18 +1,11 @@
 package spitapp.core.model;
 
-import java.util.List;
-
-import javax.persistence.Transient;
-
-import org.hibernate.annotations.Entity;
-
 /**
  * Hibernate mapping Class for Table User
  * 
  * @author green
  *
  */
-@Entity
 public class User {
 
 	private Long userId;

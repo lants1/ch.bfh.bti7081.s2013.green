@@ -2,15 +2,12 @@ package spitapp.core.model;
 
 import java.util.List;
 
-import org.hibernate.annotations.Entity;
-
 /**
  * Hibernate mapping Class for Table Patient
  * 
  * @author green
  *
  */
-@Entity
 public class Patient {
 
 	private Long patId;

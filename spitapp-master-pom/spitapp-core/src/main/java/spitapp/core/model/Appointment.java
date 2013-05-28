@@ -2,8 +2,6 @@ package spitapp.core.model;
 
 import java.util.Date;
 
-import org.hibernate.annotations.Entity;
-
 import spitapp.core.model.state.AppointmentState;
 import spitapp.core.model.state.IrrelevantState;
 
@@ -13,7 +11,6 @@ import spitapp.core.model.state.IrrelevantState;
  * @author green
  *
  */
-@Entity
 public class Appointment {
 
 	private Long terminId;
