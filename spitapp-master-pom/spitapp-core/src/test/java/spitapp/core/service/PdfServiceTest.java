@@ -1,4 +1,4 @@
-package spitapp.core;
+package spitapp.core.service;
 
 import java.io.IOException;
 import com.lowagie.text.DocumentException;

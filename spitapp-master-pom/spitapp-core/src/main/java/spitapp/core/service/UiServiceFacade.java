@@ -1,4 +1,4 @@
-package spitapp.core.facade;
+package spitapp.core.service;
 
 import java.util.Date;
 import java.util.List;
@@ -6,8 +6,6 @@ import java.util.List;
 import spitapp.core.model.Appointment;
 import spitapp.core.model.SpitappSaveable;
 import spitapp.core.model.User;
-import spitapp.core.service.DatabaseService;
-import spitapp.core.service.UserService;
 
 /**
  * The UiServiceFacade is a additional abstraction layer.

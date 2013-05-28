@@ -13,7 +13,7 @@ import com.lowagie.text.pdf.PdfWriter;
  * @author green
  *
  */
-public class PdfService{
+class PdfService{
  
     public byte[] resource;
     
@@ -21,7 +21,7 @@ public class PdfService{
      * Creates a PDF
      * @param    args    no arguments needed
      */
-    public static void main(String[] args)
+    static void main(String[] args)
     	throws DocumentException{
     	new PdfService().createPdf("Hello World!");
     }
@@ -30,7 +30,7 @@ public class PdfService{
      * Creates a PDF document.
      * @throws    DocumentException
      */
-    public byte[] createPdf(String content) throws DocumentException{
+    byte[] createPdf(String content) throws DocumentException{
         // step 1
         Document document = new Document(PageSize.A4, 50, 50, 50, 50);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -48,7 +48,4 @@ public class PdfService{
 
 		return outputStream.toByteArray();
     }
-
-
-    
 }

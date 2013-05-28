@@ -1,9 +1,8 @@
-package spitapp.core;
+package spitapp.core.service;
 
 import java.io.IOException;
 import com.lowagie.text.DocumentException;
 
-import spitapp.core.facade.UiServiceFacade;
 import spitapp.core.service.DatabaseService;
 
 import org.junit.*;

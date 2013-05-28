@@ -23,7 +23,7 @@ import spitapp.core.model.User;
  * @author green
  *
  */
-public class DatabaseService {
+class DatabaseService {
 
 	private SessionFactory sessionFactory;
 	private ServiceRegistry serviceRegistry;
@@ -37,7 +37,7 @@ public class DatabaseService {
 	 * 
 	 * @param Object somethingToSave
 	 */
-	public void saveOrUpdate(SpitappSaveable somethingToSave) {
+	void saveOrUpdate(SpitappSaveable somethingToSave) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
 
@@ -51,7 +51,7 @@ public class DatabaseService {
 	 * 
 	 * @param Object somethingToDelete
 	 */
-	public void delete(SpitappSaveable somethingToDelete) {
+	void delete(SpitappSaveable somethingToDelete) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
 
@@ -63,7 +63,7 @@ public class DatabaseService {
 	/**
 	 * Get all appointments from Database with in this case useless State Pattern.
 	 */
-	public List<Appointment> getAppointment(Date date){
+	List<Appointment> getAppointment(Date date){
 		// TODO Lan with disabling the lazy loading we killed our Performance
 		// and one of the benefit of using hibernate
 		// Is there another better solution for our gui team...???
@@ -92,7 +92,7 @@ public class DatabaseService {
 	 * @param username
 	 * @return User
 	 */
-	public User getUserByUsername(String username){
+	 User getUserByUsername(String username){
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		User user = (User) session.createCriteria(User.class).add( Restrictions.like("userName", username) ).uniqueResult();

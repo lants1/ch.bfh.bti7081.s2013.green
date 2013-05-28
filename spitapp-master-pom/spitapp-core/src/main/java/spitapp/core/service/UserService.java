@@ -11,7 +11,7 @@ import spitapp.core.model.User;
  * @author green
  *
  */
-public class UserService {
+class UserService {
 
 	// Should be in a keystore file...
 	private final String salt = "hoschiç%&/()bim%&/(poschi";
@@ -22,7 +22,7 @@ public class UserService {
 	 * @param username
 	 * @param password
 	 */
-	public User storeUserAndPassword(String username, String password) {
+	User storeUserAndPassword(String username, String password) {
 		User user = new User();
 		byte[] hash = getHash(password);
 		user.setUserName(username);
@@ -37,7 +37,7 @@ public class UserService {
 	 * @param password
 	 * @return true if user and password are succesfully validated...
 	 */
-	public boolean validateUserAndPasswort(User user, String password){
+	boolean validateUserAndPasswort(User user, String password){
 		if(user != null){
 			byte[] givenPw = getHash(password);
 			return Arrays.equals(givenPw, user.getPassword());
