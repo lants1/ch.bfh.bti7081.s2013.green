@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.hibernate.FetchMode;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.ServiceRegistry;
@@ -19,7 +17,7 @@ import spitapp.core.model.Appointment;
 import spitapp.core.model.User;
 
 /**
- * Single Point for every DB-Call
+ * Single Point for every DB-Call.
  * 
  * @author green
  *
@@ -71,7 +69,8 @@ public class DatabaseService {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		// Get all Appointment from db without restriction o_O evil thing
-		List<Appointment> appointmentList = session.createCriteria(Appointment.class).setFetchMode("b", FetchMode.EAGER).list();
+		@SuppressWarnings("unchecked")
+		List<Appointment> appointmentList = session.createCriteria(Appointment.class).list();
 		List<Appointment> resultList = new ArrayList<Appointment>();
 		for(Appointment appointment : appointmentList){
 			// Call the Statepattern mechanism on each termin
@@ -87,6 +86,11 @@ public class DatabaseService {
 		return resultList;
 	}
 	
+	/**
+	 * Gets a User from db by username as parameter..
+	 * @param username
+	 * @return User
+	 */
 	public User getUserByUsername(String username){
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
