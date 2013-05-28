@@ -1,5 +1,6 @@
 package spitapp.core.service;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -11,6 +12,7 @@ import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.PdfWriter;
+import com.lowagie.text.pdf.codec.Base64.InputStream;
 
 /**
  * Service used to get and create PDF-Documents
@@ -18,13 +20,15 @@ import com.lowagie.text.pdf.PdfWriter;
  * @author green
  *
  */
-public class PdfService {
+public class PdfService{
 
 	 
     /** Path to the resulting PDF file. */
     public static final String RESULT
         = "hello.pdf";
  
+    public byte[] resource;
+    
     /**
      * Creates a PDF file: hello.pdf
      * @param    args    no arguments needed
@@ -77,6 +81,20 @@ public class PdfService {
     	
     	return myDocument;
     	
+    }
+    /**
+	 * @param resource the resource to set
+	 */
+	public void setResource(byte[] resource) {
+		this.resource = resource;
+	}
+
+    /**
+	 * @return resource as a ByteArrayInputStream
+	 */
+    public ByteArrayInputStream getStream() {
+        // Here we return the pdf contents as a byte-array
+        return new ByteArrayInputStream(resource);
     }
     
 }
