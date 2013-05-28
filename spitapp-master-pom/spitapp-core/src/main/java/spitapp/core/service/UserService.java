@@ -1,26 +1,12 @@
 package spitapp.core.service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-
 import org.apache.commons.codec.digest.DigestUtils;
-import org.hibernate.FetchMode;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.AnnotationConfiguration;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
-import org.hibernate.service.ServiceRegistryBuilder;
 
-import spitapp.core.model.Appointment;
 import spitapp.core.model.User;
 
 /**
- * UserService
+ * UserService handles every login things...
  * 
  * @author green
  *
@@ -29,8 +15,14 @@ public class UserService {
 
 	// Should be in a keystore file...
 	private final String salt = "hoschiç%&/()bim%&/(poschi";
-	DatabaseService dbService = new DatabaseService();
+	private DatabaseService dbService = new DatabaseService();
 	
+	/**
+	 * Creates a new UserLogin
+	 * 
+	 * @param username
+	 * @param password
+	 */
 	public void storeUserAndPassword(String username, String password) {
 		User user = new User();
 		byte[] hash = getHash(password);
@@ -39,6 +31,13 @@ public class UserService {
 		dbService.saveOrUpdate(user);
 	}
 	
+	/**
+	 * Used to validate username/password input
+	 * 
+	 * @param username
+	 * @param password
+	 * @return true if user and password are succesfully validated...
+	 */
 	public boolean validateUserAndPasswort(String username, String password){
 		User user = dbService.getUserByUsername(username);
 		if(user != null){
@@ -51,6 +50,12 @@ public class UserService {
 		}
 	}
 	
+	/**
+	 * Helpermethod, hashes a value with a salt...
+	 * 
+	 * @param password
+	 * @return
+	 */
 	private byte[] getHash(String password){
 		return DigestUtils.md5(password + salt);
 	}
