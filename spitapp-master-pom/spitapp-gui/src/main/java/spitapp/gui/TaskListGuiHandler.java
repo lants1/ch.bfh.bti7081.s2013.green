@@ -82,7 +82,6 @@ public class TaskListGuiHandler extends DetailGuiHandler {
 		button_markasdone.setHeight("-1px");
 		button_markasdone.addClickListener(new Button.ClickListener() {
 			public void buttonClick(ClickEvent event) {
-				button_markasdone.setCaption("window opened");
 				
 				Window subWindow = new Window("Bitte benötigte Zeit angeben");
 				subWindow.setModal(true);
@@ -99,14 +98,9 @@ public class TaskListGuiHandler extends DetailGuiHandler {
 				});
 				        
 				getUI().addWindow(subWindow);
-
-				
 			}
 		}); 
 		mainLayout.addComponent(button_markasdone, "top:17.0px;left:420.0px;");
-		
-		
-
 		
 		return mainLayout;
 	}
