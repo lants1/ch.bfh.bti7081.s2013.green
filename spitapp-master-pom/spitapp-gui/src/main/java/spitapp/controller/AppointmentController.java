@@ -287,9 +287,9 @@ public class AppointmentController {
 	 * @param task_id the id of the expense to delete
 	 * @return 1 if successfull, 0 if not found or lesser than 0 on failure
 	 */
-	public Integer completeTaskOfCurrentPatient(Long task_id, String starttime, String duration_input) {
+	public Integer completeTaskOfCurrentPatient(Long task_id, String starttime_input, String duration_input) {
 		
-		if(starttime == null || starttime.isEmpty()) {
+		if(starttime_input == null || starttime_input.isEmpty()) {
 			return -4;
 		}
 				
@@ -298,7 +298,7 @@ public class AppointmentController {
 		}
 
 		// Let's prepare the input
-		String[] parts = starttime.split(":");
+		String[] parts = starttime_input.split(":");
 		
 		if(parts.length != 2) {
 			return -2;
@@ -318,9 +318,9 @@ public class AppointmentController {
 			return -2;
 		}
 		
-		Date theDate = new Date();
-		theDate.setHours(hours);
-		theDate.setMinutes(minutes);
+		Date starttime = new Date();
+		starttime.setHours(hours);
+		starttime.setMinutes(minutes);
 				
 		Integer duration = null;
 		try {
@@ -336,6 +336,9 @@ public class AppointmentController {
 		}
 		
 		theTask.setDone(true);
+		theTask.setStarttime(starttime);
+		theTask.setDuration(duration);
+		
 		this.dbservice.saveOrUpdate(theTask);
 		
 		return 1;
