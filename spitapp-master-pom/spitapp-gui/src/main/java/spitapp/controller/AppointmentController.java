@@ -156,7 +156,7 @@ public class AppointmentController {
 	 * this method can be called whenever you want to notify the event listeners
 	 * of the AppointmentChangedEvent
 	 */
-	private synchronized void fireAppointmentChangedEvent() {
+	public synchronized void fireAppointmentChangedEvent() {
 		AppointmentChangedEvent event = new AppointmentChangedEvent(this);
 		Iterator<AppointmentChangedListener> i = this.listeners.iterator();
 		while (i.hasNext()) {
