@@ -6,11 +6,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.lang3.time.DateUtils;
+
 import spitapp.core.model.Appointment;
 import spitapp.core.model.ExpensesEntry;
 import spitapp.core.model.Patient;
 import spitapp.core.model.Task;
 import spitapp.core.service.DatabaseService;
+import spitapp.util.DateUtil;
 
 /**
  * controlls the appointment listing and fires an event, when an appointment
@@ -297,31 +300,12 @@ public class AppointmentController {
 			return -3;
 		}
 
-		// Let's prepare the input
-		String[] parts = starttime_input.split(":");
-		
-		if(parts.length != 2) {
+
+		Date starttime = DateUtil.getTodayWithSpecificTime(starttime_input);
+		if(starttime == null) {
 			return -2;
 		}
 		
-		Integer hours = null;
-		Integer minutes = null;
-		try {
-			hours = Integer.parseInt(parts[0]);
-			minutes = Integer.parseInt(parts[1]);
-		} 
-		catch(NumberFormatException ex) {
-			return -2;
-		}
-		
-		if(hours > 24 || hours < 0 || minutes > 59 || minutes < 0) {
-			return -2;
-		}
-		
-		Date starttime = new Date();
-		starttime.setHours(hours);
-		starttime.setMinutes(minutes);
-				
 		Integer duration = null;
 		try {
 			duration = Integer.parseInt(duration_input);
