@@ -8,7 +8,7 @@ import java.util.List;
  * @author green
  *
  */
-public class Patient {
+public class Patient implements SpitappSaveable{
 
 	private Long patId;
 	

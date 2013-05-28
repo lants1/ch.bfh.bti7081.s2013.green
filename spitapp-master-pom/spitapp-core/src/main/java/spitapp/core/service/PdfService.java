@@ -15,33 +15,25 @@ import com.lowagie.text.pdf.PdfWriter;
  *
  */
 public class PdfService{
-
-	 
-    /** Path to the resulting PDF file. */
-    public static final String RESULT
-        = "hello.pdf";
  
     public byte[] resource;
     
     /**
-     * Creates a PDF file: hello.pdf
+     * Creates a PDF
      * @param    args    no arguments needed
      */
     public static void main(String[] args)
-    	throws DocumentException, IOException {
-    	new PdfService().createPdf(RESULT);
+    	throws DocumentException{
+    	new PdfService().createPdf("Hello World!");
     }
  
     /**
      * Creates a PDF document.
-     * @param filename the path to the new PDF document
-     * @throws    DocumentException 
-     * @throws    IOException 
+     * @throws    DocumentException
      */
-    public byte[] createPdf(String filename)
-	throws DocumentException, IOException {
+    public byte[] createPdf(String content) throws DocumentException{
         // step 1
-        Document document = new Document();
+        Document document = new Document(PageSize.A4, 50, 50, 50, 50);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         // step 2
         PdfWriter.getInstance(document, outputStream );
@@ -58,23 +50,6 @@ public class PdfService{
 		return outputStream.toByteArray();
     }
 
-    /**
-     * Convert a ByteArray to Pdf
-     * @param byteArray the Data of Pdf in a ByteArray 
-     * @throws IOException 
-     * @throws DocumentException 
-     */
-    // TODO LAN this method don't work change it...
-    @Deprecated
-    public Document convertByteArrayToPdf (byte[] byteArray) throws IOException, DocumentException
-    {
-    	Document myDocument = new Document(PageSize.A4);
-    	myDocument.open();
-    	myDocument.add(new Paragraph(byteArray.toString()));
-    	myDocument.close();
-    	
-    	return myDocument;
-    	
-    }
+
     
 }

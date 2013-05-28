@@ -11,7 +11,7 @@ import spitapp.core.model.state.IrrelevantState;
  * @author green
  *
  */
-public class Appointment {
+public class Appointment implements SpitappSaveable{
 
 	private Long terminId;
 	

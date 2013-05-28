@@ -6,7 +6,7 @@ package spitapp.core.model;
  * @author green
  *
  */
-public class Document {
+public class Document implements SpitappSaveable{
 	
 	private long documentId;
 	

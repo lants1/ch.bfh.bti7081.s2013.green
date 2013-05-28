@@ -8,7 +8,7 @@ import java.util.Date;
  * @author green
  *
  */
-public class Task {
+public class Task implements SpitappSaveable{
 	private Long taskId;
 
 	private String description;

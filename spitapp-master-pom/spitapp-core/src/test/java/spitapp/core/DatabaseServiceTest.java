@@ -68,20 +68,28 @@ public class DatabaseServiceTest
 		termin.setFromDate(new Date());
 		termin.setToDate(new Date());
 
+		String patientFirstName = new String ("Pascal");
+		String patientLastName = new String ("von Ow");
 		Patient patient = new Patient();
 		patient.setAge(18);
 		patient.setCareLevel(CareLevel.B2);
 		patient.setHobbies("Joga");
-		patient.setFirstName("Pascal");
-		patient.setLastName("von Owl");
+		patient.setFirstName(patientFirstName);
+		patient.setLastName(patientLastName);
 
-		Document dok = new Document();
+
 		PdfService pdfService = new PdfService();
-		String fileName = "test";
-		dok.setFileName(fileName);
-		dok.setFile(pdfService.createPdf(fileName));
 		List<Document> docList = new ArrayList<Document>();
+		
+		Document dok = new Document();
+		dok.setFileName("Krankenakte");
+		dok.setFile(pdfService.createPdf("Krankenakte " + patientFirstName + " " + patientLastName));
 		docList.add(dok);
+
+		Document dok2 = new Document();
+		dok2.setFileName("Allgemeine Infos");
+		dok2.setFile(pdfService.createPdf("Allgemeine Infos " + patientFirstName+ " " + patientLastName));
+		docList.add(dok2);
 
 		Task task = new Task();
 		task.setDescription("HighPrio");
