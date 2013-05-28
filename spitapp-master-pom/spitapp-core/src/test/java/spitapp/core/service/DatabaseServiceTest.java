@@ -79,6 +79,8 @@ public class DatabaseServiceTest
 		patient.setAge(18);
 		patient.setCareLevel(CareLevel.B2);
 		patient.setHobbies("Joga");
+		patient.setStreet("Tschamerie 18");
+		patient.setCity("3415 Hasle b. Burgdorf");
 		patient.setFirstName(patientFirstName);
 		patient.setLastName(patientLastName);
 
