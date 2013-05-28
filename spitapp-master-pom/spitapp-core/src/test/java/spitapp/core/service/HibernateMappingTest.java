@@ -73,6 +73,8 @@ public class HibernateMappingTest
 		patient.setHobbies("Kong-Fu fighting");
 		patient.setFirstName("Swen");
 		patient.setLastName("Lanthemann");
+		patient.setStreet("Lindenweg 11");
+		patient.setCity("4565 Recherswil");
 
 		Document dok = new Document();
 		PdfService pdfService = new PdfService();
