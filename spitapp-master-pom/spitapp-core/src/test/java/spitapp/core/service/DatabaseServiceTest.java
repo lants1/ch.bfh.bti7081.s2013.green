@@ -2,7 +2,9 @@ package spitapp.core.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -65,8 +67,11 @@ public class DatabaseServiceTest
 		// Create a new Testtermin
 		Appointment termin = new Appointment();
 		termin.setAppointmentDescription("testermin2");
-		termin.setFromDate(new Date());
-		termin.setToDate(new Date());
+		Calendar calendar = new GregorianCalendar();
+		calendar.add(Calendar.HOUR_OF_DAY, -2);
+		termin.setFromDate(calendar.getTime());
+		calendar.add(Calendar.HOUR_OF_DAY, 4);
+		termin.setToDate(calendar.getTime());
 
 		String patientFirstName = new String ("Pascal");
 		String patientLastName = new String ("von Ow");
@@ -95,8 +100,16 @@ public class DatabaseServiceTest
 		task.setDescription("HighPrio");
 		task.setDuration(70);
 		task.setStarttime(new Date());
+		Task task2 = new Task();
+		task2.setDescription("HighPrio");
+		task2.setDuration(20);
+		Calendar cal = new GregorianCalendar();
+		cal.add(Calendar.DAY_OF_WEEK, -2);
+		task2.setStarttime(cal.getTime());
+		
 		List<Task> tasks = new ArrayList<Task>();
 		tasks.add(task);
+		tasks.add(task2);
 
 		ExpensesEntry spesen = new ExpensesEntry();
 		spesen.setExpensesDescription("Pizza");
