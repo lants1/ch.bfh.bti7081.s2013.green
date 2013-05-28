@@ -39,7 +39,7 @@ class PdfService{
         // step 3
         document.open();
         // step 4
-        document.add(new Paragraph("Hello World!"));
+        document.add(new Paragraph(content));
         document.setPageCount(1);
         // step 5
         document.close();
