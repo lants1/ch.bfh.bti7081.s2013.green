@@ -15,7 +15,6 @@ public class UserService {
 
 	// Should be in a keystore file...
 	private final String salt = "hoschiç%&/()bim%&/(poschi";
-	private DatabaseService dbService = new DatabaseService();
 	
 	/**
 	 * Creates a new UserLogin
@@ -23,12 +22,12 @@ public class UserService {
 	 * @param username
 	 * @param password
 	 */
-	public void storeUserAndPassword(String username, String password) {
+	public User storeUserAndPassword(String username, String password) {
 		User user = new User();
 		byte[] hash = getHash(password);
 		user.setUserName(username);
 		user.setPassword(hash);
-		dbService.saveOrUpdate(user);
+		return user;
 	}
 	
 	/**
@@ -38,8 +37,7 @@ public class UserService {
 	 * @param password
 	 * @return true if user and password are succesfully validated...
 	 */
-	public boolean validateUserAndPasswort(String username, String password){
-		User user = dbService.getUserByUsername(username);
+	public boolean validateUserAndPasswort(User user, String password){
 		if(user != null){
 			byte[] givenPw = getHash(password);
 			return Arrays.equals(givenPw, user.getPassword());

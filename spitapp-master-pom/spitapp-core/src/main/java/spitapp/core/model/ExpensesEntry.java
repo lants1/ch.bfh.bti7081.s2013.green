@@ -6,7 +6,7 @@ package spitapp.core.model;
  * @author green
  *
  */
-public class ExpensesEntry {
+public class ExpensesEntry implements SpitappSaveable{
 	private long expensesId;
 	
 	private String expensesDescription;

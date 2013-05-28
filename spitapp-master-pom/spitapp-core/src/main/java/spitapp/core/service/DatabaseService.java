@@ -14,6 +14,7 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
 import spitapp.core.model.Appointment;
+import spitapp.core.model.SpitappSaveable;
 import spitapp.core.model.User;
 
 /**
@@ -36,7 +37,7 @@ public class DatabaseService {
 	 * 
 	 * @param Object somethingToSave
 	 */
-	public void saveOrUpdate(Object somethingToSave) {
+	public void saveOrUpdate(SpitappSaveable somethingToSave) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
 
@@ -50,7 +51,7 @@ public class DatabaseService {
 	 * 
 	 * @param Object somethingToDelete
 	 */
-	public void delete(Object somethingToDelete) {
+	public void delete(SpitappSaveable somethingToDelete) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
 
