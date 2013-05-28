@@ -99,8 +99,8 @@ public class AppointmentGuiHandler extends DetailGuiHandler {
 	}
 
 	/**
-	 * 
-	 * @return
+	 * Builds the main layout
+	 * @return the mainLayout
 	 */
 	private AbsoluteLayout buildMainLayout() {
 		// create the top layout
