@@ -2,6 +2,8 @@ package spitapp.core.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import spitapp.core.model.Appointment;
 import spitapp.core.model.SpitappSaveable;
@@ -23,6 +25,9 @@ public class UiServiceFacade {
 	private UserService userService;
 	
 	private static volatile UiServiceFacade singleton = null;
+	
+	private final static Logger logger =
+	          Logger.getLogger(UiServiceFacade.class.getName());
 
 	private UiServiceFacade(){
 		this.dbService = new DatabaseService();
@@ -37,6 +42,8 @@ public class UiServiceFacade {
 	 public static UiServiceFacade getInstance() {
 	        if (singleton == null) {
 	            singleton = new UiServiceFacade();
+	            logger.log(Level.INFO, "UiServiceFacade singleton initialized");
+	            
 	        }
 	        return singleton;
 	    }
