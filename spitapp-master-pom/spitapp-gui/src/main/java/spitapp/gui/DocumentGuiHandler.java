@@ -1,7 +1,5 @@
 package spitapp.gui;
 
-import java.util.List;
-
 import spitapp.controller.AppointmentChangedEvent;
 import spitapp.controller.AppointmentController;
 import spitapp.core.model.Patient;

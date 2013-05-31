@@ -17,8 +17,6 @@ import com.lowagie.text.pdf.PdfWriter;
  *
  */
 class PdfService{
- 
-    public byte[] resource;
     
     /**
      * Creates a PDF

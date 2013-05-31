@@ -1,7 +1,5 @@
 package spitapp.controller;
 
-import java.util.EventObject;
-
 /**
  * Class for the Event when an Appoinment changes
  * @author Roger Jaggi

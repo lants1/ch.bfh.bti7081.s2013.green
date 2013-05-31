@@ -73,8 +73,8 @@ public class DatabaseServiceTest
 		calendar.add(Calendar.HOUR_OF_DAY, 4);
 		termin.setToDate(calendar.getTime());
 
-		String patientFirstName = new String ("Pascal");
-		String patientLastName = new String ("von Ow");
+		String patientFirstName = String.valueOf("Pascal");
+		String patientLastName = String.valueOf("von Ow");
 		Patient patient = new Patient();
 		patient.setAge(18);
 		patient.setCareLevel(CareLevel.B2);
