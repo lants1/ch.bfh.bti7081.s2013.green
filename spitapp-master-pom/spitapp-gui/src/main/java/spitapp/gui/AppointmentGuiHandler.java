@@ -11,7 +11,7 @@ import spitapp.util.DateUtil;
 
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
-import com.vaadin.ui.AbsoluteLayout;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.HorizontalLayout;
@@ -30,7 +30,7 @@ public class AppointmentGuiHandler extends DetailGuiHandler {
 	/**
 	 * the GUI components
 	 */
-	private AbsoluteLayout mainLayout;
+	private VerticalLayout mainLayout;
 	private Button forward;
 	private PopupDateField datePopup;
 	private Button backward;
@@ -72,7 +72,7 @@ public class AppointmentGuiHandler extends DetailGuiHandler {
 			
 			
 			Integer itemcount = this.controller.loadAppointmentsByDate(newDate);
-			appointments.setCaption("Es wurden " + itemcount.toString() + " Einträge gefunden.");
+			appointments.setCaption("Es sind " + itemcount.toString() + " Patiententermine geplant:");
 			
 			if( itemcount > 0 ) {
 
@@ -98,28 +98,22 @@ public class AppointmentGuiHandler extends DetailGuiHandler {
 	 * @return the mainLayout
 	 */
 	@SuppressWarnings("serial")
-	private AbsoluteLayout buildMainLayout() {
+	private VerticalLayout buildMainLayout() {
 		// create the top layout
-		mainLayout = new AbsoluteLayout();
+		mainLayout = new VerticalLayout();
 		mainLayout.setImmediate(false);
 		mainLayout.setWidth("100%");
-		mainLayout.setHeight("100%");
+		mainLayout.setHeight("-1");
+		//mainLayout.setMargin(true);
 		
 		// top-level component properties
-		setWidth("100.0%");
+		setWidth("300px");
 		setHeight("100.0%");
-		
-		//layout for Appointment section
-		VerticalLayout terminLayout = new VerticalLayout();
-		terminLayout.setMargin(true);
-		
-		//layout for the buttons forward, date, backward
-		HorizontalLayout buttonLayout = new HorizontalLayout();
 
 		// table_termine
 		appointments = new Table("Termine");
 		appointments.setWidth("100.0%");
-		appointments.setHeight("-1px");
+		appointments.setHeight("100.0%");
 		/* Define the names and data types of columns.
 		 * The "default value" parameter is meaningless here. */
 		appointments.addContainerProperty("Patient", String.class,  null);
@@ -132,7 +126,7 @@ public class AppointmentGuiHandler extends DetailGuiHandler {
 		appointments.addValueChangeListener(new ValueChangeListener() {
 		    public void valueChange(ValueChangeEvent event) {
 		    	// appointment changed
-		    	appointments.setCaption("Selected: " + appointments.getValue());
+		    	//appointments.setCaption("Selected: " + appointments.getValue());
 		    	
 		    	if( appointments.getValue() != null) {
 		    		referenced_detailtab.setVisible(true);
@@ -181,13 +175,24 @@ public class AppointmentGuiHandler extends DetailGuiHandler {
 			}
 		}); 		
 		
-		//Set the layout together
+		//layout for the buttons forward, date, backward
+		HorizontalLayout buttonLayout = new HorizontalLayout();
+		buttonLayout.setHeight("100px");
+		buttonLayout.setWidth("100%");
+		buttonLayout.setSpacing(true);
 		buttonLayout.addComponent(backward);
 		buttonLayout.addComponent(datePopup);
 		buttonLayout.addComponent(forward);
-		terminLayout.addComponent(appointments);
-		terminLayout.addComponent(buttonLayout);
-		mainLayout.addComponent(terminLayout);
+		
+		HorizontalLayout appointmentLayout = new HorizontalLayout();
+		appointmentLayout.setHeight("400px");
+		appointmentLayout.setWidth("100%");
+		appointmentLayout.addComponent(appointments);
+		
+		//Set the layout together
+		mainLayout.addComponent(appointmentLayout);
+		mainLayout.addComponent(buttonLayout);
+		mainLayout.setComponentAlignment(buttonLayout, Alignment.MIDDLE_CENTER);
 		
 		return mainLayout;
 	}
