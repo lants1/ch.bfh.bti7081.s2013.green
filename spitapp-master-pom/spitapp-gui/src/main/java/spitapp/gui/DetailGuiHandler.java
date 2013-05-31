@@ -9,8 +9,12 @@ import com.vaadin.ui.CustomComponent;
  * @author Roger Jaggi jaggr2
  *
  */
-@SuppressWarnings("serial")
 public abstract class DetailGuiHandler extends CustomComponent implements AppointmentChangedListener  {
+	
+	/**
+	 * generated serial
+	 */
+	private static final long serialVersionUID = -4845867157608520500L;
 	
 	/**
 	 * reference to the AppointmentController

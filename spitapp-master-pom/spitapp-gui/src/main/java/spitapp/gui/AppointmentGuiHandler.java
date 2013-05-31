@@ -53,7 +53,9 @@ public class AppointmentGuiHandler extends DetailGuiHandler {
 		DateChanged(datePopup.getValue());
 	}
 	
-
+	/**
+	 * fires when the user changes the appointment
+	 */
 	@Override
 	public void handleAppointmentChangedEvent(AppointmentChangedEvent e) {
 		// do nothing here

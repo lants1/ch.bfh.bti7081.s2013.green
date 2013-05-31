@@ -128,13 +128,12 @@ public class TaskTimeGuiHandler extends DetailGuiHandler {
 		}
 	}
 	
+	/**
+	 * fires when the user changes the appointment
+	 */
 	@Override
 	public void handleAppointmentChangedEvent(AppointmentChangedEvent e) {
-		
-		this.controller = (AppointmentController)e.getSource();
-		
 		this.reload_tasks();
-		
 	}
 
 }

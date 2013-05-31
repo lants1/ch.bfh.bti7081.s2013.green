@@ -194,14 +194,17 @@ public class ExpensesGuiHandler extends DetailGuiHandler {
 		return mainLayout;
 	}
 
+	/**
+	 * fires when the user changes the appointment
+	 */
 	@Override
 	public void handleAppointmentChangedEvent(AppointmentChangedEvent e) {
-		
-		this.controller = (AppointmentController)e.getSource();
-		
 		this.reload_expenses();
 	}
 	
+	/**
+	 * reloads expenses table
+	 */
 	public void reload_expenses() {
 		Patient patient = this.controller.getCurrentAppointment().getPatient();
 		
