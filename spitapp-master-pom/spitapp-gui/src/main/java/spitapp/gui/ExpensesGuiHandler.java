@@ -12,16 +12,18 @@ import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.ui.AbsoluteLayout;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.ComboBox;
-import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.TextField;
 
-@SuppressWarnings("serial")
 public class ExpensesGuiHandler extends DetailGuiHandler {
 
+	/**
+	 * the generated Serial
+	 */
+	private static final long serialVersionUID = 3873228414539845811L;
+	
 	private AbsoluteLayout mainLayout;
 	private Label label_new;
 	private Label label_currency;
@@ -31,7 +33,6 @@ public class ExpensesGuiHandler extends DetailGuiHandler {
 	private TextField textfield_expensetype;
 	private Table table_expenses;
 	
-	private AppointmentController current_controller = null;
 	/**
 	 * The constructor should first build the main layout, set the
 	 * composition root and then do any custom initialization.
@@ -70,7 +71,12 @@ public class ExpensesGuiHandler extends DetailGuiHandler {
 		table_expenses.setImmediate(true);
 		// Handle selection change.
 		table_expenses.addValueChangeListener(new ValueChangeListener() {
-		    public void valueChange(ValueChangeEvent event) {
+		    /**
+			 * generated serial
+			 */
+			private static final long serialVersionUID = -3062037745866406218L;
+
+			public void valueChange(ValueChangeEvent event) {
 		    	button_delete.setEnabled(table_expenses.getValue() != null);
 		    }
 		});		
@@ -98,6 +104,11 @@ public class ExpensesGuiHandler extends DetailGuiHandler {
 		button_add.setWidth("-1px");
 		button_add.setHeight("-1px");
 		button_add.addClickListener(new Button.ClickListener() {
+			/**
+			 * generated serial
+			 */
+			private static final long serialVersionUID = 8687670334388521170L;
+
 			public void buttonClick(ClickEvent event) {
 				
 				String expensetype = null;
@@ -108,7 +119,7 @@ public class ExpensesGuiHandler extends DetailGuiHandler {
 				String value = textfield_amount.getValue();
 				
 				
-				Integer returnvalue = current_controller.addExpensetoCurrentPatient(expensetype, value);
+				Integer returnvalue = controller.addExpensetoCurrentPatient(expensetype, value);
 				switch(returnvalue) {
 				case 0:  // all ok, reload expenses
 					textfield_amount.setValue("");
@@ -157,6 +168,11 @@ public class ExpensesGuiHandler extends DetailGuiHandler {
 		button_delete.setWidth("-1px");
 		button_delete.setHeight("-1px");
 		button_delete.addClickListener(new Button.ClickListener() {
+			/**
+			 * generated serial
+			 */
+			private static final long serialVersionUID = 4045911914165531751L;
+
 			public void buttonClick(ClickEvent event) {
 				Long id_to_delete = (Long)table_expenses.getValue();
 				
@@ -181,13 +197,13 @@ public class ExpensesGuiHandler extends DetailGuiHandler {
 	@Override
 	public void handleAppointmentChangedEvent(AppointmentChangedEvent e) {
 		
-		this.current_controller = (AppointmentController)e.getSource();
+		this.controller = (AppointmentController)e.getSource();
 		
 		this.reload_expenses();
 	}
 	
 	public void reload_expenses() {
-		Patient patient = this.current_controller.getCurrentAppointment().getPatient();
+		Patient patient = this.controller.getCurrentAppointment().getPatient();
 		
 		table_expenses.removeAllItems();
 		
@@ -201,7 +217,7 @@ public class ExpensesGuiHandler extends DetailGuiHandler {
 		
 				for(ExpensesEntry entry : expenses) {
 					// Add a row into the table as object array
-					Long id = (Long)table_expenses.addItem(new Object[] { entry.getExpensesDescription(), entry.getPrice() }, entry.getExpensesId());
+					table_expenses.addItem(new Object[] { entry.getExpensesDescription(), entry.getPrice() }, entry.getExpensesId());
 				}	
 			}
 			catch(Exception ex) {
