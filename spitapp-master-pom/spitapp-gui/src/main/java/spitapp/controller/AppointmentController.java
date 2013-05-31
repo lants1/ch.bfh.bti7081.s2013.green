@@ -266,16 +266,11 @@ public class AppointmentController {
 			return null;
 		}
 		else {
-			try { 
 				for(Task entry : tasks) {
 					if(entry.getTaskId() == task_id) {
 						return entry;
 					}
 				}
-			}
-			catch(Exception ex) {
-				
-			}
 		}
 		
 		return null;

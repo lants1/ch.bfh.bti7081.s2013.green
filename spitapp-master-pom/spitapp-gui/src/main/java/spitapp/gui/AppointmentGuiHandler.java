@@ -50,7 +50,7 @@ public class AppointmentGuiHandler extends DetailGuiHandler {
 		setCompositionRoot(mainLayout);
 
 		// initialize with actual date
-		DateChanged(datePopup.getValue());
+		dateChanged(datePopup.getValue());
 	}
 	
 	/**
@@ -65,7 +65,7 @@ public class AppointmentGuiHandler extends DetailGuiHandler {
 	 * method is called when the date changes to handle the new appointments
 	 * @param newDate the chosen date
 	 */
-	public void DateChanged(Date newDate) {
+	public void dateChanged(Date newDate) {
 		referenced_detailtab.setVisible(false);
 		
 		if(appointments.removeAllItems()) {
@@ -165,7 +165,7 @@ public class AppointmentGuiHandler extends DetailGuiHandler {
 		datePopup.setValue(new Date());
 		datePopup.addValueChangeListener(new ValueChangeListener() {
 		    public void valueChange(ValueChangeEvent event) {
-		        DateChanged(datePopup.getValue());
+		        dateChanged(datePopup.getValue());
 		    }
 		});
 		

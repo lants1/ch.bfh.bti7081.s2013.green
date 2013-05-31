@@ -113,7 +113,7 @@ public class ExpensesGuiHandler extends DetailGuiHandler {
 				
 				String expensetype = null;
 				if( textfield_expensetype.getValue() != null ) {
-					expensetype = textfield_expensetype.getValue().toString();
+					expensetype = textfield_expensetype.getValue();
 				}
 			
 				String value = textfield_amount.getValue();
