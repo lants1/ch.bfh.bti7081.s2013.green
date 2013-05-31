@@ -13,25 +13,21 @@ import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.ui.AbsoluteLayout;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.Layout;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Window.CloseEvent;
-import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Window;
 
-@SuppressWarnings("serial")
+
 public class TaskTimeGuiHandler extends DetailGuiHandler {
+	
+	/**
+	 * generated serial 
+	 */
+	private static final long serialVersionUID = 6514457886849736293L;
 	
 	// the gui components
 	private AbsoluteLayout mainLayout;
 	private Table table_task;
 	private Button button_reactivate;
-	
-	private AppointmentController current_controller = null;
-	private UI parent_ui = null;
 	
 	/**
 	 * The constructor
@@ -69,7 +65,12 @@ public class TaskTimeGuiHandler extends DetailGuiHandler {
 		table_task.setImmediate(true);
 		// Handle selection change.
 		table_task.addValueChangeListener(new ValueChangeListener() {
-		    public void valueChange(ValueChangeEvent event) {
+		    /**
+			 * generated serial
+			 */
+			private static final long serialVersionUID = 7929535357941491648L;
+
+			public void valueChange(ValueChangeEvent event) {
 		    	button_reactivate.setEnabled(table_task.getValue() != null);
 		    }
 		});
@@ -83,8 +84,13 @@ public class TaskTimeGuiHandler extends DetailGuiHandler {
 		button_reactivate.setWidth("-1px");
 		button_reactivate.setHeight("-1px");
 		button_reactivate.addClickListener(new Button.ClickListener() {
+			/**
+			 * generated serial
+			 */
+			private static final long serialVersionUID = 3711851523654603355L;
+
 			public void buttonClick(ClickEvent event) {
-				Integer result = controller.reactivateTaskOfCurrentPatient((Long)table_task.getValue());
+				controller.reactivateTaskOfCurrentPatient((Long)table_task.getValue());
 				reload_tasks();
 			}
 		}); 
@@ -95,7 +101,7 @@ public class TaskTimeGuiHandler extends DetailGuiHandler {
 
 	public void reload_tasks() {
 		
-		Patient patient = this.current_controller.getCurrentAppointment().getPatient();
+		Patient patient = this.controller.getCurrentAppointment().getPatient();
 		
 		table_task.removeAllItems();
 		
@@ -109,7 +115,7 @@ public class TaskTimeGuiHandler extends DetailGuiHandler {
 				for(Task entry : tasks) {
 					// Add a row into the table as object array
 					if(entry.isDone()) {
-						Long id = (Long)table_task.addItem(new Object[] { entry.getDescription(), entry.getStarttime(), entry.getDuration() }, entry.getTaskId());
+						table_task.addItem(new Object[] { entry.getDescription(), entry.getStarttime(), entry.getDuration() }, entry.getTaskId());
 						count += 1;
 					}
 				}
@@ -125,7 +131,7 @@ public class TaskTimeGuiHandler extends DetailGuiHandler {
 	@Override
 	public void handleAppointmentChangedEvent(AppointmentChangedEvent e) {
 		
-		this.current_controller = (AppointmentController)e.getSource();
+		this.controller = (AppointmentController)e.getSource();
 		
 		this.reload_tasks();
 		

@@ -12,25 +12,23 @@ import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.ui.AbsoluteLayout;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.Layout;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Window.CloseEvent;
-import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
-@SuppressWarnings("serial")
+
 public class TaskListGuiHandler extends DetailGuiHandler {
+	
+	/**
+	 * generated serial
+	 */
+	private static final long serialVersionUID = -9094411487283778870L;
 	
 	// the gui components
 	private AbsoluteLayout mainLayout;
 	private Table table_task;
 	private Button button_markasdone;
-	
-	private AppointmentController current_controller = null;
-	private UI parent_ui = null;
 	
 	/**
 	 * The constructor
@@ -67,7 +65,12 @@ public class TaskListGuiHandler extends DetailGuiHandler {
 		table_task.setImmediate(true);
 		// Handle selection change.
 		table_task.addValueChangeListener(new ValueChangeListener() {
-		    public void valueChange(ValueChangeEvent event) {
+		    /**
+			 * generated serial
+			 */
+			private static final long serialVersionUID = 1136199457931977289L;
+
+			public void valueChange(ValueChangeEvent event) {
 		    	button_markasdone.setEnabled(table_task.getValue() != null);
 		    }
 		});
@@ -81,6 +84,11 @@ public class TaskListGuiHandler extends DetailGuiHandler {
 		button_markasdone.setWidth("-1px");
 		button_markasdone.setHeight("-1px");
 		button_markasdone.addClickListener(new Button.ClickListener() {
+			/**
+			 * generated serial
+			 */
+			private static final long serialVersionUID = -6903210547693151759L;
+
 			public void buttonClick(ClickEvent event) {
 				
 				Window subWindow = new Window("Bitte benötigte Zeit angeben");
@@ -91,6 +99,11 @@ public class TaskListGuiHandler extends DetailGuiHandler {
 				subWindow.setPositionY(200);
 				subWindow.setContent(new TaskDoneSubGui(controller, (Long)table_task.getValue(), subWindow));
 				subWindow.addCloseListener(new Window.CloseListener() {	
+					/**
+					 * generated serial
+					 */
+					private static final long serialVersionUID = -4404474000034908974L;
+
 					@Override
 					public void windowClose(CloseEvent e) {
 						reload_tasks();
@@ -107,7 +120,7 @@ public class TaskListGuiHandler extends DetailGuiHandler {
 
 	public void reload_tasks() {
 		
-		Patient patient = this.current_controller.getCurrentAppointment().getPatient();
+		Patient patient = this.controller.getCurrentAppointment().getPatient();
 		
 		table_task.removeAllItems();
 		
@@ -121,7 +134,7 @@ public class TaskListGuiHandler extends DetailGuiHandler {
 		
 				for(Task entry : tasks) {
 					// Add a row into the table as object array
-					Long id = (Long)table_task.addItem(new Object[] { entry.getDescription(), ( entry.isDone() ? "Ja" : "Nein" ) }, entry.getTaskId());
+					table_task.addItem(new Object[] { entry.getDescription(), ( entry.isDone() ? "Ja" : "Nein" ) }, entry.getTaskId());
 				}	
 			}
 			catch(Exception ex) {
@@ -133,7 +146,7 @@ public class TaskListGuiHandler extends DetailGuiHandler {
 	@Override
 	public void handleAppointmentChangedEvent(AppointmentChangedEvent e) {
 		
-		this.current_controller = (AppointmentController)e.getSource();
+		this.controller = (AppointmentController)e.getSource();
 		
 		this.reload_tasks();
 		

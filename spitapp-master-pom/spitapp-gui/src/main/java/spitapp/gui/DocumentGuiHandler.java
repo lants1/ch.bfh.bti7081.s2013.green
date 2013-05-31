@@ -1,7 +1,5 @@
 package spitapp.gui;
 
-import java.util.List;
-
 import spitapp.controller.AppointmentChangedEvent;
 import spitapp.controller.AppointmentController;
 import spitapp.core.model.Patient;
@@ -18,9 +16,13 @@ import com.vaadin.ui.Embedded;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Window;
 
-@SuppressWarnings("serial")
+
 public class DocumentGuiHandler extends DetailGuiHandler {
 
+	/**
+	 * generated serial
+	 */
+	private static final long serialVersionUID = -5744285594661791699L;
 	// the gui components
 	private AbsoluteLayout mainLayout;
 	private Label age;
@@ -121,6 +123,11 @@ public class DocumentGuiHandler extends DetailGuiHandler {
 		btnDocument.setWidth("-1px");
 		btnDocument.setHeight("-1px");
 		btnDocument.addClickListener(new Button.ClickListener() {
+			/**
+			 * generated serial
+			 */
+			private static final long serialVersionUID = -8378559164582148290L;
+
 			public void buttonClick(ClickEvent event) {
 				
 				Document currentDocument = controller.getCurrentAppointment().getPatient().getDocuments().get((int)cbxDocuments.getValue());
