@@ -98,8 +98,8 @@ public class SpitAppView extends CustomComponent implements View {
         header.addComponent(titleLayout);
 
         titleLayout = new CssLayout();
-        Label user = new Label("Hallo, Gast!");
-        user.setSizeUndefined();
+        user = new Label("Hallo, Gast!");
+        user.setWidth("100%");
         titleLayout.addComponent(user);
 
         HorizontalLayout buttons = new HorizontalLayout();
@@ -204,7 +204,6 @@ public class SpitAppView extends CustomComponent implements View {
             help.setCloseShortcut(KeyCode.ESCAPE, null);
 
             help.center();
-            help.setStyleName(Reindeer.WINDOW_LIGHT);
             help.setWidth("400px");
             help.setResizable(false);
 
