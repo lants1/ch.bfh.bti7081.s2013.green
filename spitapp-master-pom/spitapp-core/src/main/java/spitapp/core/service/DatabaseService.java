@@ -100,8 +100,8 @@ class DatabaseService {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		User user = (User) session.createCriteria(User.class).add( Restrictions.like("userName", username) ).uniqueResult();
+		logger.log(Level.INFO, user!=null ? user.getUserName() : ""+" fetched from DB");
 		tx.commit();
-		logger.log(Level.INFO, user.getUserName()+" fetched from DB");
 		return user;
 	}
 	
