@@ -5,14 +5,26 @@ import java.io.InputStream;
 
 import com.vaadin.server.StreamResource.StreamSource;
 
+/**
+ * PdfStream class to handle pdf documents
+ * @author green
+ */
 public class PdfStream implements StreamSource {
 	
+	private static final long serialVersionUID = 6367988474586312060L;
 	private byte[] resource;
+	
+    /**
+     * returns the pdf contents
+     */
     @Override
     public InputStream getStream() {
-        // Here we return the pdf contents
         return new ByteArrayInputStream(resource);
     }
+    /**
+     * sets the pdf resource
+     * @param file the pdf resource to set
+     */
 	public void setResource(byte[] file) {
 		this.resource = file;
 	}
