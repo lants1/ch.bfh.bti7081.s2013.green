@@ -1,17 +1,9 @@
 package spitapp.gui;
 
-import java.util.Locale;
-
-import spitapp.controller.AppointmentController;
-
+import com.vaadin.navigator.Navigator;
+import com.vaadin.navigator.ViewChangeListener;	
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.ui.Alignment;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.TabSheet.SelectedTabChangeEvent;
 
 /**
  * The Application's "main" class
@@ -19,53 +11,59 @@ import com.vaadin.ui.TabSheet.SelectedTabChangeEvent;
 @SuppressWarnings("serial")
 public class SpitAppMainUI extends UI
 {
-	AppointmentController controller = null;
 	
     @Override
     protected void init(VaadinRequest request) {
     	
-    	controller = new AppointmentController();
-    	
-    	// Set the root layout for the UI
-    	VerticalLayout content = new VerticalLayout();
-    	setContent(content);
-    	content.setLocale(Locale.GERMAN);
-    	 
-    	// Add the topmost component.
-    	Label title = new Label("SpitApp Webfrontend made with Vaadin by Swen, Pascal[1], Pascal[2] and Roger");
-    	title.setWidth(800, Unit.PIXELS);
-    	title.setHeight(50, Unit.PIXELS);
-    	content.addComponent(title);
-    	content.setComponentAlignment(title, Alignment.MIDDLE_LEFT);
-    	 
-    	// Add a horizontal layout for the bottom part.
-    	HorizontalLayout bottom = new HorizontalLayout();
-    	content.addComponent(bottom);
-        
-        // Add a tabsheet with the other GUI components
-        TabSheet tabsheet = new TabSheet();
-        tabsheet.setHeight(600, Unit.PIXELS);
-        tabsheet.setWidth(600, Unit.PIXELS);
-        tabsheet.addTab(new DocumentGuiHandler(controller), "Dokumente");
-        tabsheet.addTab(new ExpensesGuiHandler(controller) , "Spesen");
-        tabsheet.addTab(new TaskListGuiHandler(controller), "ToDo's");
-        tabsheet.addTab(new TaskTimeGuiHandler(controller), "Zeitrapporte");
-        tabsheet.addSelectedTabChangeListener(new TabSheet.SelectedTabChangeListener() {			
-			@Override
-			public void selectedTabChange(SelectedTabChangeEvent event) {
-				controller.fireAppointmentChangedEvent();
-				//DetailGuiHandler detail = (DetailGuiHandler)event.getTabSheet().getSelectedTab();
-				
-			}
-		});
- 
-    	// Add the appointments
-        AppointmentGuiHandler appointments = new AppointmentGuiHandler(controller, tabsheet);
-        appointments.setWidth(300, Unit.PIXELS);
-        appointments.setHeight(600, Unit.PIXELS);
-        
-        // Add the components to the buttom layout
-    	bottom.addComponent(appointments);
-    	bottom.addComponent(tabsheet);
+        //
+        // Create a new instance of the navigator. The navigator will attach
+        // itself automatically to this view.
+        //
+        new Navigator(this, this);
+
+        //
+        // The initial log view where the user can login to the application
+        //
+        getNavigator().addView(LoginView.NAME, LoginView.class);
+
+        //
+        // Add the main view of the application
+        //
+        getNavigator().addView(SpitAppView.NAME, SpitAppView.class);
+                       
+        //
+        // We use a view change handler to ensure the user is always redirected
+        // to the login view if the user is not logged in.
+        //
+        getNavigator().addViewChangeListener(new ViewChangeListener() {
+            
+            @Override
+            public boolean beforeViewChange(ViewChangeEvent event) {
+                
+                // Check if a user has logged in
+                boolean isLoggedIn = getSession().getAttribute("user") != null;
+                boolean isLoginView = event.getNewView() instanceof LoginView;
+
+                if (!isLoggedIn && !isLoginView) {
+                    // Redirect to login view always if a user has not yet
+                    // logged in
+                    getNavigator().navigateTo(LoginView.NAME);
+                    return false;
+
+                } else if (isLoggedIn && isLoginView) {
+                    // If someone tries to access to login view while logged in,
+                    // then cancel
+                    return false;
+                }
+
+                return true;
+            }
+            
+            @Override
+            public void afterViewChange(ViewChangeEvent event) {
+                
+            }
+        });    	
+
     }
 }
