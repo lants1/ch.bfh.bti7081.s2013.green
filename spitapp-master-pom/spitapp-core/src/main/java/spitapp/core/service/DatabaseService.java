@@ -3,6 +3,8 @@ package spitapp.core.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -28,6 +30,9 @@ class DatabaseService {
 	private SessionFactory sessionFactory;
 	private ServiceRegistry serviceRegistry;
 	
+	private final static Logger logger =
+	          Logger.getLogger(DatabaseService.class.getName());
+	
 	public DatabaseService(){
 		this.configureSessionFactory();
 	}
@@ -40,7 +45,6 @@ class DatabaseService {
 	void saveOrUpdate(SpitappSaveable somethingToSave) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
-
 		session.saveOrUpdate(somethingToSave);
 
 		tx.commit();
@@ -97,7 +101,7 @@ class DatabaseService {
 		Transaction tx = session.beginTransaction();
 		User user = (User) session.createCriteria(User.class).add( Restrictions.like("userName", username) ).uniqueResult();
 		tx.commit();
-		
+		logger.log(Level.INFO, user.getUserName()+" fetched from DB");
 		return user;
 	}
 	

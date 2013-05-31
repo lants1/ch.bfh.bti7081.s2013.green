@@ -1,6 +1,9 @@
 package spitapp.core.service;
 
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.apache.commons.codec.digest.DigestUtils;
 
 import spitapp.core.model.User;
@@ -12,6 +15,9 @@ import spitapp.core.model.User;
  *
  */
 class UserService {
+	
+	private final static Logger logger =
+	          Logger.getLogger(UserService.class.getName());
 
 	// Should be in a keystore file...
 	private final String salt = "hoschiç%&/()bim%&/(poschi";
@@ -44,6 +50,7 @@ class UserService {
 		}
 		else
 		{
+			logger.log(Level.WARNING, "Login failed for User:"+user+" and PW:"+password);
 			return false;
 		}
 	}
