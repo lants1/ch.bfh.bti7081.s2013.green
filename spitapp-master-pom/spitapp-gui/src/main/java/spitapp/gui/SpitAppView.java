@@ -33,12 +33,12 @@ public class SpitAppView extends CustomComponent implements View {
 	
 	public static final String NAME = "";
     
-	private VerticalLayout mainLayout;
-	private TabSheet tabs;
-	private Label user;
+	public VerticalLayout mainLayout;
+	public TabSheet tabs;
+	public Label user;
 	
-	protected Window logout ;
-	protected Window help;
+	public Window logout ;
+	public Window help;
     
     public AppointmentController controller = new AppointmentController();
 
@@ -267,7 +267,7 @@ public class SpitAppView extends CustomComponent implements View {
 		});
  
     	// Add the appointments
-        AppointmentGuiHandler appointments = new AppointmentGuiHandler(controller, tabs);
+        AppointmentGuiHandler appointments = new AppointmentGuiHandler(controller, this);
         
         // Add the components to the buttom layout
     	content.addComponent(appointments);

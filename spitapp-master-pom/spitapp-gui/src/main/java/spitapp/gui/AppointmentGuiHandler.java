@@ -36,15 +36,15 @@ public class AppointmentGuiHandler extends DetailGuiHandler {
 	private Button backward;
 	private Table appointments;
 	
-	private TabSheet referenced_detailtab = null;
+	private SpitAppView parent_view = null;
 	
 	/**
 	 * The constructor who intializes the layout
 	 */
-	public AppointmentGuiHandler(AppointmentController controller, TabSheet detailtab) {
+	public AppointmentGuiHandler(AppointmentController controller, SpitAppView parentview) {
 		super(controller);
 		
-		this.referenced_detailtab = detailtab;
+		this.parent_view = parentview;
 
 		buildMainLayout();
 		setCompositionRoot(mainLayout);
@@ -66,7 +66,7 @@ public class AppointmentGuiHandler extends DetailGuiHandler {
 	 * @param newDate the chosen date
 	 */
 	public void dateChanged(Date newDate) {
-		referenced_detailtab.setVisible(false);
+		parent_view.tabs.setVisible(false);
 		
 		if(appointments.removeAllItems()) {
 			
@@ -129,11 +129,11 @@ public class AppointmentGuiHandler extends DetailGuiHandler {
 		    	//appointments.setCaption("Selected: " + appointments.getValue());
 		    	
 		    	if( appointments.getValue() != null) {
-		    		referenced_detailtab.setVisible(true);
+		    		parent_view.tabs.setVisible(true);
 		    		controller.changeAppointment((Integer)appointments.getValue());
 		    	}
 		    	else {
-		    		referenced_detailtab.setVisible(false);
+		    		parent_view.tabs.setVisible(false);
 		    	}
 		    }
 		});
