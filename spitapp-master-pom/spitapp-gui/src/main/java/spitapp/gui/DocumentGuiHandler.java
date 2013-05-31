@@ -6,6 +6,8 @@ import spitapp.core.model.Patient;
 import spitapp.core.model.Document;
 import spitapp.util.PdfStream;
 
+import com.vaadin.server.BrowserWindowOpener;
+import com.vaadin.server.ExternalResource;
 import com.vaadin.server.StreamResource;
 import com.vaadin.ui.AbsoluteLayout;
 import com.vaadin.ui.BrowserFrame;
@@ -34,6 +36,8 @@ public class DocumentGuiHandler extends DetailGuiHandler {
 	private Label lblDocument;
 	private Button btnDocument;
 	private ComboBox cbxDocuments;
+	private Button btnGoogleMaps;
+	private BrowserWindowOpener opener;
 	
 	/**
 	 * Constructor for DocumentGuiHandler
@@ -115,6 +119,34 @@ public class DocumentGuiHandler extends DetailGuiHandler {
 		cbxDocuments.setHeight("-1px");
 		cbxDocuments.setInvalidAllowed(false);
 		mainLayout.addComponent(cbxDocuments, "top:200.0px;left:22.0px;");
+
+		// GoogleMaps button
+		btnGoogleMaps = new Button();
+		btnGoogleMaps.setCaption("Auf Karte zeigen");
+		btnGoogleMaps.setImmediate(true);
+		btnGoogleMaps.setWidth("-1px");
+		btnGoogleMaps.setHeight("-1px");
+		
+		opener = new BrowserWindowOpener(new ExternalResource("http://maps.google.com"));
+		opener.extend(btnGoogleMaps);
+		
+//		
+//		btnGoogleMaps.addClickListener(new Button.ClickListener() {
+//			/**
+//			 * generated serial
+//			 */
+//			private static final long serialVersionUID = -8378559264582148290L;
+//
+//			public void buttonClick(ClickEvent event) {
+//				
+//				Patient patient = controller.getCurrentAppointment().getPatient();
+//				
+//
+//				//getUI().showNotification("Title", "Testnachricht");
+//            	//getMainWindow().open(new ExternalResource("http://vaadin.com"));
+//			}
+//		}); 
+		mainLayout.addComponent(btnGoogleMaps, "top:24.0px;left:280.0px;");
 		
 		// Document button
 		btnDocument = new Button();
@@ -179,8 +211,16 @@ public class DocumentGuiHandler extends DetailGuiHandler {
 	 */
 	public void handleAppointmentChangedEvent(AppointmentChangedEvent e) {
 		
-		AppointmentController ctrl = (AppointmentController)e.getSource();
-		Patient patient = ctrl.getCurrentAppointment().getPatient();
+		Patient patient = controller.getCurrentAppointment().getPatient();
+		
+		// Hier eventuell noch Strings präparieren....
+		String urlquery = patient.getStreet() + ",+" +
+							patient.getCity();
+		
+		btnGoogleMaps.removeExtension(opener);
+		opener = new BrowserWindowOpener(new ExternalResource("http://maps.google.com?q=" + urlquery + "&views=satellite,traffic&zoom=15"));
+		opener.extend(btnGoogleMaps);
+		
 		
 		ageData.setValue(Integer.toString(patient.getAge()));
 		careLevelData.setValue(patient.getCareLevel().toString());

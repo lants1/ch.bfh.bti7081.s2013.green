@@ -166,7 +166,6 @@ public class SpitAppView extends CustomComponent implements View {
 			public void buttonClick(ClickEvent event) {
             	logout.close();
             	
-            	//getMainWindow().open(new ExternalResource("http://vaadin.com"));
 	            // "Logout" the user
 	            getSession().setAttribute("user", null);
 
