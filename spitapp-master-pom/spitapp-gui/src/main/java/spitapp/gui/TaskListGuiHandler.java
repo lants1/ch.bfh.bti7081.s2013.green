@@ -148,8 +148,7 @@ public class TaskListGuiHandler extends DetailGuiHandler {
 		
 		this.controller = (AppointmentController)e.getSource();
 		
-		this.reload_tasks();
-		
+		this.reload_tasks();		
 	}
 
 }

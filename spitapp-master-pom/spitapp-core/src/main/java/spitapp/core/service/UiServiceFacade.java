@@ -22,7 +22,7 @@ public class UiServiceFacade {
 	//private PdfService pdfService;
 	private UserService userService;
 	
-	private static UiServiceFacade singleton = null;
+	private static volatile UiServiceFacade singleton = null;
 
 	private UiServiceFacade(){
 		this.dbService = new DatabaseService();
