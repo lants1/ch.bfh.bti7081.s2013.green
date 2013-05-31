@@ -99,12 +99,14 @@ public class DatabaseServiceTest
 		docList.add(dok2);
 
 		Task task = new Task();
-		task.setDescription("HighPrio");
+		task.setDescription("Swen's Schuhe putzen");
 		task.setDuration(70);
 		task.setStarttime(new Date());
 		Task task2 = new Task();
-		task2.setDescription("HighPrio");
+		task2.setDescription("Mojito für Swen");
 		task2.setDuration(20);
+	
+		
 		Calendar cal = new GregorianCalendar();
 		cal.add(Calendar.DAY_OF_WEEK, -2);
 		task2.setStarttime(cal.getTime());
@@ -112,9 +114,19 @@ public class DatabaseServiceTest
 		List<Task> tasks = new ArrayList<Task>();
 		tasks.add(task);
 		tasks.add(task2);
+		boolean done = false;
+		for(int i = 0; i < 30; i++){
+			Task taskRandom = new Task();
+			taskRandom.setDescription(i+" Bier für Swen");
+			done = !done;
+			taskRandom.setDone(done);
+			taskRandom.setDuration((int) (Math.random()*1000));
+			tasks.add(taskRandom);
+		}
 
 		ExpensesEntry spesen = new ExpensesEntry();
 		spesen.setExpensesDescription("Pizza");
+		spesen.setPrice(20);
 		List<ExpensesEntry> expensesList = new ArrayList<ExpensesEntry>();
 		expensesList.add(spesen);
 
