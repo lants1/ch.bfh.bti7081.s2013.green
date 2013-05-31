@@ -2,16 +2,13 @@ package spitapp.core.model;
 
 import java.util.List;
 
-import org.hibernate.annotations.Entity;
-
 /**
  * Hibernate mapping Class for Table Patient
  * 
  * @author green
  *
  */
-@Entity
-public class Patient {
+public class Patient implements SpitappSaveable{
 
 	private Long patId;
 	
@@ -22,6 +19,10 @@ public class Patient {
 	private String firstName;
 
 	private String lastName;
+	
+	private String street;
+	
+	private String city;
 	
 	private List<Task> tasks;
 	
@@ -61,6 +62,22 @@ public class Patient {
 
 	public void setPatId(Long patId) {
 		this.patId = patId;
+	}
+	
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
 	}
 
 	public String getFirstName() {

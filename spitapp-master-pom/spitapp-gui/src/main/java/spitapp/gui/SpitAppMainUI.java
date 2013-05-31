@@ -3,7 +3,6 @@ package spitapp.gui;
 import java.util.Locale;
 
 import spitapp.controller.AppointmentController;
-import spitapp.core.service.DatabaseService;
 
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Alignment;
@@ -12,6 +11,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.TabSheet.SelectedTabChangeEvent;
 
 /**
  * The Application's "main" class
@@ -19,15 +19,12 @@ import com.vaadin.ui.VerticalLayout;
 @SuppressWarnings("serial")
 public class SpitAppMainUI extends UI
 {
-	DatabaseService dbservice = null;
-	
 	AppointmentController controller = null;
 	
     @Override
     protected void init(VaadinRequest request) {
     	
-    	dbservice = new DatabaseService();
-    	controller = new AppointmentController(dbservice);
+    	controller = new AppointmentController();
     	
     	// Set the root layout for the UI
     	VerticalLayout content = new VerticalLayout();
@@ -53,6 +50,14 @@ public class SpitAppMainUI extends UI
         tabsheet.addTab(new ExpensesGuiHandler(controller) , "Spesen");
         tabsheet.addTab(new TaskListGuiHandler(controller), "ToDo's");
         tabsheet.addTab(new TaskTimeGuiHandler(controller), "Zeitrapporte");
+        tabsheet.addSelectedTabChangeListener(new TabSheet.SelectedTabChangeListener() {			
+			@Override
+			public void selectedTabChange(SelectedTabChangeEvent event) {
+				controller.fireAppointmentChangedEvent();
+				//DetailGuiHandler detail = (DetailGuiHandler)event.getTabSheet().getSelectedTab();
+				
+			}
+		});
  
     	// Add the appointments
         AppointmentGuiHandler appointments = new AppointmentGuiHandler(controller, tabsheet);

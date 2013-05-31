@@ -1,4 +1,4 @@
-package spitapp.core;
+package spitapp.core.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -6,8 +6,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
-import org.hibernate.FetchMode;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -25,7 +23,6 @@ import spitapp.core.model.Patient;
 import spitapp.core.model.ExpensesEntry;
 import spitapp.core.model.Task;
 import spitapp.core.model.Appointment;
-import spitapp.core.service.DatabaseService;
 import spitapp.core.service.PdfService;
 
 import org.junit.*;
@@ -35,7 +32,7 @@ import static org.junit.Assert.*;
 /**
  * Unit test for simple App.
  */
-public class DatabaseServiceTest 
+public class HibernateMappingTest 
 {
 
 	private static SessionFactory sessionFactory;
@@ -55,9 +52,10 @@ public class DatabaseServiceTest
     	Transaction tx = session.beginTransaction();
 		
     	// Delete oldTesttermin
-    	List<Appointment> appointmentList = session.createCriteria(Appointment.class).list();
+    	@SuppressWarnings("unchecked")
+		List<Appointment> appointmentList = session.createCriteria(Appointment.class).list();
 		for(Appointment appointment: appointmentList){
-			if(StringUtils.equals(appointment.getAppointmentDescription(), "testermin2")){
+			if(StringUtils.equals(appointment.getAppointmentDescription(), "testermin")){
 				session.delete(appointment);
 				session.delete(appointment.getPatient());
 			}
@@ -65,16 +63,18 @@ public class DatabaseServiceTest
 		
 		// Create a new Testtermin
 		Appointment termin = new Appointment();
-		termin.setAppointmentDescription("testermin2");
+		termin.setAppointmentDescription("testermin");
 		termin.setFromDate(new Date());
 		termin.setToDate(new Date());
 
 		Patient patient = new Patient();
 		patient.setAge(18);
-		patient.setCareLevel(CareLevel.B2);
-		patient.setHobbies("Joga");
-		patient.setFirstName("Pascal");
-		patient.setLastName("von Owl");
+		patient.setCareLevel(CareLevel.A1);
+		patient.setHobbies("Kong-Fu fighting");
+		patient.setFirstName("Swen");
+		patient.setLastName("Lanthemann");
+		patient.setStreet("Lindenweg 11");
+		patient.setCity("4565 Recherswil");
 
 		Document dok = new Document();
 		PdfService pdfService = new PdfService();
@@ -85,12 +85,14 @@ public class DatabaseServiceTest
 		docList.add(dok);
 
 		Task task = new Task();
-		task.setDescription("HighPrio");
+		task.setDescription("test2");
+		task.setStarttime(new Date());
+		task.setDuration(100);
 		List<Task> tasks = new ArrayList<Task>();
 		tasks.add(task);
 
 		ExpensesEntry spesen = new ExpensesEntry();
-		spesen.setExpensesDescription("Pizza");
+		spesen.setExpensesDescription("test3");
 		List<ExpensesEntry> expensesList = new ArrayList<ExpensesEntry>();
 		expensesList.add(spesen);
 
@@ -105,16 +107,65 @@ public class DatabaseServiceTest
    }
     
     @Test
-    public void testGetAppointments()
+    public void testIsDbReadable()
     {	
-    	Date date = new Date();
-    	DatabaseService dbService = new DatabaseService();
-    	List<Appointment> appointments = dbService.getAppointment(date);
-    	assertTrue(appointments.size()>0);
-    	for(Appointment appointment : appointments){
-    		assertTrue(DateUtils.isSameDay(appointment.getFromDate(), date));
-    		assertNotNull(appointment.getPatient());
-    	}
+		Session session = sessionFactory.getCurrentSession();
+
+		Transaction tx = session.beginTransaction();
+		@SuppressWarnings("unchecked")
+		List<Patient> patienten = session.createCriteria(Patient.class).add( Restrictions.like("firstName", "S%"))
+			    .setMaxResults(50)
+			    .list();
+		
+		assertTrue((patienten.size()>0));
+		tx.commit();
+    }
+
+    @Test
+    public void testLazyLoadingDisabled()
+    {	
+		Session session = sessionFactory.getCurrentSession();
+
+		Transaction tx = session.beginTransaction();
+		@SuppressWarnings("unchecked")
+		List<Appointment> appointments = session.createCriteria(Appointment.class)
+			    .list();
+		
+		assertTrue((appointments.size()>0));
+		
+		tx.commit();
+		
+		for(Appointment appointment : appointments){
+			Patient patient =appointment.getPatient();
+			assertNotNull(patient);
+			List<Document> docs = patient.getDocuments();
+			assertTrue(docs.size()>0);
+			Document doc = docs.get(0);
+			assertFalse(StringUtils.isEmpty(doc.getFileName()));
+		}
+    }
+    
+    @Test
+    public void testGetDocumentsPossible()
+    {	
+		Session session = sessionFactory.getCurrentSession();
+
+		Transaction tx = session.beginTransaction();
+		@SuppressWarnings("unchecked")
+		List<Appointment> appointments = session.createCriteria(Appointment.class)
+			    .list();
+		
+		assertTrue((appointments.size()>0));
+		
+		for(Appointment appointment : appointments){
+			Patient patient =appointment.getPatient();
+			assertNotNull(patient);
+			List<Document> docs = patient.getDocuments();
+			assertTrue(docs.size()>0);
+			Document doc = docs.get(0);
+			assertFalse(StringUtils.isEmpty(doc.getFileName()));
+		}
+		tx.commit();
     }
     
 	/**

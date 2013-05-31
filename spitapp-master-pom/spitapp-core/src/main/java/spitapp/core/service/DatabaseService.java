@@ -4,25 +4,26 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.hibernate.FetchMode;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
 import spitapp.core.model.Appointment;
+import spitapp.core.model.SpitappSaveable;
+import spitapp.core.model.User;
 
 /**
- * Single Point for every DB-Call
+ * Single Point for every DB-Call.
  * 
  * @author green
  *
  */
-public class DatabaseService {
+class DatabaseService {
 
 	private SessionFactory sessionFactory;
 	private ServiceRegistry serviceRegistry;
@@ -36,7 +37,7 @@ public class DatabaseService {
 	 * 
 	 * @param Object somethingToSave
 	 */
-	public void saveOrUpdate(Object somethingToSave) {
+	void saveOrUpdate(SpitappSaveable somethingToSave) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
 
@@ -50,7 +51,7 @@ public class DatabaseService {
 	 * 
 	 * @param Object somethingToDelete
 	 */
-	public void delete(Object somethingToDelete) {
+	void delete(SpitappSaveable somethingToDelete) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
 
@@ -62,14 +63,15 @@ public class DatabaseService {
 	/**
 	 * Get all appointments from Database with in this case useless State Pattern.
 	 */
-	public List<Appointment> getAppointment(Date date){
+	List<Appointment> getAppointment(Date date){
 		// TODO Lan with disabling the lazy loading we killed our Performance
 		// and one of the benefit of using hibernate
 		// Is there another better solution for our gui team...???
 		Session session = sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		// Get all Appointment from db without restriction o_O evil thing
-		List<Appointment> appointmentList = session.createCriteria(Appointment.class).setFetchMode("b", FetchMode.EAGER).list();
+		@SuppressWarnings("unchecked")
+		List<Appointment> appointmentList = session.createCriteria(Appointment.class).list();
 		List<Appointment> resultList = new ArrayList<Appointment>();
 		for(Appointment appointment : appointmentList){
 			// Call the Statepattern mechanism on each termin
@@ -83,6 +85,20 @@ public class DatabaseService {
 		tx.commit();
 		
 		return resultList;
+	}
+	
+	/**
+	 * Gets a User from db by username as parameter..
+	 * @param username
+	 * @return User
+	 */
+	 User getUserByUsername(String username){
+		Session session = sessionFactory.getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		User user = (User) session.createCriteria(User.class).add( Restrictions.like("userName", username) ).uniqueResult();
+		tx.commit();
+		
+		return user;
 	}
 	
 	/**

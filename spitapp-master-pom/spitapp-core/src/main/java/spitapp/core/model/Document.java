@@ -1,15 +1,12 @@
 package spitapp.core.model;
 
-import org.hibernate.annotations.Entity;
-
 /**
  * Hibernate Mapping class for Document on DB
  * 
  * @author green
  *
  */
-@Entity
-public class Document {
+public class Document implements SpitappSaveable{
 	
 	private long documentId;
 	

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="spitapp.core.model.User" table="USER"
+		catalog="spitapp" lazy="false">
+		<id name="userId" type="java.lang.Long">
+			<column name="userId" />
+			<generator class="identity" />
+		</id>
+		<property name="userName" type="string">
+			<column name="userName" length="100" not-null="true" />
+		</property>
+		<property name="password" type="org.hibernate.type.BinaryType">
+			<column name="password" />
+		</property>
+	</class>
+</hibernate-mapping>

@@ -9,7 +9,9 @@ import java.util.List;
 import spitapp.core.model.Appointment;
 import spitapp.core.model.ExpensesEntry;
 import spitapp.core.model.Patient;
-import spitapp.core.service.DatabaseService;
+import spitapp.core.model.Task;
+import spitapp.core.service.UiServiceFacade;
+import spitapp.util.DateUtil;
 
 /**
  * controlls the appointment listing and fires an event, when an appointment
@@ -40,7 +42,6 @@ public class AppointmentController {
 	 */
 	private List<AppointmentChangedListener> listeners = new ArrayList<AppointmentChangedListener>();
 
-	protected DatabaseService dbservice = null;
 
 	/**
 	 * the constructor
@@ -48,8 +49,7 @@ public class AppointmentController {
 	 * @param dbservice
 	 *            The reference to the DatabaseService to use
 	 */
-	public AppointmentController(DatabaseService dbservice) {
-		this.dbservice = dbservice;
+	public AppointmentController() {
 	}
 
 	/**
@@ -118,7 +118,7 @@ public class AppointmentController {
 		
 		this.appointments.clear();
 
-		List<Appointment> entries = this.dbservice.getAppointment(datetoload);
+		List<Appointment> entries = UiServiceFacade.getInstance().getAppointments(datetoload);
 		if (entries == null) {
 			return -2;
 		}
@@ -156,7 +156,7 @@ public class AppointmentController {
 	 * this method can be called whenever you want to notify the event listeners
 	 * of the AppointmentChangedEvent
 	 */
-	private synchronized void fireAppointmentChangedEvent() {
+	public synchronized void fireAppointmentChangedEvent() {
 		AppointmentChangedEvent event = new AppointmentChangedEvent(this);
 		Iterator<AppointmentChangedListener> i = this.listeners.iterator();
 		while (i.hasNext()) {
@@ -164,6 +164,12 @@ public class AppointmentController {
 		}
 	}
 	
+	/**
+	 * Adds a new expense entry to current selected patient (via appointment)
+	 * @param descpription the descpription of the expense
+	 * @param amount the amount as decimal value in a string
+	 * @return 0 if successfull or lesser than 0 on failure
+	 */
 	public Integer addExpensetoCurrentPatient(String descpription, String amount) {
 		Double value = null;
 		
@@ -195,7 +201,7 @@ public class AppointmentController {
 			
 			patient.getExpenses().add(newexpense);
 			
-			this.dbservice.saveOrUpdate(appointment);
+			UiServiceFacade.getInstance().saveModel(appointment);
 		}
 		catch(NumberFormatException ex) {
 			return -4;
@@ -204,6 +210,11 @@ public class AppointmentController {
 		return 0;
 	}
 	
+	/**
+	 * Deletes an expesense on the current selected patient
+	 * @param expense_id the id of the expense to delete
+	 * @return 1 if successfull, 0 if not found or lesser than 0 on failure
+	 */
 	public Integer deleteExepenseOfCurrentPatient(Long expense_id) {
 		if(expense_id == null) {
 			return -4;
@@ -222,7 +233,7 @@ public class AppointmentController {
 				for(ExpensesEntry entry : expenses) {
 					if(entry.getExpensesId() == expense_id) {
 						expenses.remove(entry);
-						this.dbservice.saveOrUpdate(patient);
+						UiServiceFacade.getInstance().saveModel(patient);
 						//this.dbservice.delete(entry); doesnt work
 						return 1;
 					}
@@ -236,4 +247,102 @@ public class AppointmentController {
 		return 1;
 	}
 	
+	/**
+	 * Get's a task from the CURRENT PATIENT by Id
+	 * @param task_id the id of the task
+	 * @return The Task or null if not found
+	 */
+	public Task getTaskById(Long task_id) {
+		if(task_id == null) {
+			return null;
+		}
+		
+		Patient patient = this.getCurrentAppointment().getPatient();
+		if(patient == null) {
+			return null;
+		}
+		List<Task> tasks = patient.getTasks();
+		if(tasks == null) {
+			return null;
+		}
+		else {
+			try { 
+				for(Task entry : tasks) {
+					if(entry.getTaskId() == task_id) {
+						return entry;
+					}
+				}
+			}
+			catch(Exception ex) {
+				
+			}
+		}
+		
+		return null;
+	}
+
+	/**
+	 * Marks a task on the current selected patient as completed and adds a time record
+	 * @param task_id the id of the expense to delete
+	 * @return 1 if successfull, 0 if not found or lesser than 0 on failure
+	 */
+	public Integer completeTaskOfCurrentPatient(Long task_id, String starttime_input, String duration_input) {
+		
+		if(starttime_input == null || starttime_input.isEmpty()) {
+			return -4;
+		}
+				
+		if(duration_input == null || duration_input.isEmpty()) {
+			return -3;
+		}
+
+
+		Date starttime = DateUtil.getTodayWithSpecificTime(starttime_input);
+		if(starttime == null) {
+			return -2;
+		}
+		
+		Integer duration = null;
+		try {
+			duration = Integer.parseInt(duration_input);
+		} 
+		catch(NumberFormatException ex) {
+			return -1;
+		}
+		
+		Task theTask = getTaskById(task_id);
+		if(theTask == null) {
+			return 0;
+		}
+		
+		theTask.setDone(true);
+		theTask.setStarttime(starttime);
+		theTask.setDuration(duration);
+		
+		
+		UiServiceFacade.getInstance().saveModel(theTask);
+		
+		return 1;
+	}
+	
+	/**
+	 * Reactivates a task of the current patient
+	 * @param task_id the id of the task
+	 * @return 1 on success or -1 on failure
+	 */
+	public Integer reactivateTaskOfCurrentPatient(Long task_id) {
+				
+		Task theTask = getTaskById(task_id);
+		if(theTask == null) {
+			return -1;
+		}
+		
+		theTask.setDone(false);
+		theTask.setStarttime(null);
+		theTask.setDuration(0);
+		
+		UiServiceFacade.getInstance().saveModel(theTask);
+		
+		return 1;
+	}
 }

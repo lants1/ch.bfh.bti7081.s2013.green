@@ -1,18 +1,19 @@
-package spitapp.core;
+package spitapp.core.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.FetchMode;
+import org.apache.commons.lang3.time.DateUtils;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
@@ -34,7 +35,7 @@ import static org.junit.Assert.*;
 /**
  * Unit test for simple App.
  */
-public class HibernateMappingTest 
+public class DatabaseServiceTest 
 {
 
 	private static SessionFactory sessionFactory;
@@ -54,9 +55,10 @@ public class HibernateMappingTest
     	Transaction tx = session.beginTransaction();
 		
     	// Delete oldTesttermin
-    	List<Appointment> appointmentList = session.createCriteria(Appointment.class).list();
+    	@SuppressWarnings("unchecked")
+		List<Appointment> appointmentList = session.createCriteria(Appointment.class).list();
 		for(Appointment appointment: appointmentList){
-			if(StringUtils.equals(appointment.getAppointmentDescription(), "testermin")){
+			if(StringUtils.equals(appointment.getAppointmentDescription(), "testermin2")){
 				session.delete(appointment);
 				session.delete(appointment.getPatient());
 			}
@@ -64,32 +66,55 @@ public class HibernateMappingTest
 		
 		// Create a new Testtermin
 		Appointment termin = new Appointment();
-		termin.setAppointmentDescription("testermin");
-		termin.setFromDate(new Date());
-		termin.setToDate(new Date());
+		termin.setAppointmentDescription("testermin2");
+		Calendar calendar = new GregorianCalendar();
+		calendar.add(Calendar.HOUR_OF_DAY, -2);
+		termin.setFromDate(calendar.getTime());
+		calendar.add(Calendar.HOUR_OF_DAY, 4);
+		termin.setToDate(calendar.getTime());
 
+		String patientFirstName = new String ("Pascal");
+		String patientLastName = new String ("von Ow");
 		Patient patient = new Patient();
 		patient.setAge(18);
-		patient.setCareLevel(CareLevel.A1);
-		patient.setHobbies("Kong-Fu fighting");
-		patient.setFirstName("Swen");
-		patient.setLastName("Lanthemann");
+		patient.setCareLevel(CareLevel.B2);
+		patient.setHobbies("Joga");
+		patient.setStreet("Tschamerie 18");
+		patient.setCity("3415 Hasle b. Burgdorf");
+		patient.setFirstName(patientFirstName);
+		patient.setLastName(patientLastName);
 
-		Document dok = new Document();
+
 		PdfService pdfService = new PdfService();
-		String fileName = "test";
-		dok.setFileName(fileName);
-		dok.setFile(pdfService.createPdf(fileName));
 		List<Document> docList = new ArrayList<Document>();
+		
+		Document dok = new Document();
+		dok.setFileName("Krankenakte");
+		dok.setFile(pdfService.createPdf("Krankenakte " + patientFirstName + " " + patientLastName));
 		docList.add(dok);
 
+		Document dok2 = new Document();
+		dok2.setFileName("Allgemeine Infos");
+		dok2.setFile(pdfService.createPdf("Allgemeine Infos " + patientFirstName+ " " + patientLastName));
+		docList.add(dok2);
+
 		Task task = new Task();
-		task.setDescription("test2");
+		task.setDescription("HighPrio");
+		task.setDuration(70);
+		task.setStarttime(new Date());
+		Task task2 = new Task();
+		task2.setDescription("HighPrio");
+		task2.setDuration(20);
+		Calendar cal = new GregorianCalendar();
+		cal.add(Calendar.DAY_OF_WEEK, -2);
+		task2.setStarttime(cal.getTime());
+		
 		List<Task> tasks = new ArrayList<Task>();
 		tasks.add(task);
+		tasks.add(task2);
 
 		ExpensesEntry spesen = new ExpensesEntry();
-		spesen.setExpensesDescription("test3");
+		spesen.setExpensesDescription("Pizza");
 		List<ExpensesEntry> expensesList = new ArrayList<ExpensesEntry>();
 		expensesList.add(spesen);
 
@@ -104,62 +129,16 @@ public class HibernateMappingTest
    }
     
     @Test
-    public void testIsDbReadable()
+    public void testGetAppointments()
     {	
-		Session session = sessionFactory.getCurrentSession();
-
-		Transaction tx = session.beginTransaction();
-		List<Patient> patienten = session.createCriteria(Patient.class).add( Restrictions.like("firstName", "S%"))
-			    .setMaxResults(50)
-			    .list();
-		
-		assertTrue((patienten.size()>0));
-		tx.commit();
-    }
-
-    @Test
-    public void testLazyLoadingDisabled()
-    {	
-		Session session = sessionFactory.getCurrentSession();
-
-		Transaction tx = session.beginTransaction();
-		List<Appointment> appointments = session.createCriteria(Appointment.class)
-			    .list();
-		
-		assertTrue((appointments.size()>0));
-		
-		tx.commit();
-		
-		for(Appointment appointment : appointments){
-			Patient patient =appointment.getPatient();
-			assertNotNull(patient);
-			List<Document> docs = patient.getDocuments();
-			assertTrue(docs.size()>0);
-			Document doc = docs.get(0);
-			assertFalse(StringUtils.isEmpty(doc.getFileName()));
-		}
-    }
-    
-    @Test
-    public void testGetDocumentsPossible()
-    {	
-		Session session = sessionFactory.getCurrentSession();
-
-		Transaction tx = session.beginTransaction();
-		List<Appointment> appointments = session.createCriteria(Appointment.class)
-			    .list();
-		
-		assertTrue((appointments.size()>0));
-		
-		for(Appointment appointment : appointments){
-			Patient patient =appointment.getPatient();
-			assertNotNull(patient);
-			List<Document> docs = patient.getDocuments();
-			assertTrue(docs.size()>0);
-			Document doc = docs.get(0);
-			assertFalse(StringUtils.isEmpty(doc.getFileName()));
-		}
-		tx.commit();
+    	Date date = new Date();
+    	DatabaseService dbService = new DatabaseService();
+    	List<Appointment> appointments = dbService.getAppointment(date);
+    	assertTrue(appointments.size()>0);
+    	for(Appointment appointment : appointments){
+    		assertTrue(DateUtils.isSameDay(appointment.getFromDate(), date));
+    		assertNotNull(appointment.getPatient());
+    	}
     }
     
 	/**
