@@ -19,6 +19,10 @@ import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
 
+/**
+ * class to handle the appointment gui
+ * @author jaggr2, vonop1
+ */
 public class AppointmentGuiHandler extends DetailGuiHandler {
 	
 	/**
