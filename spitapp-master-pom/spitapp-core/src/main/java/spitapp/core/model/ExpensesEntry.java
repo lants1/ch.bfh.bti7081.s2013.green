@@ -3,7 +3,7 @@ package spitapp.core.model;
 /**
  * Hibernate Mappingclass for ExpensesEntry table
  * 
- * @author green
+ * @author lants1, bohnp1
  *
  */
 public class ExpensesEntry implements SpitappSaveable{

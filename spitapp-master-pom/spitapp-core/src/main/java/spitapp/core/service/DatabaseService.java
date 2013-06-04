@@ -22,7 +22,12 @@ import spitapp.core.model.User;
 /**
  * Single Point for every DB-Call.
  * 
- * @author green
+ * Package protected because our GUI Team shouldn't now our services.
+ * Each Service is standalone and has one reason to be in life.
+ * You are not allowed to call from a service another service.
+ * If you wanna do this us a facade instead...
+ * 
+ * @author lants1, bohnp1
  *
  */
 class DatabaseService {
@@ -33,7 +38,7 @@ class DatabaseService {
 	private final static Logger logger =
 	          Logger.getLogger(DatabaseService.class.getName());
 	
-	public DatabaseService(){
+	DatabaseService(){
 		this.configureSessionFactory();
 	}
 	

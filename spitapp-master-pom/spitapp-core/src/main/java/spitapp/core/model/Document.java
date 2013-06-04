@@ -3,7 +3,7 @@ package spitapp.core.model;
 /**
  * Hibernate Mapping class for Document on DB
  * 
- * @author green
+ * @author lants1, bohnp1
  *
  */
 public class Document implements SpitappSaveable{

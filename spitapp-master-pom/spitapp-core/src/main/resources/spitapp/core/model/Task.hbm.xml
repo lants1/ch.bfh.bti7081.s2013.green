@@ -12,7 +12,7 @@
 		<property name="description" type="string">
 			<column name="description" length="100" not-null="true" />
 		</property>
-		<property name="starttime" type="date">
+		<property name="starttime" type="timestamp">
 			<column name="starttime"/>
 		</property>
 		<property name="duration" type="int">

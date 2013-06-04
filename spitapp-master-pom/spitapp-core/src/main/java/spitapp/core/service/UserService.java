@@ -11,7 +11,12 @@ import spitapp.core.model.User;
 /**
  * UserService handles every login things...
  * 
- * @author green
+ * Package protected because our GUI Team shouldn't now our services.
+ * Each Service is standalone and has one reason to be in life.
+ * You are not allowed to call from a service another service.
+ * If you wanna do this us a facade instead...
+ * 
+ * @author lants1
  *
  */
 class UserService {

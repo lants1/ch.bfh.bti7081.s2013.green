@@ -12,11 +12,11 @@ import spitapp.core.model.User;
 /**
  * The UiServiceFacade is a additional abstraction layer.
  * The only thing who calls our services, the services shouldn't know
- * each other.
+ * each other the facade is here to combine our services.
  * 
  * Because of this layering out gui team don't need to know the concrecte implementation.
  * 
- * @author green
+ * @author lants1
  *
  */
 public class UiServiceFacade {

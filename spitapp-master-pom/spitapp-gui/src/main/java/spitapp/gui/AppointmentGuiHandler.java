@@ -19,6 +19,10 @@ import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
 
+/**
+ * class to handle the appointment gui
+ * @author jaggr2, vonop1
+ */
 public class AppointmentGuiHandler extends DetailGuiHandler {
 	
 	/**
@@ -34,17 +38,14 @@ public class AppointmentGuiHandler extends DetailGuiHandler {
 	private PopupDateField datePopup;
 	private Button backward;
 	private Table appointments;
-	
-	private SpitAppView parent_view = null;
+	private SpitAppView spitAppParentView = null;	
 	
 	/**
 	 * The constructor who intializes the layout
 	 */
-	public AppointmentGuiHandler(AppointmentController controller, SpitAppView parentview) {
+	public AppointmentGuiHandler(AppointmentController controller, SpitAppView partentView) {
 		super(controller);
-		
-		this.parent_view = parentview;
-
+		this.spitAppParentView = partentView;
 		buildMainLayout();
 		setCompositionRoot(mainLayout);
 
@@ -65,16 +66,13 @@ public class AppointmentGuiHandler extends DetailGuiHandler {
 	 * @param newDate the chosen date
 	 */
 	public void dateChanged(Date newDate) {
-		parent_view.tabs.setVisible(false);
+		spitAppParentView.tabs.setVisible(false);
 		
 		if(appointments.removeAllItems()) {
-			
-			
 			Integer itemcount = this.controller.loadAppointmentsByDate(newDate);
 			appointments.setCaption("Es sind " + itemcount.toString() + " Patiententermine geplant:");
 			
-			if( itemcount > 0 ) {
-
+			if(itemcount > 0) {
 				Iterator<Map.Entry<Integer, Appointment>> it = controller.getAppointments().entrySet().iterator();
 			    while (it.hasNext()) {
 			    	Map.Entry<Integer, Appointment> entry = it.next();
@@ -82,12 +80,7 @@ public class AppointmentGuiHandler extends DetailGuiHandler {
 					// Add a row into the table as object array
 					appointments.addItem(new Object[] { entry.getValue().getPatient().getFirstName() + 
 							" " + entry.getValue().getPatient().getLastName(), DateUtil.formatDate(entry.getValue().getFromDate(), "HH:mm") }, entry.getKey());
-					
-			        //it.remove(); // avoids a ConcurrentModificationException
 			    }
-			}
-			else {
-				
 			}
 		}
 	}
@@ -96,20 +89,22 @@ public class AppointmentGuiHandler extends DetailGuiHandler {
 	 * Builds the main layout
 	 * @return the mainLayout
 	 */
-	@SuppressWarnings("serial")
 	private VerticalLayout buildMainLayout() {
-		// create the top layout
+		
+		/**
+		 * create the top layout
+		 */
 		mainLayout = new VerticalLayout();
 		mainLayout.setImmediate(false);
 		mainLayout.setWidth("100%");
 		mainLayout.setHeight("-1");
-		//mainLayout.setMargin(true);
-		
 		// top-level component properties
 		setWidth("300px");
 		setHeight("100.0%");
 
-		// table_termine
+		/**
+		 * table appointments
+		 */
 		appointments = new Table("Termine");
 		appointments.setWidth("100.0%");
 		appointments.setHeight("100.0%");
@@ -121,35 +116,39 @@ public class AppointmentGuiHandler extends DetailGuiHandler {
 		appointments.setSelectable(true);
 		// Send changes in selection immediately to server.
 		appointments.setImmediate(true);
-		// Handle selection change.
+		// Handle selection change
 		appointments.addValueChangeListener(new ValueChangeListener() {
-		    public void valueChange(ValueChangeEvent event) {
+			private static final long serialVersionUID = 3950076798774688747L;
+			public void valueChange(ValueChangeEvent event) {
 		    	// appointment changed
-		    	//appointments.setCaption("Selected: " + appointments.getValue());
-		    	
-		    	if( appointments.getValue() != null) {
-		    		parent_view.tabs.setVisible(true);
+		    	if(appointments.getValue() != null) {
+		    		spitAppParentView.tabs.setVisible(true);
 		    		controller.changeAppointment((Integer)appointments.getValue());
-		    	}
-		    	else {
-		    		parent_view.tabs.setVisible(false);
+		    	} else {
+		    		spitAppParentView.tabs.setVisible(false);
 		    	}
 		    }
 		});
 		
-		// button_rueckwaerts
+		/**
+		 * button backward
+		 */
 		backward = new Button();
 		backward.setCaption("Rückwärts");
 		backward.setImmediate(true);
 		backward.setWidth("-1px");
 		backward.setHeight("-1px");
 		backward.addClickListener(new Button.ClickListener() {
+			//date changed: -1 day
+			private static final long serialVersionUID = 8404210712006504006L;
 			public void buttonClick(ClickEvent event) {
 				datePopup.setValue(DateUtil.addDays(datePopup.getValue(), -1));
 			}
 		}); 	
 		
-		// dateField_datum
+		/**
+		 * PopupDateField datePopup
+		 */
 		datePopup = new PopupDateField();
 		datePopup.setImmediate(true);
 		datePopup.setWidth("-1px");
@@ -157,24 +156,32 @@ public class AppointmentGuiHandler extends DetailGuiHandler {
 		datePopup.setDateFormat("dd-MM-yyyy");
 		datePopup.setValue(new Date());
 		datePopup.addValueChangeListener(new ValueChangeListener() {
-		    public void valueChange(ValueChangeEvent event) {
+			//date changed: custom day
+			private static final long serialVersionUID = 939476374869668350L;
+			public void valueChange(ValueChangeEvent event) {
 		        dateChanged(datePopup.getValue());
 		    }
 		});
 		
-		// buttonForward
+		/**
+		 * button forward
+		 */
 		forward = new Button();
 		forward.setCaption("Vorwärts");
 		forward.setImmediate(true);
 		forward.setWidth("-1px");
 		forward.setHeight("-1px");
 		forward.addClickListener(new Button.ClickListener() {
+			//date changed: +1 day
+			private static final long serialVersionUID = 8339349572929865124L;
 			public void buttonClick(ClickEvent event) {
 				datePopup.setValue(DateUtil.addDays(datePopup.getValue(), 1));
 			}
 		}); 		
 		
-		//layout for the buttons forward, date, backward
+		/**
+		 * layout for the buttons forward, date, backward
+		 */
 		HorizontalLayout buttonLayout = new HorizontalLayout();
 		buttonLayout.setHeight("100px");
 		buttonLayout.setWidth("100%");
@@ -183,17 +190,20 @@ public class AppointmentGuiHandler extends DetailGuiHandler {
 		buttonLayout.addComponent(datePopup);
 		buttonLayout.addComponent(forward);
 		
+		/**
+		 * layout for the appointments
+		 */
 		HorizontalLayout appointmentLayout = new HorizontalLayout();
 		appointmentLayout.setHeight("400px");
 		appointmentLayout.setWidth("100%");
 		appointmentLayout.addComponent(appointments);
 		
-		//Set the layout together
+		/**
+		 * Set the layout together
+		 */
 		mainLayout.addComponent(appointmentLayout);
 		mainLayout.addComponent(buttonLayout);
 		mainLayout.setComponentAlignment(buttonLayout, Alignment.MIDDLE_CENTER);
-		
 		return mainLayout;
 	}
-
 }

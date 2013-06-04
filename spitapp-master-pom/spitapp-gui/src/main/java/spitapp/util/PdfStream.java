@@ -7,11 +7,18 @@ import com.vaadin.server.StreamResource.StreamSource;
 
 /**
  * PdfStream class to handle pdf documents
- * @author green
+ * @author vonop1
  */
 public class PdfStream implements StreamSource {
 	
+	/**
+	 * Generated serial
+	 */
 	private static final long serialVersionUID = 6367988474586312060L;
+	
+	/**
+	 * the pdf resource
+	 */
 	private byte[] resource;
 	
     /**

@@ -3,7 +3,7 @@ package spitapp.core.model;
 /**
  * Hibernate mapping Class for Table User
  * 
- * @author green
+ * @author lants1
  *
  */
 public class User implements SpitappSaveable{

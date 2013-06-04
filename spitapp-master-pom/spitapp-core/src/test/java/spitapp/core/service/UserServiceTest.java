@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 
 
 /**
- * Unit test for simple App.
+ * Check the Login functionality. And is also used to generate Testdata.
  */
 public class UserServiceTest 
 {
@@ -29,5 +29,8 @@ public class UserServiceTest
     	assertFalse(userService.validateLogin("swen", "wrong"));
     	assertTrue(userService.validateLogin("swen", "correct"));
     	assertFalse(userService.validateLogin("bla", "bla"));
+    	assertFalse(userService.validateLogin("bla", "correct"));
+    	assertFalse(userService.validateLogin("swen", ""));
+    	assertFalse(userService.validateLogin("swen", " correct "));
     }
 }

@@ -6,8 +6,7 @@ import com.vaadin.ui.CustomComponent;
 
 /**
  * Base class for detail views
- * @author Roger Jaggi jaggr2
- *
+ * @author jaggr2
  */
 public abstract class DetailGuiHandler extends CustomComponent implements AppointmentChangedListener  {
 	
@@ -25,10 +24,9 @@ public abstract class DetailGuiHandler extends CustomComponent implements Appoin
 	 * Constructor of Base Class for Detail views
 	 */
 	public DetailGuiHandler(AppointmentController ctrl) {
-		if( ctrl != null ) {
+		if(ctrl != null) {
 			this.controller = ctrl;
 			this.controller.addAppointmentChangedEventListener(this);
 		}
 	}
-
 }
