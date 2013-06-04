@@ -12,10 +12,10 @@
 		<property name="appointmentDescription" type="string">
 			<column name="appointmentDescription" length="20" not-null="true" />
 		</property>
-		<property name="fromDate" type="date">
+		<property name="fromDate" type="timestamp">
 			<column name="fromDate" not-null="true" />
 		</property>
-		<property name="toDate" type="date">
+		<property name="toDate" type="timestamp">
 			<column name="toDate" not-null="true" />
 		</property>
         
