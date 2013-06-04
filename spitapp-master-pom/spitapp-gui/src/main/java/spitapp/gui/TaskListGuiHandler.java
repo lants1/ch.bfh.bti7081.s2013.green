@@ -71,7 +71,17 @@ public class TaskListGuiHandler extends DetailGuiHandler {
 			private static final long serialVersionUID = 1136199457931977289L;
 
 			public void valueChange(ValueChangeEvent event) {
-		    	button_markasdone.setEnabled(table_task.getValue() != null);
+				
+				// only activate the Button if the task is valid and not done
+				if(table_task.getValue() != null) {
+					Task entry = controller.getTaskById((Long)table_task.getValue() );
+					if(entry != null && !entry.isDone()) {
+						button_markasdone.setEnabled(true);
+						return;
+					}
+				}
+				
+		    	button_markasdone.setEnabled(false);
 		    }
 		});
 		mainLayout.addComponent(table_task, "top:17.0px;left:0.0px;");
@@ -147,9 +157,7 @@ public class TaskListGuiHandler extends DetailGuiHandler {
 	 * fires when the user changes the appointment
 	 */
 	@Override
-	public void handleAppointmentChangedEvent(AppointmentChangedEvent e) {
-		
+	public void handleAppointmentChangedEvent(AppointmentChangedEvent e) {		
 		this.reload_tasks();		
 	}
-
 }

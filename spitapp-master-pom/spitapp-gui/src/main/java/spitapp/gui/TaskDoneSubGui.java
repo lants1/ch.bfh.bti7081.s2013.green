@@ -1,6 +1,11 @@
 package spitapp.gui;
 
 import spitapp.controller.AppointmentController;
+import spitapp.util.DateUtil;
+
+import com.vaadin.data.validator.AbstractValidator;
+import com.vaadin.server.SystemError;
+import com.vaadin.server.UserError;
 import com.vaadin.ui.AbsoluteLayout;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CustomComponent;
@@ -51,6 +56,10 @@ public class TaskDoneSubGui extends CustomComponent {
 		textfield_starttime.setImmediate(false);
 		textfield_starttime.setWidth("80px");
 		textfield_starttime.setHeight("-1px");
+		textfield_starttime.addValidator(new TimeValidator());
+		textfield_starttime.setRequired(true);
+		textfield_starttime.setInvalidAllowed(false);
+		textfield_starttime.setInputPrompt("hh:mm");
 		mainLayout.addComponent(textfield_starttime, "top:37.0px;left:9.0px;");
 		
 		// textfield_duration
@@ -58,6 +67,10 @@ public class TaskDoneSubGui extends CustomComponent {
 		textfield_duration.setImmediate(false);
 		textfield_duration.setWidth("80px");
 		textfield_duration.setHeight("-1px");
+		textfield_duration.addValidator(new DurationValidator());
+		textfield_duration.setRequired(true);
+		textfield_duration.setInvalidAllowed(false);
+		textfield_duration.setInputPrompt("z.B. 30");
 		mainLayout.addComponent(textfield_duration, "top:37.0px;left:200.0px;");
 		
 		// button_add
@@ -69,29 +82,33 @@ public class TaskDoneSubGui extends CustomComponent {
 		button_add.addClickListener(new Button.ClickListener() {
 			public void buttonClick(ClickEvent event) {
 				
+				// check if Input Validators accept the input
+				if (!textfield_starttime.isValid() || !textfield_duration.isValid()) {
+		            return;
+		        }
+				
 				String starttime = textfield_starttime.getValue();
 				String duration = textfield_duration.getValue();
 								
 				Integer returnvalue = controller.completeTaskOfCurrentPatient(task_id, starttime, duration);
 				switch(returnvalue) {
-				case 1:  // all ok, reload expenses
-					textfield_duration.setValue("");
-					textfield_starttime.setValue("");
-					
+				case 1:  // all ok
 					parentWindow.close();
-					//label_new.setValue("Neuer Speseneintrag:");
 					break;
-				case -1: // amount value in
-					//label_new.setValue("Ungültiger Betrag!");
+					
+				case 0: 
+					button_add.setComponentError(new SystemError("Interner Fehler: Der zu bearbeitende Task wurde nicht mehr auf der Datenbank gefunden!"));
+					break;
+				case -1:
+				case -3:
+					textfield_duration.setComponentError(new UserError("Die Dauer ist ungültig!"));
 					break;
 				case -2:
-					//label_new.setValue("Spesenart darf nicht leer sein!");
-					break;
 				case -4:
-					//label_new.setValue("Ooops. Beim Speichern gings in die Hose!");
+					textfield_starttime.setComponentError(new UserError("Die Startzeit ist ungültig!"));
 					break;
 				default: // amount value in
-					//label_new.setValue("Unbekannter Fehler!");
+					button_add.setComponentError(new SystemError("Ein unbekannter Fehler ist aufgetreten!"));
 					break;					
 				}
 			}
@@ -100,4 +117,61 @@ public class TaskDoneSubGui extends CustomComponent {
 		
 		return mainLayout;
 	}
+
+	/**
+	 * Validator for validating the time values
+	 * @author jaggr2
+	 *
+	 */
+    private static final class TimeValidator extends AbstractValidator<String> {
+
+        public TimeValidator() {
+            super("Die eingegebene Zeit ist ungültig! Gültiges Beispiel: 11:30");
+        }
+
+        @Override
+        protected boolean isValidValue(String value) {
+            if(value == null) {
+            	return true;
+            }
+        	
+            if (DateUtil.getTodayWithSpecificTime( value ) == null) {
+                return false;
+            }
+            return true;
+        }
+
+        @Override
+        public Class<String> getType() {
+            return String.class;
+        }
+    }
+    
+	/**
+	 * Validator for validating the duration values
+	 * @author jaggr2
+	 *
+	 */
+    private static final class DurationValidator extends AbstractValidator<String> {
+
+        public DurationValidator() {
+            super("Die eingegebene Minutenanzahl ist ungültig! Gültiges Beispiel: 30");
+        }
+
+        @Override
+        protected boolean isValidValue(String value) {
+    		// Regex looks for Minimum one digit
+        	// Nulls values have to be accepted
+    		if (value != null && !value.matches("\\d+")) {
+                return false;
+            }
+    		
+            return true;
+        }
+
+        @Override
+        public Class<String> getType() {
+            return String.class;
+        }
+    }
 }
