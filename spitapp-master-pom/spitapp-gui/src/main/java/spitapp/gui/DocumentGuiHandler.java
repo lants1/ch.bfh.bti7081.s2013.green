@@ -310,7 +310,7 @@ public class DocumentGuiHandler extends DetailGuiHandler {
 		int i = 0;
 		for(Document doc : patient.getDocuments()) {
 			cbxDocuments.addItem(i);
-			cbxDocuments.setItemCaption(i, doc.getFileName());
+			cbxDocuments.setItemCaption(i, doc.getFileName() + ".pdf");
 			++i;
 		}	
 	}
