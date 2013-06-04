@@ -30,7 +30,10 @@ import static org.junit.Assert.*;
 
 
 /**
- * Unit test for simple App.
+ * This Tests check our hibernate mapping. It is also used to generate Testdata.
+ * 
+ * If you use this tests the first time you need to change hbm.cfg and change it to create
+ * the tables then uncomment it...
  */
 public class HibernateMappingTest 
 {

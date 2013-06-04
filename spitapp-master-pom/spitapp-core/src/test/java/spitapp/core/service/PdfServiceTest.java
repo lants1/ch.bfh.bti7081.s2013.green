@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 
 
 /**
- * Unit test for simple App.
+ * Simple tests to check the functions... Of the pdf service
  */
 public class PdfServiceTest 
 {

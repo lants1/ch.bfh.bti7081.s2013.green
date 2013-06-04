@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 
 
 /**
- * Unit test for simple App.
+ * Check the Login functionality. And is also used to generate Testdata.
  */
 public class UserServiceTest 
 {

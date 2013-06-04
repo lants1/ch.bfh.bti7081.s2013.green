@@ -33,7 +33,7 @@ import static org.junit.Assert.*;
 
 
 /**
- * Unit test for simple App.
+ * Tests the Databaseservice. Use it to generate also testdata.
  */
 public class DatabaseServiceTest 
 {
@@ -140,6 +140,9 @@ public class DatabaseServiceTest
 		tx.commit();
    }
     
+    /**
+     * Is it possible to get the correct Appointments for GUI.
+     */
     @Test
     public void testGetAppointments()
     {	
