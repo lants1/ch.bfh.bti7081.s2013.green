@@ -29,5 +29,8 @@ public class UserServiceTest
     	assertFalse(userService.validateLogin("swen", "wrong"));
     	assertTrue(userService.validateLogin("swen", "correct"));
     	assertFalse(userService.validateLogin("bla", "bla"));
+    	assertFalse(userService.validateLogin("bla", "correct"));
+    	assertFalse(userService.validateLogin("swen", ""));
+    	assertFalse(userService.validateLogin("swen", " correct "));
     }
 }
