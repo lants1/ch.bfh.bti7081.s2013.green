@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -40,6 +41,8 @@ public class HibernateMappingTest
 
 	private static SessionFactory sessionFactory;
 	private static ServiceRegistry serviceRegistry;
+	
+	private static Date testdate = new Date();
    
 	
 	/**
@@ -67,25 +70,32 @@ public class HibernateMappingTest
 		// Create a new Testtermin
 		Appointment termin = new Appointment();
 		termin.setAppointmentDescription("testermin");
-		termin.setFromDate(new Date());
-		termin.setToDate(new Date());
+		termin.setFromDate(testdate);
+		termin.setToDate(testdate);
 
 		Patient patient = new Patient();
+		String patientFirstName = String.valueOf("Swen");
+		String patientLastName = String.valueOf("Lanthemann");
 		patient.setAge(18);
 		patient.setCareLevel(CareLevel.A1);
 		patient.setHobbies("Kong-Fu fighting");
-		patient.setFirstName("Swen");
-		patient.setLastName("Lanthemann");
+		patient.setFirstName(patientFirstName);
+		patient.setLastName(patientLastName);
 		patient.setStreet("Lindenweg 11");
 		patient.setCity("4565 Recherswil");
 
-		Document dok = new Document();
 		PdfService pdfService = new PdfService();
-		String fileName = "test";
-		dok.setFileName(fileName);
-		dok.setFile(pdfService.createPdf(fileName));
 		List<Document> docList = new ArrayList<Document>();
+		
+		Document dok = new Document();
+		dok.setFileName("Krankenakte");
+		dok.setFile(pdfService.createPdf("Krankenakte " + patientFirstName + " " + patientLastName));
 		docList.add(dok);
+
+		Document dok2 = new Document();
+		dok2.setFileName("Allgemeine Infos");
+		dok2.setFile(pdfService.createPdf("Allgemeine Infos " + patientFirstName+ " " + patientLastName));
+		docList.add(dok2);
 
 		Task task = new Task();
 		task.setDescription("test2");
@@ -167,6 +177,31 @@ public class HibernateMappingTest
 			assertTrue(docs.size()>0);
 			Document doc = docs.get(0);
 			assertFalse(StringUtils.isEmpty(doc.getFileName()));
+		}
+		tx.commit();
+    }
+
+	/**
+     * Test if the Date and Time returned from DB is eqaul with the saved Time,
+     * checked on milliseconds
+     */
+    @Test
+    public void testIsDateCorrectStored()
+    {	
+		Session session = sessionFactory.getCurrentSession();
+
+		Transaction tx = session.beginTransaction();
+		@SuppressWarnings("unchecked")
+		List<Appointment> appointments = session.createCriteria(Appointment.class)
+	    .list();
+
+		assertTrue((appointments.size()>0));
+		
+		for(Appointment appointment : appointments){
+			if (appointment.getAppointmentDescription().equalsIgnoreCase("testtermin"))
+			{
+				assertEquals(testdate.getTime(), appointment.getFromDate().getTime());
+			}
 		}
 		tx.commit();
     }
