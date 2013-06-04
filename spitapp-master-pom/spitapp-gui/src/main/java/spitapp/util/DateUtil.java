@@ -1,6 +1,3 @@
-/**
- * 
- */
 package spitapp.util;
 
 import java.text.SimpleDateFormat;
@@ -9,8 +6,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
- * @author Roger Jaggi
- *
+ * class to handle specific date operations within the gui
+ * @author jaggr2, vonop1
  */
 public class DateUtil {
 	
@@ -20,34 +17,33 @@ public class DateUtil {
 	 * @return the date if input is valid or null on failure
 	 */
 	public static Date getTodayWithSpecificTime(String timeinput) {
+
 		// Let's prepare the input
 		String[] parts = timeinput.split(":");
+		Integer hours = null;
+		Integer minutes = null;
 		
+		// Check input and return null if input isn't valid
 		if(parts.length != 2) {
 			return null;
 		}
-		
-		Integer hours = null;
-		Integer minutes = null;
 		try {
 			hours = Integer.parseInt(parts[0]);
 			minutes = Integer.parseInt(parts[1]);
+			if(hours > 24 || hours < 0 || minutes > 59 || minutes < 0) {
+				return null;
+			}
 		} 
 		catch(NumberFormatException ex) {
 			return null;
 		}
 		
-		if(hours > 24 || hours < 0 || minutes > 59 || minutes < 0) {
-			return null;
-		}
-		
+		//Set the date together
 		Calendar date = new GregorianCalendar();
-		
 		date.setTime(new Date());
 		date.set(Calendar.HOUR, hours);
 		date.set(Calendar.MINUTE, minutes);
 		date.set(Calendar.SECOND, 0);
-		
 		return date.getTime();
 	}
 	
@@ -74,6 +70,4 @@ public class DateUtil {
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
 		return sdf.format(input);		
 	}
-	
-
 }

@@ -7,7 +7,7 @@ import com.vaadin.server.StreamResource.StreamSource;
 
 /**
  * PdfStream class to handle pdf documents
- * @author green
+ * @author vonop1
  */
 public class PdfStream implements StreamSource {
 	
