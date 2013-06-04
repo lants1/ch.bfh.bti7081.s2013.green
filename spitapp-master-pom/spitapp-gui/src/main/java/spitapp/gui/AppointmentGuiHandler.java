@@ -78,8 +78,12 @@ public class AppointmentGuiHandler extends DetailGuiHandler {
 			    	Map.Entry<Integer, Appointment> entry = it.next();
 			    	
 					// Add a row into the table as object array
-					appointments.addItem(new Object[] { entry.getValue().getPatient().getFirstName() + 
-							" " + entry.getValue().getPatient().getLastName(), DateUtil.formatDate(entry.getValue().getFromDate(), "HH:mm") }, entry.getKey());
+					appointments.addItem(new Object[] { 
+							entry.getValue().getPatient().getFirstName() + " " + 
+							entry.getValue().getPatient().getLastName(), 
+							DateUtil.formatDate(entry.getValue().getFromDate(), "HH:mm") + " - " + 
+							DateUtil.formatDate(entry.getValue().getToDate(), "HH:mm")}, 
+							entry.getKey());
 			    }
 			}
 		}
