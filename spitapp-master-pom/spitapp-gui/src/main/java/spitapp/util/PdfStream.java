@@ -11,7 +11,14 @@ import com.vaadin.server.StreamResource.StreamSource;
  */
 public class PdfStream implements StreamSource {
 	
+	/**
+	 * Generated serial
+	 */
 	private static final long serialVersionUID = 6367988474586312060L;
+	
+	/**
+	 * the pdf resource
+	 */
 	private byte[] resource;
 	
     /**
