@@ -8,7 +8,7 @@ import spitapp.core.model.state.IrrelevantState;
 /**
  * Hibernate Mappingclass for table Appointment
  * 
- * @author green
+ * @author lants1, bohnp1
  *
  */
 public class Appointment implements SpitappSaveable{

@@ -16,7 +16,7 @@ import com.lowagie.text.pdf.PdfWriter;
 /**
  * Service used to get and create PDF-Documents
  * 
- * @author green
+ * @author lants1, bohnp1
  *
  */
 class PdfService{

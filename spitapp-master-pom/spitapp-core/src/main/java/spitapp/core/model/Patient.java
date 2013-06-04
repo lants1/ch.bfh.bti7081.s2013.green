@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Hibernate mapping Class for Table Patient
  * 
- * @author green
+ * @author lants1, bohnp1
  *
  */
 public class Patient implements SpitappSaveable{

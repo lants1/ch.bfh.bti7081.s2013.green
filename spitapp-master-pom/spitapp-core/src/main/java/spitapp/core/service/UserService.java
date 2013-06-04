@@ -11,7 +11,7 @@ import spitapp.core.model.User;
 /**
  * UserService handles every login things...
  * 
- * @author green
+ * @author lants1
  *
  */
 class UserService {

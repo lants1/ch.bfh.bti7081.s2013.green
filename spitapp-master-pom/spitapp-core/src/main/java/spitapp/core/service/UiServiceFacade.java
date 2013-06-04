@@ -16,7 +16,7 @@ import spitapp.core.model.User;
  * 
  * Because of this layering out gui team don't need to know the concrecte implementation.
  * 
- * @author green
+ * @author lants1
  *
  */
 public class UiServiceFacade {

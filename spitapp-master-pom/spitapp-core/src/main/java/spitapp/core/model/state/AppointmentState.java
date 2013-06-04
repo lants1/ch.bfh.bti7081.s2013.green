@@ -4,7 +4,7 @@ import java.util.Date;
 
 /**
  * State Interface for concret States in Pattern
- * @author green
+ * @author lants1, bohnp1
  *
  */
 public interface AppointmentState {

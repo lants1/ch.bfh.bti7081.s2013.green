@@ -22,7 +22,7 @@ import spitapp.core.model.User;
 /**
  * Single Point for every DB-Call.
  * 
- * @author green
+ * @author lants1, bohnp1
  *
  */
 class DatabaseService {

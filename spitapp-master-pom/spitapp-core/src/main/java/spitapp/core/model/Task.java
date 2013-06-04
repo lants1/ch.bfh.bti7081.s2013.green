@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Hibernate Mapping Class for table Task
  * 
- * @author green
+ * @author lants1, bohnp1
  *
  */
 public class Task implements SpitappSaveable{

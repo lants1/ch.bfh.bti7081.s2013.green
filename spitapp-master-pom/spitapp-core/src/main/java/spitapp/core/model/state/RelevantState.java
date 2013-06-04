@@ -9,7 +9,7 @@ import spitapp.core.model.Appointment;
 /**
  * State for Statepattern
  * 
- * @author green
+ * @author lants1, bohnp1
  *
  */
 public class RelevantState implements AppointmentState {
@@ -21,7 +21,6 @@ public class RelevantState implements AppointmentState {
 	}
 	
 	public boolean isRelevant() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
