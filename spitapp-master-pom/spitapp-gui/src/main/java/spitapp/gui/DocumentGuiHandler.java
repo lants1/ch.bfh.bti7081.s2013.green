@@ -18,15 +18,27 @@ import com.vaadin.ui.Embedded;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Window;
 
-
+/**
+ * class to handle the document gui
+ * @author vonop1
+ */
 public class DocumentGuiHandler extends DetailGuiHandler {
 
 	/**
 	 * generated serial
 	 */
 	private static final long serialVersionUID = -5744285594661791699L;
-	// the gui components
+	
+	/**
+	 * the GUI components
+	 */
 	private AbsoluteLayout mainLayout;
+	private Label name;
+	private Label nameData;
+	private Label address;
+	private Label addressData;
+	private Label city;
+	private Label cityData;
 	private Label age;
 	private Label ageData;
 	private Label careLevel;
@@ -54,116 +66,189 @@ public class DocumentGuiHandler extends DetailGuiHandler {
 	 * @return the mainLayout
 	 */
 	private AbsoluteLayout buildMainLayout() {
-		// common part: create layout
+		
+		/**
+		 * create the top layout
+		 */
 		mainLayout = new AbsoluteLayout();
 		mainLayout.setImmediate(false);
 		mainLayout.setWidth("100%");
 		mainLayout.setHeight("100%");
-		
 		// top-level component properties
 		setWidth("100.0%");
 		setHeight("100.0%");
 		
-		// Age title
-		age = new Label();
-		age.setImmediate(false);
-		age.setWidth("-1px");
-		age.setHeight("-1px");
-		age.setValue("Alter:");
-		mainLayout.addComponent(age, "top:24.0px;left:20.0px;");
+		/**
+		 * Name/surname title
+		 */
+		name = new Label();
+		name.setImmediate(false);
+		name.setWidth("100px");
+		name.setHeight("-1px");
+		name.setValue("Vorname/Name:");
+		mainLayout.addComponent(name, "top:20.0px;left:20.0px;");
 		
-		// Age data
-		ageData = new Label();
-		ageData.setImmediate(false);
-		ageData.setWidth("90px");
-		ageData.setHeight("-1px");
-		ageData.setValue("");
-		mainLayout.addComponent(ageData, "top:24.0px;left:110.0px;");
+		/**
+		 * Name/surname data
+		 */
+		nameData = new Label();
+		nameData.setImmediate(false);
+		nameData.setWidth("300px");
+		nameData.setHeight("-1px");
+		nameData.setValue("");
+		mainLayout.addComponent(nameData, "top:20.0px;left:130.0px;");
 		
-		// Carelevel title
-		careLevel = new Label();
-		careLevel.setImmediate(false);
-		careLevel.setWidth("-1px");
-		careLevel.setHeight("-1px");
-		careLevel.setValue("Pflegestufe:");
-		mainLayout.addComponent(careLevel, "top:60.0px;left:20.0px;");
+		/**
+		 * Address title
+		 */
+		address = new Label();
+		address.setImmediate(false);
+		address.setWidth("100px");
+		address.setHeight("-1px");
+		address.setValue("Adresse:");
+		mainLayout.addComponent(address, "top:40.0px;left:20.0px;");
 		
-		// Carelevel data
-		careLevelData = new Label();
-		careLevelData.setImmediate(false);
-		careLevelData.setWidth("110px");
-		careLevelData.setHeight("-1px");
-		careLevelData.setValue("8b");
-		mainLayout.addComponent(careLevelData, "top:60.0px;left:110.0px;");
+		/**
+		 * Address data
+		 */
+		addressData = new Label();
+		addressData.setImmediate(false);
+		addressData.setWidth("300px");
+		addressData.setHeight("-1px");
+		addressData.setValue("");
+		mainLayout.addComponent(addressData, "top:40.0px;left:130.0px;");
 		
-		// Hobbies title
-		hobbies = new Label();
-		hobbies.setImmediate(false);
-		hobbies.setWidth("-1px");
-		hobbies.setHeight("-1px");
-		hobbies.setValue("Hobbies:");
-		mainLayout.addComponent(hobbies, "top:100.0px;left:20.0px;");
+		/**
+		 * ZIP/City title
+		 */
+		city = new Label();
+		city.setImmediate(false);
+		city.setWidth("100px");
+		city.setHeight("-1px");
+		city.setValue("PLZ/Ort");
+		mainLayout.addComponent(city, "top:60.0px;left:20.0px;");
 		
-		// Hobbies data
-		hobbiesData = new Label();
-		hobbiesData.setImmediate(false);
-		hobbiesData.setWidth("100.0%");
-		hobbiesData.setHeight("40px");
-		hobbiesData.setValue("");
-		mainLayout.addComponent(hobbiesData, "top:120.0px;left:20.0px;");
+		/**
+		 * ZIP/City data
+		 */
+		cityData = new Label();
+		cityData.setImmediate(false);
+		cityData.setWidth("300px");
+		cityData.setHeight("-1px");
+		cityData.setValue("");
+		mainLayout.addComponent(cityData, "top:60.0px;left:130.0px;");
 		
-		// ComboBox for pdf-documents
-		cbxDocuments = new ComboBox();
-		cbxDocuments.setImmediate(false);
-		cbxDocuments.setWidth("-1px");
-		cbxDocuments.setHeight("-1px");
-		cbxDocuments.setInvalidAllowed(false);
-		mainLayout.addComponent(cbxDocuments, "top:200.0px;left:22.0px;");
-
-		// GoogleMaps button
+		/**
+		 * GoogleMaps button
+		 */
 		btnGoogleMaps = new Button();
 		btnGoogleMaps.setCaption("Auf Karte zeigen");
 		btnGoogleMaps.setImmediate(true);
 		btnGoogleMaps.setWidth("-1px");
 		btnGoogleMaps.setHeight("-1px");
-		
 		opener = new BrowserWindowOpener(new ExternalResource("http://maps.google.com"));
 		opener.extend(btnGoogleMaps);
+		mainLayout.addComponent(btnGoogleMaps, "top:18.0px;left:440.0px;");
 		
-//		
-//		btnGoogleMaps.addClickListener(new Button.ClickListener() {
-//			/**
-//			 * generated serial
-//			 */
-//			private static final long serialVersionUID = -8378559264582148290L;
-//
-//			public void buttonClick(ClickEvent event) {
-//				
-//				Patient patient = controller.getCurrentAppointment().getPatient();
-//				
-//
-//				//getUI().showNotification("Title", "Testnachricht");
-//            	//getMainWindow().open(new ExternalResource("http://vaadin.com"));
-//			}
-//		}); 
-		mainLayout.addComponent(btnGoogleMaps, "top:24.0px;left:280.0px;");
+		/**
+		 * Age title
+		 */
+		age = new Label();
+		age.setImmediate(false);
+		age.setWidth("100px");
+		age.setHeight("-1px");
+		age.setValue("Alter:");
+		mainLayout.addComponent(age, "top:100.0px;left:20.0px;");
 		
-		// Document button
+		/**
+		 * Age data
+		 */
+		ageData = new Label();
+		ageData.setImmediate(false);
+		ageData.setWidth("300px");
+		ageData.setHeight("-1px");
+		ageData.setValue("");
+		mainLayout.addComponent(ageData, "top:100.0px;left:130.0px;");
+		
+		/**
+		 * CareLevel title
+		 */
+		careLevel = new Label();
+		careLevel.setImmediate(false);
+		careLevel.setWidth("100px");
+		careLevel.setHeight("-1px");
+		careLevel.setValue("Pflegestufe:");
+		mainLayout.addComponent(careLevel, "top:120.0px;left:20.0px;");
+		
+		/**
+		 * CareLevel data
+		 */
+		careLevelData = new Label();
+		careLevelData.setImmediate(false);
+		careLevelData.setWidth("300px");
+		careLevelData.setHeight("-1px");
+		careLevelData.setValue("");
+		mainLayout.addComponent(careLevelData, "top:120.0px;left:130.0px;");
+		
+		/**
+		 * Hobbies title
+		 */
+		hobbies = new Label();
+		hobbies.setImmediate(false);
+		hobbies.setWidth("100px");
+		hobbies.setHeight("-1px");
+		hobbies.setValue("Hobbies:");
+		mainLayout.addComponent(hobbies, "top:140.0px;left:20.0px;");
+		
+		/**
+		 * Hobbies data
+		 */
+		hobbiesData = new Label();
+		hobbiesData.setImmediate(false);
+		hobbiesData.setWidth("300px");
+		hobbiesData.setHeight("-1px");
+		hobbiesData.setValue("");
+		mainLayout.addComponent(hobbiesData, "top:140.0px;left:130.0px;");
+		
+		/**
+		 * Document label
+		 */
+		lblDocument = new Label();
+		lblDocument.setImmediate(false);
+		lblDocument.setWidth("300px");
+		lblDocument.setHeight("-1px");
+		lblDocument.setValue("Verfügbare Partienten-Dokumente:");
+		mainLayout.addComponent(lblDocument, "top:180.0px;left:20.0px;");
+		
+		/**
+		 * ComboBox for pdf-documents
+		 */
+		cbxDocuments = new ComboBox();
+		cbxDocuments.setImmediate(false);
+		cbxDocuments.setWidth("-1px");
+		cbxDocuments.setHeight("-1px");
+		cbxDocuments.setInvalidAllowed(false);
+		mainLayout.addComponent(cbxDocuments, "top:200.0px;left:20.0px;");
+		
+		/**
+		 * Document open button
+		 */
 		btnDocument = new Button();
 		btnDocument.setCaption("Öffnen");
 		btnDocument.setImmediate(true);
 		btnDocument.setWidth("-1px");
 		btnDocument.setHeight("-1px");
 		btnDocument.addClickListener(new Button.ClickListener() {
-			/**
-			 * generated serial
-			 */
+
 			private static final long serialVersionUID = -8378559164582148290L;
 
 			public void buttonClick(ClickEvent event) {
 				
+				// get the current document and document name for further use
 				Document currentDocument = controller.getCurrentAppointment().getPatient().getDocuments().get((int)cbxDocuments.getValue());
 				String docFileName = currentDocument.getFileName();
+				
+				// get the current document as pdf stream for further use
 				PdfStream pdf = new PdfStream();
 		        pdf.setResource(currentDocument.getFile());
 		        
@@ -194,14 +279,6 @@ public class DocumentGuiHandler extends DetailGuiHandler {
 		}); 
 		mainLayout.addComponent(btnDocument, "top:198.0px;left:214.0px;");
 		
-		// Document label
-		lblDocument = new Label();
-		lblDocument.setImmediate(false);
-		lblDocument.setWidth("-1px");
-		lblDocument.setHeight("-1px");
-		lblDocument.setValue("Verfügbare Partienten-Dokumente:");
-		mainLayout.addComponent(lblDocument, "top:180.0px;left:22.0px;");
-		
 		return mainLayout;
 	}
 
@@ -214,17 +291,21 @@ public class DocumentGuiHandler extends DetailGuiHandler {
 		Patient patient = controller.getCurrentAppointment().getPatient();
 		
 		// Hier eventuell noch Strings präparieren....
-		String urlquery = patient.getStreet() + ",+" +
-							patient.getCity();
+		String urlquery = patient.getStreet() + ",+" + patient.getCity();
 		
 		btnGoogleMaps.removeExtension(opener);
 		opener = new BrowserWindowOpener(new ExternalResource("http://maps.google.com?q=" + urlquery + "&views=satellite,traffic&zoom=15"));
 		opener.extend(btnGoogleMaps);
 		
-		
+		// Fill up the data labels
+		nameData.setValue(patient.getFirstName() + " " + patient.getLastName());
+		addressData.setValue(patient.getStreet());
+		cityData.setValue(patient.getCity());
 		ageData.setValue(Integer.toString(patient.getAge()));
-		careLevelData.setValue(patient.getCareLevel().toString());
+		careLevelData.setValue(patient.getCareLevel().name());
 		hobbiesData.setValue(patient.getHobbies());
+		
+		// Fill up the document comboBox
 		cbxDocuments.removeAllItems();
 		int i = 0;
 		for(Document doc : patient.getDocuments()) {
