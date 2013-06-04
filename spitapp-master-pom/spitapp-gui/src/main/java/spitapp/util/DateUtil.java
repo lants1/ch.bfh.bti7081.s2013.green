@@ -41,7 +41,7 @@ public class DateUtil {
 		//Set the date together
 		Calendar date = new GregorianCalendar();
 		date.setTime(new Date());
-		date.set(Calendar.HOUR, hours);
+		date.set(Calendar.HOUR_OF_DAY, hours);
 		date.set(Calendar.MINUTE, minutes);
 		date.set(Calendar.SECOND, 0);
 		return date.getTime();
