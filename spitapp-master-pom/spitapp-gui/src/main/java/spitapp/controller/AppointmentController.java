@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Logger;
 
 import spitapp.core.model.Appointment;
 import spitapp.core.model.ExpensesEntry;
@@ -22,6 +23,9 @@ import spitapp.util.DateUtil;
  */
 public class AppointmentController {
 	
+	
+	private final static Logger logger =
+	          Logger.getLogger(AppointmentController.class.getName());
 	/**
 	 * the list of appointments of a day
 	 */
@@ -267,7 +271,7 @@ public class AppointmentController {
 		}
 		else {
 				for(Task entry : tasks) {
-					if(entry.getTaskId() == task_id) {
+					if(entry.getTaskId().equals(task_id)) {
 						return entry;
 					}
 				}
