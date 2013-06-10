@@ -92,10 +92,10 @@ public class TaskTimeGuiHandler extends DetailGuiHandler {
 			private static final long serialVersionUID = 3711851523654603355L;
 
 			public void buttonClick(ClickEvent event) {
-				Integer returnvalue = controller.reactivateTaskOfCurrentPatient((Long)table_task.getValue());
+				AppointmentController.Codes returnvalue = controller.reactivateTaskOfCurrentPatient((Long)table_task.getValue());
 				
 				switch(returnvalue) {
-				case 1: // delete successfull
+				case SUCCESS:
 					Notification.show("Der Zeiteintrag wurde zurückgesetzt!",
 			                  "Unter ToDo's kann nun eine neue Zeit erfasst werden.",
 			                  Notification.Type.TRAY_NOTIFICATION);
@@ -103,7 +103,7 @@ public class TaskTimeGuiHandler extends DetailGuiHandler {
 					reload_tasks();
 					break;
 				default:
-					button_reactivate.setComponentError(new SystemError("Löschen fehlgeschlagen! Fehlercode: " + returnvalue.toString()));
+					button_reactivate.setComponentError(new SystemError("Löschen fehlgeschlagen! Fehlercode: " + returnvalue.getMessage()));
 					break;
 				}
 			}

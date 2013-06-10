@@ -90,25 +90,20 @@ public class TaskDoneSubGui extends CustomComponent {
 				String starttime = textfield_starttime.getValue();
 				String duration = textfield_duration.getValue();
 								
-				Integer returnvalue = controller.completeTaskOfCurrentPatient(task_id, starttime, duration);
+				AppointmentController.Codes returnvalue = controller.completeTaskOfCurrentPatient(task_id, starttime, duration);
 				switch(returnvalue) {
-				case 1:  // all ok
+				case SUCCESS:
 					parentWindow.close();
 					break;
 					
-				case 0: 
-					button_add.setComponentError(new SystemError("Interner Fehler: Der zu bearbeitende Task wurde nicht mehr auf der Datenbank gefunden!"));
+				case DURATION_IS_EMPTY:
+				case INVALID_DURATION_FORMAT:
+				case STARTTIME_IS_EMPTY:
+				case INVALID_STARTTIME_FORMAT:
+					textfield_starttime.setComponentError(new UserError(returnvalue.getMessage()));
 					break;
-				case -1:
-				case -3:
-					textfield_duration.setComponentError(new UserError("Die Dauer ist ungültig!"));
-					break;
-				case -2:
-				case -4:
-					textfield_starttime.setComponentError(new UserError("Die Startzeit ist ungültig!"));
-					break;
-				default: // amount value in
-					button_add.setComponentError(new SystemError("Ein unbekannter Fehler ist aufgetreten!"));
+				default:
+					button_add.setComponentError(new SystemError("Ooops, ein Systemfehler ist aufgetreten: " + returnvalue.getMessage()));
 					break;					
 				}
 			}

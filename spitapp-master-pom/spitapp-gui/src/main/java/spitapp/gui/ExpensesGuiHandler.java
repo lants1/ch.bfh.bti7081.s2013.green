@@ -132,9 +132,10 @@ public class ExpensesGuiHandler extends DetailGuiHandler {
 				String value = textfield_amount.getValue();
 				
 				
-				Integer returnvalue = controller.addExpensetoCurrentPatient(expensetype, value);
+				AppointmentController.Codes returnvalue = controller.addExpensetoCurrentPatient(expensetype, value);
+				
 				switch(returnvalue) {
-				case 0:  // all ok, reload expenses
+				case SUCCESS:  // all ok, reload expenses
 					textfield_amount.setComponentError(null);
 					textfield_expensetype.setComponentError(null);
 					button_add.setComponentError(null);
@@ -150,17 +151,12 @@ public class ExpensesGuiHandler extends DetailGuiHandler {
 					
 					reload_expenses();
 					break;
-				case -1: // amount value invalid
-					textfield_amount.setComponentError(new UserError("Die Betrag ist ungültig!"));
+				case INVALID_AMOUNT:
+				case INVALID_DESCRIPTION:
+					textfield_amount.setComponentError(new UserError(returnvalue.getMessage()));
 					break;
-				case -2:
-					textfield_expensetype.setComponentError(new UserError("Spesenart darf nicht leer sein!"));
-					break;
-				case -4:
-					button_add.setComponentError(new SystemError("Ooops. Beim Speichern gings in die Hose!"));
-					break;
-				default: // catch anything
-					button_add.setComponentError(new SystemError("Unbekannter Fehler!"));
+				default:
+					button_add.setComponentError(new SystemError(returnvalue.getMessage()));
 					break;					
 				}
 			}
@@ -197,17 +193,15 @@ public class ExpensesGuiHandler extends DetailGuiHandler {
 			public void buttonClick(ClickEvent event) {
 				Long id_to_delete = (Long)table_expenses.getValue();
 				
-				Integer returnvalue = controller.deleteExepenseOfCurrentPatient(id_to_delete);
+				AppointmentController.Codes returnvalue = controller.deleteExepenseOfCurrentPatient(id_to_delete);
 				switch(returnvalue) {
-				case 1: // delete successfull
-					Notification.show("Speseneintrag erfolgreich gelöscht!",
-			                  "Here we go :)",
-			                  Notification.Type.TRAY_NOTIFICATION);
+				case SUCCESS:
+					Notification.show("Speseneintrag erfolgreich gelöscht!", "Here we go :)", Notification.Type.TRAY_NOTIFICATION);
 					
 					reload_expenses();
 					break;
 				default:
-					button_delete.setComponentError(new SystemError("Löschen fehlgeschlagen! Fehlercode: " + returnvalue.toString()));
+					button_delete.setComponentError(new SystemError("Löschen fehlgeschlagen! Aufgetretener Fehler (Code " + String.valueOf(returnvalue.getCode()) + "): " + returnvalue.getMessage()));
 					break;
 				}
 			}
@@ -268,7 +262,7 @@ public class ExpensesGuiHandler extends DetailGuiHandler {
         @Override
         protected boolean isValidValue(String value) {
     		// Regex looks for a valid amount
-        	// Nulls values have to be accepted
+        	// Null values have to be accepted
     		if (value != null && !value.matches("\\d+(\\.\\d{0,2})?")) {
                 return false;
             }

@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import spitapp.core.model.Appointment;
@@ -23,16 +24,56 @@ import spitapp.util.DateUtil;
  */
 public class AppointmentController {
 	
+	private final static Logger logger = 
+			Logger.getLogger(AppointmentController.class.getName());
+
+	/**
+	 * ControllerCodes
+	 */
+	public enum Codes {
+		 SUCCESS(1, "Erfolgreich!"), 
+		 NOTHING_DONE(0, "Nichts passiert!"),
+		 ERROR_ON_SAVE(-1, "Ooops. Beim Speichern gings in die Hose!"),
+		 DATE_IS_NULL(-10, "Das Datum ist leer!"),
+		 NO_APPOINTMENTS_FOUND(-11, "Es sind keine Patiententermine geplant."),
+		 NO_PATIENT_FOUND(-12, "Kein Patient gefunden!"), 
+		 NO_EXPENSES_FOUND(-13, "Speseneintrag nicht gefunden!"),
+		 NO_TASK_FOUND(-14, "Aufgabe nicht gefunden!"),
+		 INVALID_AMOUNT(-15, "Der eingegebene Betrag ist ungültig!"),
+		 INVALID_DESCRIPTION(-16, "Spesenart darf nicht leer sein!"),
+		 STARTTIME_IS_EMPTY(-17,"Die Startzeit muss angegeben werden!"),
+		 DURATION_IS_EMPTY(-18, "Die Dauer muss angegeben werden!"),
+		 INVALID_STARTTIME_FORMAT(-19, "Die eingegebene Startzeit ist ungültig!"),
+		 INVALID_DURATION_FORMAT(-20, "Die eingegebene Dauer ist ungültig!");
+		 
+		 private int internal_code;
+		 private String message;
+		 
+		 private Codes(int code, String message) {
+			 this.internal_code = code;
+			 this.message = message;
+		 }
+		 
+		 public int getCode() {
+			 return internal_code;
+		 }
+		 
+		 public String getMessage() {
+			 return message;
+		 }
+		 
+		 public boolean isSuccessfull() {
+			 return internal_code > 0;
+		 }
+	}
 	
-	private final static Logger logger =
-	          Logger.getLogger(AppointmentController.class.getName());
 	/**
 	 * the list of appointments of a day
 	 */
 	protected HashMap<Integer, Appointment> appointments = new HashMap<Integer, Appointment>();
 
 	/**
-	 * the GUI Id of the current GUI selection
+	 * the highest used ID for the GUI selection
 	 */
 	protected Integer latestId = 0;
 
@@ -115,23 +156,23 @@ public class AppointmentController {
 	 *            the date from that appointments should be loaded
 	 * @return the count of appointments loaded
 	 */
-	public Integer loadAppointmentsByDate(Date datetoload) {
+	public Codes loadAppointmentsByDate(Date datetoload) {
 		if(datetoload == null) {
-			return -1;
+			return Codes.DATE_IS_NULL;
 		}
 		
 		this.appointments.clear();
 
 		List<Appointment> entries = UiServiceFacade.getInstance().getAppointments(datetoload);
 		if (entries == null) {
-			return -2;
+			return Codes.NO_APPOINTMENTS_FOUND;
 		}
 
 		for (Appointment entry : entries) {
 			this.addAppointment(entry);
 		}
 
-		return entries.size();
+		return Codes.SUCCESS;
 	}
 
 	/**
@@ -174,24 +215,21 @@ public class AppointmentController {
 	 * @param amount the amount as decimal value in a string
 	 * @return 0 if successfull or lesser than 0 on failure
 	 */
-	public Integer addExpensetoCurrentPatient(String descpription, String amount) {
+	public Codes addExpensetoCurrentPatient(String descpription, String amount) {
 		Double value = null;
 		
 		if(amount == null ) {
-			return -1;
+			return Codes.INVALID_AMOUNT;
 		}
 		try {
 			value = Double.parseDouble(amount);
 		} 
 		catch(NumberFormatException ex) {
-			return -1;
+			return Codes.INVALID_AMOUNT;
 		}
 		
-		if(descpription == null) {
-			return -2;
-		}
-		if(descpription.isEmpty()) {
-			return -2;
+		if(descpription == null || descpription.isEmpty()) {
+			return Codes.INVALID_DESCRIPTION;
 		}
 		
 		try {
@@ -208,10 +246,10 @@ public class AppointmentController {
 			UiServiceFacade.getInstance().saveModel(appointment);
 		}
 		catch(NumberFormatException ex) {
-			return -4;
+			return Codes.ERROR_ON_SAVE;
 		}
 		
-		return 0;
+		return Codes.SUCCESS;
 	}
 	
 	/**
@@ -219,18 +257,19 @@ public class AppointmentController {
 	 * @param expense_id the id of the expense to delete
 	 * @return 1 if successfull, 0 if not found or lesser than 0 on failure
 	 */
-	public Integer deleteExepenseOfCurrentPatient(Long expense_id) {
+	public Codes deleteExepenseOfCurrentPatient(Long expense_id) {
 		if(expense_id == null) {
-			return -4;
+			logger.log(Level.SEVERE, "Argument expense_id is null!");
+			return Codes.NO_EXPENSES_FOUND;  
 		}
 		
 		Patient patient = this.getCurrentAppointment().getPatient();
 		if(patient == null) {
-			return -3;
+			return Codes.NO_PATIENT_FOUND;
 		}
 		List<ExpensesEntry> expenses = patient.getExpenses();
 		if(expenses == null) {
-			return -1;
+			return Codes.NO_EXPENSES_FOUND;
 		}
 		else {
 			try { 
@@ -238,17 +277,16 @@ public class AppointmentController {
 					if(entry.getExpensesId() == expense_id) {
 						expenses.remove(entry);
 						UiServiceFacade.getInstance().saveModel(patient);
-						//this.dbservice.delete(entry); doesnt work
-						return 1;
+						return Codes.SUCCESS;
 					}
 				}
 			}
 			catch(Exception ex) {
-				return -2;
+				return Codes.ERROR_ON_SAVE;
 			}
 		}
 		
-		return 1;
+		return Codes.NOTHING_DONE;
 	}
 	
 	/**
@@ -271,7 +309,7 @@ public class AppointmentController {
 		}
 		else {
 				for(Task entry : tasks) {
-					if(entry.getTaskId().equals(task_id)) {
+					if(entry.getTaskId() == task_id) {
 						return entry;
 					}
 				}
@@ -285,20 +323,20 @@ public class AppointmentController {
 	 * @param task_id the id of the expense to delete
 	 * @return 1 if successfull, 0 if not found or lesser than 0 on failure
 	 */
-	public Integer completeTaskOfCurrentPatient(Long task_id, String starttime_input, String duration_input) {
+	public Codes completeTaskOfCurrentPatient(Long task_id, String starttime_input, String duration_input) {
 		
 		if(starttime_input == null || starttime_input.isEmpty()) {
-			return -4;
+			return Codes.STARTTIME_IS_EMPTY;
 		}
 				
 		if(duration_input == null || duration_input.isEmpty()) {
-			return -3;
+			return Codes.DURATION_IS_EMPTY;
 		}
 
 
 		Date starttime = DateUtil.getTodayWithSpecificTime(starttime_input);
 		if(starttime == null) {
-			return -2;
+			return Codes.INVALID_STARTTIME_FORMAT;
 		}
 		
 		Integer duration = null;
@@ -306,12 +344,12 @@ public class AppointmentController {
 			duration = Integer.parseInt(duration_input);
 		} 
 		catch(NumberFormatException ex) {
-			return -1;
+			return Codes.INVALID_DURATION_FORMAT;
 		}
 		
 		Task theTask = getTaskById(task_id);
 		if(theTask == null) {
-			return 0;
+			return Codes.NO_TASK_FOUND;
 		}
 		
 		theTask.setDone(true);
@@ -321,7 +359,7 @@ public class AppointmentController {
 		
 		UiServiceFacade.getInstance().saveModel(theTask);
 		
-		return 1;
+		return Codes.SUCCESS;
 	}
 	
 	/**
@@ -329,11 +367,11 @@ public class AppointmentController {
 	 * @param task_id the id of the task
 	 * @return 1 on success or -1 on failure
 	 */
-	public Integer reactivateTaskOfCurrentPatient(Long task_id) {
+	public Codes reactivateTaskOfCurrentPatient(Long task_id) {
 				
 		Task theTask = getTaskById(task_id);
 		if(theTask == null) {
-			return -1;
+			return Codes.NO_TASK_FOUND;
 		}
 		
 		theTask.setDone(false);
@@ -342,6 +380,6 @@ public class AppointmentController {
 		
 		UiServiceFacade.getInstance().saveModel(theTask);
 		
-		return 1;
+		return Codes.SUCCESS;
 	}
 }

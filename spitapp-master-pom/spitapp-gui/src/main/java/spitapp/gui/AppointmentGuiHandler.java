@@ -69,10 +69,12 @@ public class AppointmentGuiHandler extends DetailGuiHandler {
 		spitAppParentView.tabs.setVisible(false);
 		
 		if(appointments.removeAllItems()) {
-			Integer itemcount = this.controller.loadAppointmentsByDate(newDate);
-			appointments.setCaption("Es sind " + itemcount.toString() + " Patiententermine geplant:");
+			AppointmentController.Codes returnvalue = this.controller.loadAppointmentsByDate(newDate);
 			
-			if(itemcount > 0) {
+			
+			if(returnvalue.isSuccessfull()) {
+				appointments.setCaption("Es sind " + String.valueOf(controller.getAppointments().size()) + " Patiententermine geplant:");
+				
 				Iterator<Map.Entry<Integer, Appointment>> it = controller.getAppointments().entrySet().iterator();
 			    while (it.hasNext()) {
 			    	Map.Entry<Integer, Appointment> entry = it.next();
@@ -85,6 +87,9 @@ public class AppointmentGuiHandler extends DetailGuiHandler {
 							DateUtil.formatDate(entry.getValue().getToDate(), "HH:mm")}, 
 							entry.getKey());
 			    }
+			}
+			else {
+				appointments.setCaption("Es sind keine Patiententermine geplant.");
 			}
 		}
 	}
