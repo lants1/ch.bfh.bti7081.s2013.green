@@ -68,9 +68,9 @@ public class DatabaseServiceTest
 		Appointment termin = new Appointment();
 		termin.setAppointmentDescription("testermin2");
 		Calendar calendar = new GregorianCalendar();
-		calendar.add(Calendar.HOUR_OF_DAY, -2);
+		calendar.add(Calendar.MINUTE, -60);
 		termin.setFromDate(calendar.getTime());
-		calendar.add(Calendar.HOUR_OF_DAY, 4);
+		calendar.add(Calendar.MINUTE, -20);
 		termin.setToDate(calendar.getTime());
 
 		String patientFirstName = String.valueOf("Pascal");
