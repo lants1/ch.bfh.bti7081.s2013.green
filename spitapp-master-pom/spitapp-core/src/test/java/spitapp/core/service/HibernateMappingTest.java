@@ -69,9 +69,9 @@ public class HibernateMappingTest
 		// Create a new Testtermin
 		Appointment termin = new Appointment();
 		termin.setAppointmentDescription("testermin");
-		termin.setFromDate(testdate);
+		termin.setFromDate((Date) testdate.clone());
 		// Testdate um 20 Minuten verlängern
-		testdate.setTime(testdate.getTime() + (20 * 60 * 1000));
+		testdate.setTime((testdate.getTime() + (20 * 60 * 1000)));
 		termin.setToDate(testdate);
 
 		Patient patient = new Patient();

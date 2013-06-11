@@ -11,6 +11,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
@@ -80,7 +81,7 @@ class DatabaseService {
 		Transaction tx = session.beginTransaction();
 		// Get all Appointment from db without restriction o_O evil thing
 		@SuppressWarnings("unchecked")
-		List<Appointment> appointmentList = session.createCriteria(Appointment.class).list();
+		List<Appointment> appointmentList = session.createCriteria(Appointment.class).addOrder(Order.asc("fromDate")).list();
 		List<Appointment> resultList = new ArrayList<Appointment>();
 		for(Appointment appointment : appointmentList){
 			// Call the Statepattern mechanism on each termin

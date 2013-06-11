@@ -70,7 +70,7 @@ public class DatabaseServiceTest
 		Calendar calendar = new GregorianCalendar();
 		calendar.add(Calendar.MINUTE, -60);
 		termin.setFromDate(calendar.getTime());
-		calendar.add(Calendar.MINUTE, -20);
+		calendar.add(Calendar.MINUTE, 20);
 		termin.setToDate(calendar.getTime());
 
 		String patientFirstName = String.valueOf("Pascal");
