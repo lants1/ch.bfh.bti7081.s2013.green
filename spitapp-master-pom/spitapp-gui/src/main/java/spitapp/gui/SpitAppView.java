@@ -100,6 +100,8 @@ public class SpitAppView extends CustomComponent implements View {
         titleLayout = new CssLayout();
         user = new Label("Hallo, Gast!");
         user.setWidth("100%");
+        // Selenium DebugID
+        user.setId("userText");
         titleLayout.addComponent(user);
 
         HorizontalLayout buttons = new HorizontalLayout();
