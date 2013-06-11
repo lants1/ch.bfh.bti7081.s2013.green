@@ -119,14 +119,10 @@ public class AppointmentGuiHandler extends DetailGuiHandler {
 		appointments.addValueChangeListener(new ValueChangeListener() {
 			private static final long serialVersionUID = 3950076798774688747L;
 			public void valueChange(ValueChangeEvent event) {
-				controller.changeAppointmentById((Long)appointments.getValue());
 				
-//		    	// appointment changed
-//		    	if(appointments.getValue() != null) {
-//		    		
-//		    	} else {
-//		    		controller.changeAppointmentById(null);
-//		    	}
+				// change the appointment
+				// Important: getValue() can be null, which is also a valid value
+				controller.changeAppointmentById((Long)appointments.getValue());
 		    }
 		});
 		
@@ -139,9 +135,11 @@ public class AppointmentGuiHandler extends DetailGuiHandler {
 		backward.setWidth("-1px");
 		backward.setHeight("-1px");
 		backward.addClickListener(new Button.ClickListener() {
-			//date changed: -1 day
+			
 			private static final long serialVersionUID = 8404210712006504006L;
+			
 			public void buttonClick(ClickEvent event) {
+				// Subtract 1 day
 				datePopup.setValue(DateUtil.addDays(datePopup.getValue(), -1));
 			}
 		}); 	
@@ -156,10 +154,12 @@ public class AppointmentGuiHandler extends DetailGuiHandler {
 		datePopup.setDateFormat("dd-MM-yyyy");
 		datePopup.setValue(new Date());
 		datePopup.addValueChangeListener(new ValueChangeListener() {
-			//date changed: custom day
+
 			private static final long serialVersionUID = 939476374869668350L;
+			
 			public void valueChange(ValueChangeEvent event) {
-		        dateChanged(datePopup.getValue());
+				//date changed: custom day
+				dateChanged(datePopup.getValue());
 		    }
 		});
 		
@@ -172,9 +172,11 @@ public class AppointmentGuiHandler extends DetailGuiHandler {
 		forward.setWidth("-1px");
 		forward.setHeight("-1px");
 		forward.addClickListener(new Button.ClickListener() {
-			//date changed: +1 day
+			
 			private static final long serialVersionUID = 8339349572929865124L;
+			
 			public void buttonClick(ClickEvent event) {
+				//date changed: +1 day
 				datePopup.setValue(DateUtil.addDays(datePopup.getValue(), 1));
 			}
 		}); 		
@@ -213,7 +215,12 @@ public class AppointmentGuiHandler extends DetailGuiHandler {
 	@Override
 	public void handleAppointmentChangedEvent(AppointmentChangedEvent e) {
 		
-		// Display tab-controller only, if there is a valid appointment selected
-		spitAppParentView.tabs.setVisible(controller.getCurrentAppointment() != null);
+		boolean visibleSetting = controller.getCurrentAppointment() != null;
+		
+		if(spitAppParentView.tabs.isVisible() != visibleSetting) {
+			
+			// Display tab-controller only, if there is a valid appointment selected
+			spitAppParentView.tabs.setVisible(visibleSetting);
+		}
 	}
 }

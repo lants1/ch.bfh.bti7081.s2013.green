@@ -16,6 +16,11 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.themes.Reindeer;
 
+/**
+ * the LoginView View
+ * @author jaggr2, vonop1
+ *
+ */
 public class LoginView extends CustomComponent implements View, Button.ClickListener {
 
     /**
@@ -23,16 +28,21 @@ public class LoginView extends CustomComponent implements View, Button.ClickList
 	 */
 	private static final long serialVersionUID = 596706977145258460L;
 
+	/**
+	 * the components
+	 */
 	public static final String NAME = "login";
-
     private final TextField user;
-
     private final PasswordField password;
-
     private final Button loginButton;
 
+    /**
+     * Initializes a new LoginView
+     */
     public LoginView() {
-        setSizeFull();
+        
+    	setSizeFull();
+        
         // Create the user input field
         user = new TextField("User:");
         user.setWidth("300px");
@@ -69,18 +79,12 @@ public class LoginView extends CustomComponent implements View, Button.ClickList
         viewLayout.setStyleName(Reindeer.LAYOUT_WHITE);
         setCompositionRoot(viewLayout);
     }
-    
-	@Override
-	public void enter(ViewChangeEvent event) {
-        // focus the username field when user arrives to the login view
-        //user.focus();
-	}
 
     @Override
     public void buttonClick(ClickEvent event) {
 
          //
-         // Validate the fields using the navigator. By using validors for the
+         // Validate the fields using the navigator. By using validators for the
          // fields we reduce the amount of queries we have to use to the database
          // for wrongly entered passwords
          //
@@ -92,7 +96,7 @@ public class LoginView extends CustomComponent implements View, Button.ClickList
         String password = this.password.getValue();
 
          //
-         // Validate username and password with database
+         // Validate user's name and password with database
          //
         if(UiServiceFacade.getInstance().validateLogin(username, password)){
         	this.password.setComponentError(null);
@@ -111,4 +115,12 @@ public class LoginView extends CustomComponent implements View, Button.ClickList
             this.password.focus();
         }
     }
+
+    /**
+     * fires when the user enters the LoginView
+     */
+	@Override
+	public void enter(ViewChangeEvent event) {
+		// nothing to do here
+	}
 }

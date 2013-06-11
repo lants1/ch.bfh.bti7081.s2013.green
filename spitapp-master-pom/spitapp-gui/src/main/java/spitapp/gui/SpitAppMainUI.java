@@ -6,13 +6,22 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.UI;
 
 /**
- * The Application's "main" class
+ * he Application's "main" class
+ * @author jaggr2, vonop1
+ *
  */
-@SuppressWarnings("serial")
 public class SpitAppMainUI extends UI
 {
 	
-    @Override
+    /**
+	 * generated serial
+	 */
+	private static final long serialVersionUID = 3997896120089646410L;
+
+	/**
+	 * is executed when the Vaadin application starts up
+	 */
+	@Override
     protected void init(VaadinRequest request) {
     	
         //
@@ -37,7 +46,12 @@ public class SpitAppMainUI extends UI
         //
         getNavigator().addViewChangeListener(new ViewChangeListener() {
             
-            @Override
+            /**
+			 * generated serial 
+			 */
+			private static final long serialVersionUID = 6743879075044376864L;
+
+			@Override
             public boolean beforeViewChange(ViewChangeEvent event) {
                 
                 // Check if a user has logged in
@@ -61,7 +75,7 @@ public class SpitAppMainUI extends UI
             
             @Override
             public void afterViewChange(ViewChangeEvent event) {
-                
+                // nothing to do here
             }
         });    	
 

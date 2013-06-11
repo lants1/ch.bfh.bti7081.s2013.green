@@ -9,6 +9,7 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.shared.ui.label.ContentMode;
+import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -20,11 +21,15 @@ import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.themes.Reindeer;
-import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Layout;
 import com.vaadin.ui.Window;
 
+/**
+ * The SpitApp View class
+ * @author jaggr2, vonop1
+ *
+ */
 public class SpitAppView extends CustomComponent implements View {
 
     /**
@@ -32,9 +37,19 @@ public class SpitAppView extends CustomComponent implements View {
 	 */
 	private static final long serialVersionUID = 922715202810106398L;
 
-	
+	/**
+	 * the primary reference to the appointment controller
+	 */
+	public AppointmentController controller = new AppointmentController();
+
+	/**
+	 * URL identification for the view
+	 */
 	public static final String NAME = "";
-    
+
+	/**
+	 * the components
+	 */	
 	public VerticalLayout mainLayout;
 	public TabSheet tabs;
 	public Label user;
@@ -42,8 +57,11 @@ public class SpitAppView extends CustomComponent implements View {
 	public Window logout ;
 	public Window help;
     
-    public AppointmentController controller = new AppointmentController();
+    
 
+	/**
+	 * Initializes a new SpitAppView
+	 */
     public SpitAppView() {
     	mainLayout = new VerticalLayout();
         mainLayout.setLocale(Locale.GERMAN);
@@ -55,6 +73,10 @@ public class SpitAppView extends CustomComponent implements View {
     	setCompositionRoot(mainLayout);
     }
     
+    /**
+     * Builds the TopBar
+     * @return TopBar Layout
+     */
     Layout getTopBar() {
         HorizontalLayout topbar = new HorizontalLayout();
         topbar.setWidth("100%");
@@ -63,6 +85,10 @@ public class SpitAppView extends CustomComponent implements View {
         return topbar;
     }
 
+    /**
+     * Builds the FooterBar
+     * @return FooterBar as Layout
+     */
     Layout getFooterBar() {
         HorizontalLayout footerbar = new HorizontalLayout();
         footerbar.setWidth("100%");
@@ -80,6 +106,10 @@ public class SpitAppView extends CustomComponent implements View {
         return footerbar;
     }
     
+    /**
+     * Builds the Header
+     * @return Header as Layout
+     */
     Layout getHeader() {
         HorizontalLayout header = new HorizontalLayout();
         header.setWidth("100%");
@@ -143,6 +173,9 @@ public class SpitAppView extends CustomComponent implements View {
         return header;
     }
     
+    /**
+     * opens the Logout Dialog Window
+     */
     void openLogoutWindow() {
         logout = new Window("Logout");
         logout.setModal(true);
@@ -203,6 +236,10 @@ public class SpitAppView extends CustomComponent implements View {
         getUI().addWindow(logout);
     }
     
+    /**
+     * opens the Help Window
+     * the help Window will only be opened once
+     */
     void openHelpWindow() {
     	if(help == null) {
         	help = new Window("Hilfe");
@@ -238,6 +275,10 @@ public class SpitAppView extends CustomComponent implements View {
         }
     }
     
+    /**
+     * Builds the Content Layout
+     * @return Content as Layout
+     */
     Layout getContent() {
     	 
     	// Add a horizontal layout for the bottom part.
@@ -265,6 +306,10 @@ public class SpitAppView extends CustomComponent implements View {
 			 */
 			private static final long serialVersionUID = -1075153625011799903L;
 
+			/**
+			 * if Tabsheet is of type DetailGuiHandler, fire the changed event to
+			 * enforce reloading of the content
+			 */
 			@Override
 			public void selectedTabChange(SelectedTabChangeEvent event) {
 				for(Component entry : event.getTabSheet()) {
@@ -290,6 +335,9 @@ public class SpitAppView extends CustomComponent implements View {
     	return content;
     }
     
+    /**
+     * is fired when this view is entered
+     */
 	@Override
 	public void enter(ViewChangeEvent event) {
 		 // Get the user name from the session

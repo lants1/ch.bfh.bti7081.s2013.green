@@ -19,8 +19,8 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.Window;
 
 /**
- * class to handle the document gui
- * @author vonop1
+ * class to handle the document GUI
+ * @author vonop1, jaggr2
  */
 public class DocumentGuiHandler extends DetailGuiHandler {
 
@@ -221,7 +221,7 @@ public class DocumentGuiHandler extends DetailGuiHandler {
 		mainLayout.addComponent(lblDocument, "top:180.0px;left:20.0px;");
 		
 		/**
-		 * ComboBox for pdf-documents
+		 * ComboBox for PDF-documents
 		 */
 		cbxDocuments = new ComboBox();
 		cbxDocuments.setImmediate(false);

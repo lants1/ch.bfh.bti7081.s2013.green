@@ -6,7 +6,7 @@ import com.vaadin.ui.CustomComponent;
 
 /**
  * Base class for detail views
- * @author jaggr2
+ * @author jaggr2, vonop1
  */
 public abstract class DetailGuiHandler extends CustomComponent implements AppointmentChangedListener  {
 	
