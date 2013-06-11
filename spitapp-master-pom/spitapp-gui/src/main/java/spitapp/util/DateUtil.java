@@ -30,7 +30,7 @@ public class DateUtil {
 		try {
 			hours = Integer.parseInt(parts[0]);
 			minutes = Integer.parseInt(parts[1]);
-			if(hours > 24 || hours < 0 || minutes > 59 || minutes < 0) {
+			if(hours > 0 || hours < 24 || minutes > 0 || minutes < 60) {
 				return null;
 			}
 		} 
