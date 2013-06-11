@@ -176,6 +176,8 @@ public class SpitAppView extends CustomComponent implements View {
             }
         });
         yes.setStyleName(Reindeer.BUTTON_DEFAULT);
+        // Set ID For Testing Purpose with Selenium
+        yes.setId("reallyLogoutButton");
         yes.focus();
         
         buttons.addComponent(yes);
