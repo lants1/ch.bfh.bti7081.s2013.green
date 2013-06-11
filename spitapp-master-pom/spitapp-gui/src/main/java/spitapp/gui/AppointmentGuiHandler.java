@@ -1,8 +1,6 @@
 package spitapp.gui;
 
 import java.util.Date;
-import java.util.Iterator;
-import java.util.Map;
 
 import spitapp.controller.AppointmentChangedEvent;
 import spitapp.controller.AppointmentController;
@@ -20,7 +18,7 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
 
 /**
- * class to handle the appointment gui
+ * class to handle the appointment GUI
  * @author jaggr2, vonop1
  */
 public class AppointmentGuiHandler extends DetailGuiHandler {
@@ -41,7 +39,7 @@ public class AppointmentGuiHandler extends DetailGuiHandler {
 	private SpitAppView spitAppParentView = null;	
 	
 	/**
-	 * The constructor who intializes the layout
+	 * The constructor who initializes the layout
 	 */
 	public AppointmentGuiHandler(AppointmentController controller, SpitAppView partentView) {
 		super(controller);
@@ -75,18 +73,17 @@ public class AppointmentGuiHandler extends DetailGuiHandler {
 			if(returnvalue.isSuccessfull()) {
 				appointments.setCaption("Es sind " + String.valueOf(controller.getAppointments().size()) + " Patiententermine geplant:");
 				
-				Iterator<Map.Entry<Integer, Appointment>> it = controller.getAppointments().entrySet().iterator();
-			    while (it.hasNext()) {
-			    	Map.Entry<Integer, Appointment> entry = it.next();
-			    	
+				for(Appointment entry : controller.getAppointments()) {
+					
 					// Add a row into the table as object array
 					appointments.addItem(new Object[] { 
-							entry.getValue().getPatient().getFirstName() + " " + 
-							entry.getValue().getPatient().getLastName(), 
-							DateUtil.formatDate(entry.getValue().getFromDate(), "HH:mm") + " - " + 
-							DateUtil.formatDate(entry.getValue().getToDate(), "HH:mm")}, 
-							entry.getKey());
-			    }
+							entry.getPatient().getFirstName() + " " + 
+							entry.getPatient().getLastName(), 
+							DateUtil.formatDate(entry.getFromDate(), "HH:mm") + " - " + 
+							DateUtil.formatDate(entry.getToDate(), "HH:mm")}, 
+							entry.getTerminId());
+					
+				}
 			}
 			else {
 				appointments.setCaption("Es sind keine Patiententermine geplant.");
@@ -132,7 +129,7 @@ public class AppointmentGuiHandler extends DetailGuiHandler {
 		    	// appointment changed
 		    	if(appointments.getValue() != null) {
 		    		spitAppParentView.tabs.setVisible(true);
-		    		controller.changeAppointment((Integer)appointments.getValue());
+		    		controller.changeAppointmentById((Long)appointments.getValue());
 		    	} else {
 		    		spitAppParentView.tabs.setVisible(false);
 		    	}

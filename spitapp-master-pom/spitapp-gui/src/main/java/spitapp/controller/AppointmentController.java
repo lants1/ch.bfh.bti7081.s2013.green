@@ -2,7 +2,6 @@ package spitapp.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -16,10 +15,10 @@ import spitapp.core.service.UiServiceFacade;
 import spitapp.util.DateUtil;
 
 /**
- * controlls the appointment listing and fires an event, when an appointment
+ * Controls the appointment listing and fires an event, when an appointment
  * changes
  * 
- * @author Roger Jaggi
+ * @author jaggr2
  * 
  */
 public class AppointmentController {
@@ -70,17 +69,13 @@ public class AppointmentController {
 	/**
 	 * the list of appointments of a day
 	 */
-	protected HashMap<Integer, Appointment> appointments = new HashMap<Integer, Appointment>();
+	protected List<Appointment> appointments = new ArrayList<Appointment>();
 
-	/**
-	 * the highest used ID for the GUI selection
-	 */
-	protected Integer latestId = 0;
 
 	/**
 	 * the GUI Id of the current GUI selection
 	 */
-	protected Integer currentSelectionGuiId = null;
+	protected Appointment currentSelectedAppointment = null;
 
 	/**
 	 * the list of Listeners for the AppointmentChangedEvent
@@ -96,57 +91,48 @@ public class AppointmentController {
 	 */
 	public AppointmentController() {
 	}
-
+	
 	/**
-	 * Returns the appointment list with their associeted gui-IDs
-	 * 
-	 * @return map of appointments
+	 * Get's the appointment list of the current selected day
+	 * @return List of Appointments and an empty list if no appointments are available
 	 */
-	public HashMap<Integer, Appointment> getAppointments() {
+	public List<Appointment> getAppointments() {
 		return this.appointments;
 	}
 
+
 	/**
-	 * Gets an appointment object by it's GUI id
-	 * 
-	 * @param guiid
-	 *            the gui id
+	 * Gets the current selected appointment 
 	 * @return an appointment object or null if not found
 	 */
 	public Appointment getCurrentAppointment() {
-		return this.appointments.get(this.currentSelectionGuiId);
+		return this.currentSelectedAppointment;
 	}
 
 	/**
 	 * sets the new current appointment
 	 * 
-	 * @param newguiid
-	 *            the new gui-ID
-	 * @return true, if successfull, fail, if ID not found
+	 * @param appointmentId
+	 *            the new appointment id or null to select none
 	 */
-	public boolean changeAppointment(Integer newguiid) {
-		this.currentSelectionGuiId = newguiid;
-
-		// todo: check newguiid if valid
-
-		fireAppointmentChangedEvent();
-
-		return true;
-	}
-
-	/**
-	 * method is called when the date changes
-	 * 
-	 * @return true if method succeeded
-	 */
-	public boolean addAppointment(Appointment entry) {
-		if (entry != null) {
-			this.latestId += 1;
-			this.appointments.put(this.latestId, entry);
-			return true;
+	public void changeAppointmentById(Long appointmentId) {
+		this.currentSelectedAppointment = null;
+		
+		if(appointmentId != null) {
+			for(Appointment entry : this.appointments) {
+				if(entry.getTerminId().equals(appointmentId)) {
+					this.currentSelectedAppointment = entry;
+					break;
+				}
+			}
+			
+			if(this.currentSelectedAppointment != null) {
+				fireAppointmentChangedEvent();
+			}
+			else {
+				logger.log(Level.WARNING, "Appointment ID not found!");
+			}
 		}
-
-		return false;
 	}
 
 	/**
@@ -161,15 +147,12 @@ public class AppointmentController {
 			return Codes.DATE_IS_NULL;
 		}
 		
-		this.appointments.clear();
-
-		List<Appointment> entries = UiServiceFacade.getInstance().getAppointments(datetoload);
-		if (entries == null) {
+		this.appointments = UiServiceFacade.getInstance().getAppointments(datetoload);
+		if (this.appointments == null) {
+			
+			this.appointments = new ArrayList<Appointment>();
+			
 			return Codes.NO_APPOINTMENTS_FOUND;
-		}
-
-		for (Appointment entry : entries) {
-			this.addAppointment(entry);
 		}
 
 		return Codes.SUCCESS;
@@ -211,9 +194,9 @@ public class AppointmentController {
 	
 	/**
 	 * Adds a new expense entry to current selected patient (via appointment)
-	 * @param descpription the descpription of the expense
+	 * @param descpription the description of the expense
 	 * @param amount the amount as decimal value in a string
-	 * @return 0 if successfull or lesser than 0 on failure
+	 * @return 0 if successful or lesser than 0 on failure
 	 */
 	public Codes addExpensetoCurrentPatient(String descpription, String amount) {
 		Double value = null;
@@ -253,9 +236,9 @@ public class AppointmentController {
 	}
 	
 	/**
-	 * Deletes an expesense on the current selected patient
+	 * Deletes an expense on the current selected patient
 	 * @param expense_id the id of the expense to delete
-	 * @return 1 if successfull, 0 if not found or lesser than 0 on failure
+	 * @return 1 if successful, 0 if not found or lesser than 0 on failure
 	 */
 	public Codes deleteExepenseOfCurrentPatient(Long expense_id) {
 		if(expense_id == null) {
@@ -321,7 +304,7 @@ public class AppointmentController {
 	/**
 	 * Marks a task on the current selected patient as completed and adds a time record
 	 * @param task_id the id of the expense to delete
-	 * @return 1 if successfull, 0 if not found or lesser than 0 on failure
+	 * @return 1 if successful, 0 if not found or lesser than 0 on failure
 	 */
 	public Codes completeTaskOfCurrentPatient(Long task_id, String starttime_input, String duration_input) {
 		
