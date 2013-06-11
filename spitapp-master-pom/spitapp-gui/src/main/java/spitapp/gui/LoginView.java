@@ -19,7 +19,7 @@ import com.vaadin.ui.themes.Reindeer;
 public class LoginView extends CustomComponent implements View, Button.ClickListener {
 
     /**
-	 * 
+	 * generated serial
 	 */
 	private static final long serialVersionUID = 596706977145258460L;
 

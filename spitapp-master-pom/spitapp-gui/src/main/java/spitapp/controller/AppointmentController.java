@@ -15,13 +15,7 @@ import spitapp.core.service.UiServiceFacade;
 import spitapp.util.DateUtil;
 
 /**
-<<<<<<< HEAD
- * Controls the appointment listing and fires an event, when an appointment
-=======
- * controls the appointment listing and fires an event, when an appointment
->>>>>>> branch 'master' of https://github.com/lants1/ch.bfh.bti7081.s2013.green.git
- * changes
- * 
+ * Controls the appointment listing and selection
  * @author jaggr2
  * 
  */
@@ -97,14 +91,8 @@ public class AppointmentController {
 	}
 	
 	/**
-<<<<<<< HEAD
 	 * Get's the appointment list of the current selected day
 	 * @return List of Appointments and an empty list if no appointments are available
-=======
-	 * Returns the appointment list with their associated GUI-IDs
-	 * 
-	 * @return map of appointments
->>>>>>> branch 'master' of https://github.com/lants1/ch.bfh.bti7081.s2013.green.git
 	 */
 	public List<Appointment> getAppointments() {
 		return this.appointments;
@@ -112,14 +100,7 @@ public class AppointmentController {
 
 
 	/**
-<<<<<<< HEAD
 	 * Gets the current selected appointment 
-=======
-	 * Gets an appointment object by it's GUI-ID
-	 * 
-	 * @param guiid
-	 *            the GUI-ID
->>>>>>> branch 'master' of https://github.com/lants1/ch.bfh.bti7081.s2013.green.git
 	 * @return an appointment object or null if not found
 	 */
 	public Appointment getCurrentAppointment() {
@@ -129,33 +110,24 @@ public class AppointmentController {
 	/**
 	 * sets the new current appointment
 	 * 
-<<<<<<< HEAD
 	 * @param appointmentId
 	 *            the new appointment id or null to select none
-=======
-	 * @param newguiid
-	 *            the new GUI-ID
-	 * @return true, if successful, fail, if ID not found
->>>>>>> branch 'master' of https://github.com/lants1/ch.bfh.bti7081.s2013.green.git
 	 */
 	public void changeAppointmentById(Long appointmentId) {
 		this.currentSelectedAppointment = null;
 		
-		if(appointmentId != null) {
+		if(appointmentId != null && appointmentId.longValue() > 0) {
+			
 			for(Appointment entry : this.appointments) {
 				if(entry.getTerminId().equals(appointmentId)) {
 					this.currentSelectedAppointment = entry;
 					break;
 				}
 			}
-			
-			if(this.currentSelectedAppointment != null) {
-				fireAppointmentChangedEvent();
-			}
-			else {
-				logger.log(Level.WARNING, "Appointment ID not found!");
-			}
 		}
+		
+		// notify Listeners if the appointment has changed
+		fireAppointmentChangedEvent();
 	}
 
 	/**

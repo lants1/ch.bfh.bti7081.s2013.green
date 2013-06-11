@@ -216,7 +216,10 @@ public class ExpensesGuiHandler extends DetailGuiHandler {
 	 */
 	@Override
 	public void handleAppointmentChangedEvent(AppointmentChangedEvent e) {
-		this.reload_expenses();
+		if(controller.getCurrentAppointment() != null)
+		{
+			this.reload_expenses();
+		}
 	}
 	
 	/**

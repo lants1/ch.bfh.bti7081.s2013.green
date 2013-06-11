@@ -157,7 +157,10 @@ public class TaskListGuiHandler extends DetailGuiHandler {
 	 * fires when the user changes the appointment
 	 */
 	@Override
-	public void handleAppointmentChangedEvent(AppointmentChangedEvent e) {		
-		this.reload_tasks();		
+	public void handleAppointmentChangedEvent(AppointmentChangedEvent e) {
+		if(controller.getCurrentAppointment() != null)
+		{	
+			this.reload_tasks();
+		}
 	}
 }

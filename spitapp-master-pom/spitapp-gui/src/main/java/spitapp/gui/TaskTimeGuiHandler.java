@@ -18,7 +18,11 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Button.ClickEvent;
 
-
+/**
+ * Displays the task times
+ * @author jaggr2
+ *
+ */
 public class TaskTimeGuiHandler extends DetailGuiHandler {
 	
 	/**
@@ -26,7 +30,9 @@ public class TaskTimeGuiHandler extends DetailGuiHandler {
 	 */
 	private static final long serialVersionUID = 6514457886849736293L;
 	
-	// the gui components
+	/**
+	 * the GUI components
+	 */
 	private AbsoluteLayout mainLayout;
 	private Table table_task;
 	private Button button_reactivate;
@@ -150,7 +156,10 @@ public class TaskTimeGuiHandler extends DetailGuiHandler {
 	 */
 	@Override
 	public void handleAppointmentChangedEvent(AppointmentChangedEvent e) {
-		this.reload_tasks();
+		if(controller.getCurrentAppointment() != null)
+		{
+			this.reload_tasks();
+		}
 	}
 
 }

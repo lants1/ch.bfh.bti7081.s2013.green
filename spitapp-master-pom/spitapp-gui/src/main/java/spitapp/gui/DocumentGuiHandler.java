@@ -284,34 +284,36 @@ public class DocumentGuiHandler extends DetailGuiHandler {
 
 
 	/**
-	 * method is called when the appointment changes to handle the new entries
+	 * fires when the user changes the appointment
 	 */
+	@Override
 	public void handleAppointmentChangedEvent(AppointmentChangedEvent e) {
-		
-		Patient patient = controller.getCurrentAppointment().getPatient();
-		
-		// Hier eventuell noch Strings präparieren....
-		String urlquery = patient.getStreet() + ",+" + patient.getCity();
-		
-		btnGoogleMaps.removeExtension(opener);
-		opener = new BrowserWindowOpener(new ExternalResource("http://maps.google.com?q=" + urlquery + "&views=satellite,traffic&zoom=15"));
-		opener.extend(btnGoogleMaps);
-		
-		// Fill up the data labels
-		nameData.setValue(patient.getFirstName() + " " + patient.getLastName());
-		addressData.setValue(patient.getStreet());
-		cityData.setValue(patient.getCity());
-		ageData.setValue(Integer.toString(patient.getAge()));
-		careLevelData.setValue(patient.getCareLevel().name());
-		hobbiesData.setValue(patient.getHobbies());
-		
-		// Fill up the document comboBox
-		cbxDocuments.removeAllItems();
-		int i = 0;
-		for(Document doc : patient.getDocuments()) {
-			cbxDocuments.addItem(i);
-			cbxDocuments.setItemCaption(i, doc.getFileName() + ".pdf");
-			++i;
-		}	
+		if(controller.getCurrentAppointment() != null)
+		{
+			Patient patient = controller.getCurrentAppointment().getPatient();
+			
+			String urlquery = patient.getStreet() + ",+" + patient.getCity();
+			
+			btnGoogleMaps.removeExtension(opener);
+			opener = new BrowserWindowOpener(new ExternalResource("http://maps.google.com?q=" + urlquery + "&views=satellite,traffic&zoom=15"));
+			opener.extend(btnGoogleMaps);
+			
+			// Fill up the data labels
+			nameData.setValue(patient.getFirstName() + " " + patient.getLastName());
+			addressData.setValue(patient.getStreet());
+			cityData.setValue(patient.getCity());
+			ageData.setValue(Integer.toString(patient.getAge()));
+			careLevelData.setValue(patient.getCareLevel().name());
+			hobbiesData.setValue(patient.getHobbies());
+			
+			// Fill up the document comboBox
+			cbxDocuments.removeAllItems();
+			int i = 0;
+			for(Document doc : patient.getDocuments()) {
+				cbxDocuments.addItem(i);
+				cbxDocuments.setItemCaption(i, doc.getFileName() + ".pdf");
+				++i;
+			}	
+		}
 	}
 }

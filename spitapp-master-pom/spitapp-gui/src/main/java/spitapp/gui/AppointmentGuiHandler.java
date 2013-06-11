@@ -52,19 +52,12 @@ public class AppointmentGuiHandler extends DetailGuiHandler {
 	}
 	
 	/**
-	 * fires when the user changes the appointment
-	 */
-	@Override
-	public void handleAppointmentChangedEvent(AppointmentChangedEvent e) {
-		// do nothing here
-	}
-	
-	/**
 	 * method is called when the date changes to handle the new appointments
 	 * @param newDate the chosen date
 	 */
 	public void dateChanged(Date newDate) {
-		spitAppParentView.tabs.setVisible(false);
+		//spitAppParentView.tabs.setVisible(false);
+		controller.changeAppointmentById(null);
 		
 		if(appointments.removeAllItems()) {
 			AppointmentController.Codes returnvalue = this.controller.loadAppointmentsByDate(newDate);
@@ -126,13 +119,14 @@ public class AppointmentGuiHandler extends DetailGuiHandler {
 		appointments.addValueChangeListener(new ValueChangeListener() {
 			private static final long serialVersionUID = 3950076798774688747L;
 			public void valueChange(ValueChangeEvent event) {
-		    	// appointment changed
-		    	if(appointments.getValue() != null) {
-		    		spitAppParentView.tabs.setVisible(true);
-		    		controller.changeAppointmentById((Long)appointments.getValue());
-		    	} else {
-		    		spitAppParentView.tabs.setVisible(false);
-		    	}
+				controller.changeAppointmentById((Long)appointments.getValue());
+				
+//		    	// appointment changed
+//		    	if(appointments.getValue() != null) {
+//		    		
+//		    	} else {
+//		    		controller.changeAppointmentById(null);
+//		    	}
 		    }
 		});
 		
@@ -211,5 +205,15 @@ public class AppointmentGuiHandler extends DetailGuiHandler {
 		mainLayout.addComponent(buttonLayout);
 		mainLayout.setComponentAlignment(buttonLayout, Alignment.MIDDLE_CENTER);
 		return mainLayout;
+	}
+	
+	/**
+	 * fires when the user changes the appointment
+	 */
+	@Override
+	public void handleAppointmentChangedEvent(AppointmentChangedEvent e) {
+		
+		// Display tab-controller only, if there is a valid appointment selected
+		spitAppParentView.tabs.setVisible(controller.getCurrentAppointment() != null);
 	}
 }
