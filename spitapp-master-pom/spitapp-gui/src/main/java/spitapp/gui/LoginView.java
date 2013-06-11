@@ -51,6 +51,8 @@ public class LoginView extends CustomComponent implements View, Button.ClickList
 
         // Create login button
         loginButton = new Button("Login", this);
+        // Id for Testing with Selenium
+        loginButton.setId("loginButton");
         loginButton.setImmediate(true);
         
         // Add both to a panel

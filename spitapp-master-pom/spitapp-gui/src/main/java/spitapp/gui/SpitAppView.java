@@ -129,6 +129,8 @@ public class SpitAppView extends CustomComponent implements View {
             }
         });
         logout.setStyleName(Reindeer.BUTTON_SMALL);
+        // Set ID To Test with Selenium
+        logout.setId("logoutButton");
         buttons.addComponent(logout);
         titleLayout.addComponent(buttons);
 
