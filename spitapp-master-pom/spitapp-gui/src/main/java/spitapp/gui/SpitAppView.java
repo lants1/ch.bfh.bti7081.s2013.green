@@ -2,6 +2,7 @@ package spitapp.gui;
 
 import java.util.Locale;
 
+import spitapp.controller.AppointmentChangedEvent;
 import spitapp.controller.AppointmentController;
 
 import com.vaadin.navigator.View;
@@ -11,6 +12,7 @@ import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.TabSheet.SelectedTabChangeEvent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
@@ -100,8 +102,7 @@ public class SpitAppView extends CustomComponent implements View {
         titleLayout = new CssLayout();
         user = new Label("Hallo, Gast!");
         user.setWidth("100%");
-        // Selenium DebugID
-        user.setId("userText");
+        user.setId("userText"); // Selenium DebugID
         titleLayout.addComponent(user);
 
         HorizontalLayout buttons = new HorizontalLayout();
@@ -131,8 +132,8 @@ public class SpitAppView extends CustomComponent implements View {
             }
         });
         logout.setStyleName(Reindeer.BUTTON_SMALL);
-        // Set ID To Test with Selenium
-        logout.setId("logoutButton");
+        logout.setId("logoutButton"); // Set ID To Test with Selenium
+        
         buttons.addComponent(logout);
         titleLayout.addComponent(buttons);
 
@@ -178,8 +179,7 @@ public class SpitAppView extends CustomComponent implements View {
             }
         });
         yes.setStyleName(Reindeer.BUTTON_DEFAULT);
-        // Set ID For Testing Purpose with Selenium
-        yes.setId("reallyLogoutButton");
+        yes.setId("reallyLogoutButton"); // Set ID For Testing Purpose with Selenium
         yes.focus();
         
         buttons.addComponent(yes);
@@ -245,7 +245,7 @@ public class SpitAppView extends CustomComponent implements View {
     	content.setMargin(true);
     	content.setSizeFull();
         
-        // Add a tabsheet with the other GUI components
+        // Add a tab sheet with the other GUI components
     	HorizontalLayout margin = new HorizontalLayout();
         margin.setMargin(new MarginInfo(true, true, false, true));
         margin.setSizeFull();
@@ -267,14 +267,22 @@ public class SpitAppView extends CustomComponent implements View {
 
 			@Override
 			public void selectedTabChange(SelectedTabChangeEvent event) {
-				controller.fireAppointmentChangedEvent();
+				for(Component entry : event.getTabSheet()) {
+					if(entry instanceof DetailGuiHandler) {
+						
+						((DetailGuiHandler)entry).handleAppointmentChangedEvent(
+								new AppointmentChangedEvent(tabs)
+								);
+					}
+				}
 			}
+			
 		});
  
     	// Add the appointments
         AppointmentGuiHandler appointments = new AppointmentGuiHandler(controller, this);
         
-        // Add the components to the buttom layout
+        // Add the components to the bottom layout
     	content.addComponent(appointments);
     	content.addComponent(margin);
     	content.setExpandRatio(margin, 1); 
@@ -287,7 +295,7 @@ public class SpitAppView extends CustomComponent implements View {
 		 // Get the user name from the session
         String username = String.valueOf(getSession().getAttribute("user"));
 
-        // And show the username
+        // And show the user name
         user.setValue("Hallo, " + username);
 	}
 }
