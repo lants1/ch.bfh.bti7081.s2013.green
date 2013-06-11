@@ -16,7 +16,7 @@ import spitapp.core.service.UiServiceFacade;
 import spitapp.util.DateUtil;
 
 /**
- * controlls the appointment listing and fires an event, when an appointment
+ * controls the appointment listing and fires an event, when an appointment
  * changes
  * 
  * @author Roger Jaggi
@@ -98,7 +98,7 @@ public class AppointmentController {
 	}
 
 	/**
-	 * Returns the appointment list with their associeted gui-IDs
+	 * Returns the appointment list with their associated GUI-IDs
 	 * 
 	 * @return map of appointments
 	 */
@@ -107,10 +107,10 @@ public class AppointmentController {
 	}
 
 	/**
-	 * Gets an appointment object by it's GUI id
+	 * Gets an appointment object by it's GUI-ID
 	 * 
 	 * @param guiid
-	 *            the gui id
+	 *            the GUI-ID
 	 * @return an appointment object or null if not found
 	 */
 	public Appointment getCurrentAppointment() {
@@ -121,8 +121,8 @@ public class AppointmentController {
 	 * sets the new current appointment
 	 * 
 	 * @param newguiid
-	 *            the new gui-ID
-	 * @return true, if successfull, fail, if ID not found
+	 *            the new GUI-ID
+	 * @return true, if successful, fail, if ID not found
 	 */
 	public boolean changeAppointment(Integer newguiid) {
 		this.currentSelectionGuiId = newguiid;
@@ -211,9 +211,9 @@ public class AppointmentController {
 	
 	/**
 	 * Adds a new expense entry to current selected patient (via appointment)
-	 * @param descpription the descpription of the expense
+	 * @param descpription the description of the expense
 	 * @param amount the amount as decimal value in a string
-	 * @return 0 if successfull or lesser than 0 on failure
+	 * @return 0 if successful or lesser than 0 on failure
 	 */
 	public Codes addExpensetoCurrentPatient(String descpription, String amount) {
 		Double value = null;
@@ -253,9 +253,9 @@ public class AppointmentController {
 	}
 	
 	/**
-	 * Deletes an expesense on the current selected patient
+	 * Deletes an expense on the current selected patient
 	 * @param expense_id the id of the expense to delete
-	 * @return 1 if successfull, 0 if not found or lesser than 0 on failure
+	 * @return 1 if successful, 0 if not found or lesser than 0 on failure
 	 */
 	public Codes deleteExepenseOfCurrentPatient(Long expense_id) {
 		if(expense_id == null) {
@@ -321,7 +321,7 @@ public class AppointmentController {
 	/**
 	 * Marks a task on the current selected patient as completed and adds a time record
 	 * @param task_id the id of the expense to delete
-	 * @return 1 if successfull, 0 if not found or lesser than 0 on failure
+	 * @return 1 if successful, 0 if not found or lesser than 0 on failure
 	 */
 	public Codes completeTaskOfCurrentPatient(Long task_id, String starttime_input, String duration_input) {
 		
