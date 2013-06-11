@@ -15,7 +15,7 @@ import spitapp.core.service.UiServiceFacade;
 import spitapp.util.DateUtil;
 
 /**
- * Controls the appointment listing and selection
+ * Controls the appointment listing, selection and data manipulation
  * @author jaggr2
  * 
  */
@@ -188,10 +188,10 @@ public class AppointmentController {
 	}
 	
 	/**
-	 * Adds a new expense entry to current selected patient (via appointment)
+	 * Adds a new expense entry to current selected patient
 	 * @param descpription the description of the expense
 	 * @param amount the amount as decimal value in a string
-	 * @return 0 if successful or lesser than 0 on failure
+	 * @return SUCCESS or a failure code
 	 */
 	public Codes addExpensetoCurrentPatient(String descpription, String amount) {
 		Double value = null;
@@ -233,7 +233,7 @@ public class AppointmentController {
 	/**
 	 * Deletes an expense on the current selected patient
 	 * @param expense_id the id of the expense to delete
-	 * @return 1 if successful, 0 if not found or lesser than 0 on failure
+	 * @return SUCCESS or a failure code
 	 */
 	public Codes deleteExepenseOfCurrentPatient(Long expense_id) {
 		if(expense_id == null) {
@@ -287,7 +287,7 @@ public class AppointmentController {
 		}
 		else {
 				for(Task entry : tasks) {
-					if(entry.getTaskId() == task_id) {
+					if(entry.getTaskId().equals(task_id)) {
 						return entry;
 					}
 				}
@@ -299,7 +299,7 @@ public class AppointmentController {
 	/**
 	 * Marks a task on the current selected patient as completed and adds a time record
 	 * @param task_id the id of the expense to delete
-	 * @return 1 if successful, 0 if not found or lesser than 0 on failure
+	 * @return SUCCESS or a failure code
 	 */
 	public Codes completeTaskOfCurrentPatient(Long task_id, String starttime_input, String duration_input) {
 		
@@ -343,7 +343,7 @@ public class AppointmentController {
 	/**
 	 * Reactivates a task of the current patient
 	 * @param task_id the id of the task
-	 * @return 1 on success or -1 on failure
+	 * @return SUCCESS or a failure code
 	 */
 	public Codes reactivateTaskOfCurrentPatient(Long task_id) {
 				

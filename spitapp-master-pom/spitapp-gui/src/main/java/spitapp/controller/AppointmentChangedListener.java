@@ -1,7 +1,8 @@
 package spitapp.controller;
 
 /**
- * @author Roger Jaggi
+ * An Interface for AppointmentChangedEvent Listeners
+ * @author jaggr2
  *
  */
 public interface AppointmentChangedListener {
