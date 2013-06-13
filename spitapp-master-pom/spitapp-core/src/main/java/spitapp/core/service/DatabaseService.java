@@ -81,7 +81,7 @@ class DatabaseService {
 		Transaction tx = session.beginTransaction();
 		// Get all Appointment from db without restriction o_O evil thing
 		@SuppressWarnings("unchecked")
-		List<Appointment> appointmentList = session.createCriteria(Appointment.class).addOrder(Order.asc("fromdate")).list();
+		List<Appointment> appointmentList = session.createCriteria(Appointment.class).addOrder(Order.asc("fromDate")).list();
 		List<Appointment> resultList = new ArrayList<Appointment>();
 		for(Appointment appointment : appointmentList){
 			// Call the Statepattern mechanism on each termin
