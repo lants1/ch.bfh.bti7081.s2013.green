@@ -29,9 +29,9 @@ public class TaskDoneSubGui extends CustomComponent {
 	 * the components
 	 */
 	private AbsoluteLayout mainLayout;
-	private Button button_add;
-	private TextField textfield_duration;
-	private TextField textfield_starttime;
+	private Button addTask;
+	private TextField txtDuration;
+	private TextField txtStartTime;
 	private Window parentWindow;
 	
 	/**
@@ -70,35 +70,35 @@ public class TaskDoneSubGui extends CustomComponent {
 		setWidth("100.0%");
 		setHeight("100.0%");
 		
-		// textfield_starttime
-		textfield_starttime = new TextField("Aufgabe gestartet um (hh:mm)");
-		textfield_starttime.setImmediate(false);
-		textfield_starttime.setWidth("80px");
-		textfield_starttime.setHeight("-1px");
-		textfield_starttime.addValidator(new TimeValidator());
-		textfield_starttime.setRequired(true);
-		textfield_starttime.setInvalidAllowed(false);
-		textfield_starttime.setInputPrompt("hh:mm");
-		mainLayout.addComponent(textfield_starttime, "top:37.0px;left:9.0px;");
+		// Textfield txtStartTime
+		txtStartTime = new TextField("Aufgabe gestartet um (hh:mm)");
+		txtStartTime.setImmediate(false);
+		txtStartTime.setWidth("80px");
+		txtStartTime.setHeight("-1px");
+		txtStartTime.addValidator(new TimeValidator());
+		txtStartTime.setRequired(true);
+		txtStartTime.setInvalidAllowed(false);
+		txtStartTime.setInputPrompt("hh:mm");
+		mainLayout.addComponent(txtStartTime, "top:37.0px;left:9.0px;");
 		
-		// textfield_duration
-		textfield_duration = new TextField("Benötigte Zeit in Minuten");
-		textfield_duration.setImmediate(false);
-		textfield_duration.setWidth("80px");
-		textfield_duration.setHeight("-1px");
-		textfield_duration.addValidator(new DurationValidator());
-		textfield_duration.setRequired(true);
-		textfield_duration.setInvalidAllowed(false);
-		textfield_duration.setInputPrompt("z.B. 30");
-		mainLayout.addComponent(textfield_duration, "top:37.0px;left:200.0px;");
+		// Textfield txtDuration
+		txtDuration = new TextField("Benötigte Zeit in Minuten");
+		txtDuration.setImmediate(false);
+		txtDuration.setWidth("80px");
+		txtDuration.setHeight("-1px");
+		txtDuration.addValidator(new DurationValidator());
+		txtDuration.setRequired(true);
+		txtDuration.setInvalidAllowed(false);
+		txtDuration.setInputPrompt("z.B. 30");
+		mainLayout.addComponent(txtDuration, "top:37.0px;left:200.0px;");
 		
-		// button_add
-		button_add = new Button();
-		button_add.setCaption("Eintragen");
-		button_add.setImmediate(true);
-		button_add.setWidth("-1px");
-		button_add.setHeight("-1px");
-		button_add.addClickListener(new Button.ClickListener() {
+		// button addTask
+		addTask = new Button();
+		addTask.setCaption("Eintragen");
+		addTask.setImmediate(true);
+		addTask.setWidth("-1px");
+		addTask.setHeight("-1px");
+		addTask.addClickListener(new Button.ClickListener() {
 			/**
 			 * generated serial
 			 */
@@ -107,14 +107,14 @@ public class TaskDoneSubGui extends CustomComponent {
 			public void buttonClick(ClickEvent event) {
 				
 				// check if Input Validators accept the input
-				if (!textfield_starttime.isValid() || !textfield_duration.isValid()) {
+				if (!txtStartTime.isValid() || !txtDuration.isValid()) {
 		            return;
 		        }
 				
-				String starttime = textfield_starttime.getValue();
-				String duration = textfield_duration.getValue();
+				String startTime = txtStartTime.getValue();
+				String duration = txtDuration.getValue();
 								
-				AppointmentController.Codes returnvalue = controller.completeTaskOfCurrentPatient(task_id, starttime, duration);
+				AppointmentController.Codes returnvalue = controller.completeTaskOfCurrentPatient(task_id, startTime, duration);
 				switch(returnvalue) {
 				case SUCCESS:
 					parentWindow.close();
@@ -124,15 +124,15 @@ public class TaskDoneSubGui extends CustomComponent {
 				case INVALID_DURATION_FORMAT:
 				case STARTTIME_IS_EMPTY:
 				case INVALID_STARTTIME_FORMAT:
-					textfield_starttime.setComponentError(new UserError(returnvalue.getMessage()));
+					txtStartTime.setComponentError(new UserError(returnvalue.getMessage()));
 					break;
 				default:
-					button_add.setComponentError(new SystemError("Ooops, ein Systemfehler ist aufgetreten: " + returnvalue.getMessage()));
+					addTask.setComponentError(new SystemError("Ooops, ein Systemfehler ist aufgetreten: " + returnvalue.getMessage()));
 					break;					
 				}
 			}
 		}); 
-		mainLayout.addComponent(button_add, "top:67.0px;left:200.0px;");
+		mainLayout.addComponent(addTask, "top:67.0px;left:200.0px;");
 		
 		return mainLayout;
 	}

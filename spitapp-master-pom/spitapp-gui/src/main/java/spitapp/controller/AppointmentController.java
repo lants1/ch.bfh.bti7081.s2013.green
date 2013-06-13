@@ -43,16 +43,16 @@ public class AppointmentController {
 		 INVALID_STARTTIME_FORMAT(-19, "Die eingegebene Startzeit ist ungültig!"),
 		 INVALID_DURATION_FORMAT(-20, "Die eingegebene Dauer ist ungültig!");
 		 
-		 private int internal_code;
+		 private int internalCode;
 		 private String message;
 		 
 		 private Codes(int code, String message) {
-			 this.internal_code = code;
+			 this.internalCode = code;
 			 this.message = message;
 		 }
 		 
 		 public int getCode() {
-			 return internal_code;
+			 return internalCode;
 		 }
 		 
 		 public String getMessage() {
@@ -60,7 +60,7 @@ public class AppointmentController {
 		 }
 		 
 		 public boolean isSuccessfull() {
-			 return internal_code > 0;
+			 return internalCode > 0;
 		 }
 	}
 	
@@ -133,23 +133,20 @@ public class AppointmentController {
 	/**
 	 * Loads appointments by a given date
 	 * 
-	 * @param datetoload
+	 * @param dateToLoad
 	 *            the date from that appointments should be loaded
 	 * @return the count of appointments loaded
 	 */
-	public Codes loadAppointmentsByDate(Date datetoload) {
-		if(datetoload == null) {
+	public Codes loadAppointmentsByDate(Date dateToLoad) {
+		if(dateToLoad == null) {
 			return Codes.DATE_IS_NULL;
 		}
 		
-		this.appointments = UiServiceFacade.getInstance().getAppointments(datetoload);
+		this.appointments = UiServiceFacade.getInstance().getAppointments(dateToLoad);
 		if (this.appointments == null) {
-			
 			this.appointments = new ArrayList<Appointment>();
-			
 			return Codes.NO_APPOINTMENTS_FOUND;
 		}
-
 		return Codes.SUCCESS;
 	}
 
@@ -189,11 +186,11 @@ public class AppointmentController {
 	
 	/**
 	 * Adds a new expense entry to current selected patient
-	 * @param descpription the description of the expense
+	 * @param description the description of the expense
 	 * @param amount the amount as decimal value in a string
 	 * @return SUCCESS or a failure code
 	 */
-	public Codes addExpensetoCurrentPatient(String descpription, String amount) {
+	public Codes addExpensetoCurrentPatient(String description, String amount) {
 		Double value = null;
 		
 		if(amount == null ) {
@@ -206,7 +203,7 @@ public class AppointmentController {
 			return Codes.INVALID_AMOUNT;
 		}
 		
-		if(descpription == null || descpription.isEmpty()) {
+		if(description == null || description.isEmpty()) {
 			return Codes.INVALID_DESCRIPTION;
 		}
 		
@@ -216,7 +213,7 @@ public class AppointmentController {
 			Patient patient = appointment.getPatient();
 			
 			ExpensesEntry newexpense = new ExpensesEntry();
-			newexpense.setExpensesDescription(descpription);
+			newexpense.setExpensesDescription(description);
 			newexpense.setPrice(value);
 			
 			patient.getExpenses().add(newexpense);
@@ -298,40 +295,40 @@ public class AppointmentController {
 
 	/**
 	 * Marks a task on the current selected patient as completed and adds a time record
-	 * @param task_id the id of the expense to delete
+	 * @param taskId the id of the expense to delete
 	 * @return SUCCESS or a failure code
 	 */
-	public Codes completeTaskOfCurrentPatient(Long task_id, String starttime_input, String duration_input) {
+	public Codes completeTaskOfCurrentPatient(Long taskId, String startTimeInput, String durationInput) {
 		
-		if(starttime_input == null || starttime_input.isEmpty()) {
+		if(startTimeInput == null || startTimeInput.isEmpty()) {
 			return Codes.STARTTIME_IS_EMPTY;
 		}
 				
-		if(duration_input == null || duration_input.isEmpty()) {
+		if(durationInput == null || durationInput.isEmpty()) {
 			return Codes.DURATION_IS_EMPTY;
 		}
 
 
-		Date starttime = DateUtil.getTodayWithSpecificTime(starttime_input);
-		if(starttime == null) {
+		Date startTime = DateUtil.getTodayWithSpecificTime(startTimeInput);
+		if(startTime == null) {
 			return Codes.INVALID_STARTTIME_FORMAT;
 		}
 		
 		Integer duration = null;
 		try {
-			duration = Integer.parseInt(duration_input);
+			duration = Integer.parseInt(durationInput);
 		} 
 		catch(NumberFormatException ex) {
 			return Codes.INVALID_DURATION_FORMAT;
 		}
 		
-		Task theTask = getTaskById(task_id);
+		Task theTask = getTaskById(taskId);
 		if(theTask == null) {
 			return Codes.NO_TASK_FOUND;
 		}
 		
 		theTask.setDone(true);
-		theTask.setStarttime(starttime);
+		theTask.setStarttime(startTime);
 		theTask.setDuration(duration);
 		
 		
@@ -342,12 +339,12 @@ public class AppointmentController {
 	
 	/**
 	 * Reactivates a task of the current patient
-	 * @param task_id the id of the task
+	 * @param taskId the id of the task
 	 * @return SUCCESS or a failure code
 	 */
-	public Codes reactivateTaskOfCurrentPatient(Long task_id) {
+	public Codes reactivateTaskOfCurrentPatient(Long taskId) {
 				
-		Task theTask = getTaskById(task_id);
+		Task theTask = getTaskById(taskId);
 		if(theTask == null) {
 			return Codes.NO_TASK_FOUND;
 		}

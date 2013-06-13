@@ -13,13 +13,13 @@ public class DateUtil {
 	
 	/**
 	 * returns todays date with the submitted time
-	 * @param timeinput the time in the format hh:mm
+	 * @param timeInput the time in the format hh:mm
 	 * @return the date if input is valid or null on failure
 	 */
-	public static Date getTodayWithSpecificTime(String timeinput) {
+	public static Date getTodayWithSpecificTime(String timeInput) {
 
 		// Let's prepare the input
-		String[] parts = timeinput.split(":");
+		String[] parts = timeInput.split(":");
 		Integer hours = null;
 		Integer minutes = null;
 		
@@ -30,7 +30,7 @@ public class DateUtil {
 		try {
 			hours = Integer.parseInt(parts[0]);
 			minutes = Integer.parseInt(parts[1]);
-			if(hours > 0 || hours < 24 || minutes > 0 || minutes < 60) {
+			if(hours < 0 || hours >= 24 || minutes < 0 || minutes >= 60) {
 				return null;
 			}
 		} 
