@@ -42,17 +42,17 @@ public class TaskDoneSubGui extends CustomComponent {
 	/**
 	 * to current task id
 	 */
-	private Long task_id;
+	private Long taskId;
 	
 	/**
 	 * Initializes a new TaskDoneSubGui
 	 * @param controller a reference to the appointment controller
-	 * @param task_id the id of the task to complete
+	 * @param taskId the id of the task to complete
 	 * @param parentwindow a reference to the parent window
 	 */
-	public TaskDoneSubGui(AppointmentController controller, Long task_id, Window parentwindow) {
+	public TaskDoneSubGui(AppointmentController controller, Long taskId, Window parentwindow) {
 		this.controller = controller;
-		this.task_id = task_id;
+		this.taskId = taskId;
 		this.parentWindow = parentwindow;
 		
 		buildMainLayout();
@@ -106,7 +106,7 @@ public class TaskDoneSubGui extends CustomComponent {
 
 			public void buttonClick(ClickEvent event) {
 				
-				// check if Input Validators accept the input
+				// check if Input Validator accept the input
 				if (!txtStartTime.isValid() || !txtDuration.isValid()) {
 		            return;
 		        }
@@ -114,7 +114,7 @@ public class TaskDoneSubGui extends CustomComponent {
 				String startTime = txtStartTime.getValue();
 				String duration = txtDuration.getValue();
 								
-				AppointmentController.Codes returnValue = controller.completeTaskOfCurrentPatient(task_id, startTime, duration);
+				AppointmentController.Codes returnValue = controller.completeTaskOfCurrentPatient(taskId, startTime, duration);
 				switch(returnValue) {
 				case SUCCESS:
 					parentWindow.close();
