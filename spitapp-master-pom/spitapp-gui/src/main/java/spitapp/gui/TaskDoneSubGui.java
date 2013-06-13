@@ -114,8 +114,8 @@ public class TaskDoneSubGui extends CustomComponent {
 				String startTime = txtStartTime.getValue();
 				String duration = txtDuration.getValue();
 								
-				AppointmentController.Codes returnvalue = controller.completeTaskOfCurrentPatient(task_id, startTime, duration);
-				switch(returnvalue) {
+				AppointmentController.Codes returnValue = controller.completeTaskOfCurrentPatient(task_id, startTime, duration);
+				switch(returnValue) {
 				case SUCCESS:
 					parentWindow.close();
 					break;
@@ -124,10 +124,10 @@ public class TaskDoneSubGui extends CustomComponent {
 				case INVALID_DURATION_FORMAT:
 				case STARTTIME_IS_EMPTY:
 				case INVALID_STARTTIME_FORMAT:
-					txtStartTime.setComponentError(new UserError(returnvalue.getMessage()));
+					txtStartTime.setComponentError(new UserError(returnValue.getMessage()));
 					break;
 				default:
-					addTask.setComponentError(new SystemError("Ooops, ein Systemfehler ist aufgetreten: " + returnvalue.getMessage()));
+					addTask.setComponentError(new SystemError("Ooops, ein Systemfehler ist aufgetreten: " + returnValue.getMessage()));
 					break;					
 				}
 			}
@@ -159,7 +159,7 @@ public class TaskDoneSubGui extends CustomComponent {
             	return true;
             }
         	
-            if (DateUtil.getTodayWithSpecificTime( value ) == null) {
+            if (DateUtil.getTodayWithSpecificTime(value) == null) {
                 return false;
             }
             return true;
