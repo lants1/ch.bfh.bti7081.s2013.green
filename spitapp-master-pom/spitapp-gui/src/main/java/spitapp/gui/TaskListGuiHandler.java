@@ -32,8 +32,8 @@ public class TaskListGuiHandler extends DetailGuiHandler {
 	 * the GUI components
 	 */
 	private AbsoluteLayout mainLayout;
-	private Table table_task;
-	private Button button_markasdone;
+	private Table tableTask;
+	private Button buttonMarkAsDone;
 	
 	/**
 	 * The constructor
@@ -61,18 +61,18 @@ public class TaskListGuiHandler extends DetailGuiHandler {
 		setHeight("100.0%");
 		
 		// table_tasks
-		table_task = new Table();
-		table_task.setImmediate(false);
-		table_task.setWidth("400px");
-		table_task.setHeight("303px");
-		table_task.addContainerProperty("Aufgabe", String.class,  null);
-		table_task.addContainerProperty("Erledigt", String.class,  null);
+		tableTask = new Table();
+		tableTask.setImmediate(false);
+		tableTask.setWidth("400px");
+		tableTask.setHeight("303px");
+		tableTask.addContainerProperty("Aufgabe", String.class,  null);
+		tableTask.addContainerProperty("Erledigt", String.class,  null);
 		// Allow selecting items from the table.
-		table_task.setSelectable(true);
+		tableTask.setSelectable(true);
 		// Send changes in selection immediately to server.
-		table_task.setImmediate(true);
+		tableTask.setImmediate(true);
 		// Handle selection change.
-		table_task.addValueChangeListener(new ValueChangeListener() {
+		tableTask.addValueChangeListener(new ValueChangeListener() {
 		    /**
 			 * generated serial
 			 */
@@ -81,27 +81,27 @@ public class TaskListGuiHandler extends DetailGuiHandler {
 			public void valueChange(ValueChangeEvent event) {
 				
 				// only activate the Button if the task is valid and not done
-				if(table_task.getValue() != null) {
-					Task entry = controller.getTaskById((Long)table_task.getValue() );
+				if(tableTask.getValue() != null) {
+					Task entry = controller.getTaskById((Long)tableTask.getValue() );
 					if(entry != null && !entry.isDone()) {
-						button_markasdone.setEnabled(true);
+						buttonMarkAsDone.setEnabled(true);
 						return;
 					}
 				}
 				
-		    	button_markasdone.setEnabled(false);
+		    	buttonMarkAsDone.setEnabled(false);
 		    }
 		});
-		mainLayout.addComponent(table_task, "top:17.0px;left:0.0px;");
+		mainLayout.addComponent(tableTask, "top:17.0px;left:0.0px;");
 
 		// button_markasdone
-		button_markasdone = new Button();
-		button_markasdone.setCaption("Als erledigt markieren");
-		button_markasdone.setImmediate(true);
-		button_markasdone.setEnabled(false);
-		button_markasdone.setWidth("-1px");
-		button_markasdone.setHeight("-1px");
-		button_markasdone.addClickListener(new Button.ClickListener() {
+		buttonMarkAsDone = new Button();
+		buttonMarkAsDone.setCaption("Als erledigt markieren");
+		buttonMarkAsDone.setImmediate(true);
+		buttonMarkAsDone.setEnabled(false);
+		buttonMarkAsDone.setWidth("-1px");
+		buttonMarkAsDone.setHeight("-1px");
+		buttonMarkAsDone.addClickListener(new Button.ClickListener() {
 			/**
 			 * generated serial
 			 */
@@ -115,7 +115,7 @@ public class TaskListGuiHandler extends DetailGuiHandler {
 				subWindow.setHeight(100, Unit.PIXELS);
 				subWindow.setPositionX(300);
 				subWindow.setPositionY(200);
-				subWindow.setContent(new TaskDoneSubGui(controller, (Long)table_task.getValue(), subWindow));
+				subWindow.setContent(new TaskDoneSubGui(controller, (Long)tableTask.getValue(), subWindow));
 				subWindow.addCloseListener(new Window.CloseListener() {	
 					/**
 					 * generated serial
@@ -131,7 +131,7 @@ public class TaskListGuiHandler extends DetailGuiHandler {
 				getUI().addWindow(subWindow);
 			}
 		}); 
-		mainLayout.addComponent(button_markasdone, "top:17.0px;left:420.0px;");
+		mainLayout.addComponent(buttonMarkAsDone, "top:17.0px;left:420.0px;");
 		
 		return mainLayout;
 	}
@@ -143,23 +143,23 @@ public class TaskListGuiHandler extends DetailGuiHandler {
 		
 		Patient patient = this.controller.getCurrentAppointment().getPatient();
 		
-		table_task.removeAllItems();
+		tableTask.removeAllItems();
 		
 		List<Task> tasks = patient.getTasks();
 		if(tasks == null) {
-			table_task.setCaption("Ungültige Aufgabenwerte!");
+			tableTask.setCaption("Ungültige Aufgabenwerte!");
 		}
 		else {
 			try { 
-				table_task.setCaption("Aufgaben: " + Integer.toString(tasks.size()));
+				tableTask.setCaption("Aufgaben: " + Integer.toString(tasks.size()));
 		
 				for(Task entry : tasks) {
 					// Add a row into the table as object array
-					table_task.addItem(new Object[] { entry.getDescription(), ( entry.isDone() ? "Ja" : "Nein" ) }, entry.getTaskId());
+					tableTask.addItem(new Object[] { entry.getDescription(), ( entry.isDone() ? "Ja" : "Nein" ) }, entry.getTaskId());
 				}	
 			}
 			catch(Exception ex) {
-				table_task.setCaption(ex.toString());
+				tableTask.setCaption(ex.toString());
 			}
 		}
 	}

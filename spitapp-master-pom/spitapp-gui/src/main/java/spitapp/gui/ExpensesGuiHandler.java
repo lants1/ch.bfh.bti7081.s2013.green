@@ -37,13 +37,13 @@ public class ExpensesGuiHandler extends DetailGuiHandler {
 	 * the components
 	 */
 	private AbsoluteLayout mainLayout;
-	private Label label_new;
-	private Label label_currency;
-	private Button button_add;
-	private Button button_delete;
-	private TextField textfield_amount;
-	private TextField textfield_expensetype;
-	private Table table_expenses;
+	private Label labelNew;
+	private Label labelCurrency;
+	private Button buttonAdd;
+	private Button buttonDelete;
+	private TextField textfieldAmount;
+	private TextField textfieldExpensetype;
+	private Table tableExpenses;
 	
 	/**
 	 * The constructor should first build the main layout, set the
@@ -74,58 +74,58 @@ public class ExpensesGuiHandler extends DetailGuiHandler {
 		setHeight("100.0%");
 		
 		// table_expenses
-		table_expenses = new Table();
-		table_expenses.setWidth("400px");
-		table_expenses.setHeight("303px");
-		table_expenses.addContainerProperty("Spesenart", String.class,  null);
-		table_expenses.addContainerProperty("Betrag", Double.class,  null);
+		tableExpenses = new Table();
+		tableExpenses.setWidth("400px");
+		tableExpenses.setHeight("303px");
+		tableExpenses.addContainerProperty("Spesenart", String.class,  null);
+		tableExpenses.addContainerProperty("Betrag", Double.class,  null);
 		// Allow selecting items from the table.
-		table_expenses.setSelectable(true);
+		tableExpenses.setSelectable(true);
 		// Send changes in selection immediately to server.
-		table_expenses.setImmediate(true);
+		tableExpenses.setImmediate(true);
 		// Handle selection change.
-		table_expenses.addValueChangeListener(new ValueChangeListener() {
+		tableExpenses.addValueChangeListener(new ValueChangeListener() {
 
 			private static final long serialVersionUID = -3062037745866406218L;
 
 			public void valueChange(ValueChangeEvent event) {
-		    	button_delete.setEnabled(table_expenses.getValue() != null);
+		    	buttonDelete.setEnabled(tableExpenses.getValue() != null);
 		    }
 		});		
 		
-		mainLayout.addComponent(table_expenses, "top:17.0px;right:58.0px;left:0.0px;");
+		mainLayout.addComponent(tableExpenses, "top:17.0px;right:58.0px;left:0.0px;");
 		
 		// textfield_expensetype
-		textfield_expensetype = new TextField("Spesenart");
-		textfield_expensetype.setImmediate(false);
-		textfield_expensetype.setWidth("240px");
-		textfield_expensetype.setHeight("-1px");
-		textfield_expensetype.addValidator(new StringLengthValidator("Die Beschreibung muss mindestens 3 Zeichen lang sein!", 3, null, false));
-		textfield_expensetype.setRequired(true);
-		textfield_expensetype.setInvalidAllowed(false);
-		textfield_expensetype.setNullRepresentation("");
-		textfield_expensetype.setInputPrompt("z.B. Essen, Material xy, etc.");		
-		mainLayout.addComponent(textfield_expensetype, "top:371.0px;left:9.0px;");
+		textfieldExpensetype = new TextField("Spesenart");
+		textfieldExpensetype.setImmediate(false);
+		textfieldExpensetype.setWidth("240px");
+		textfieldExpensetype.setHeight("-1px");
+		textfieldExpensetype.addValidator(new StringLengthValidator("Die Beschreibung muss mindestens 3 Zeichen lang sein!", 3, null, false));
+		textfieldExpensetype.setRequired(true);
+		textfieldExpensetype.setInvalidAllowed(false);
+		textfieldExpensetype.setNullRepresentation("");
+		textfieldExpensetype.setInputPrompt("z.B. Essen, Material xy, etc.");		
+		mainLayout.addComponent(textfieldExpensetype, "top:371.0px;left:9.0px;");
 		
 		// textfield_amount
-		textfield_amount = new TextField("Betrag");
-		textfield_amount.setImmediate(false);
-		textfield_amount.setWidth("80px");
-		textfield_amount.setHeight("-1px");
-		textfield_amount.addValidator(new AmountValidator());
-		textfield_amount.setRequired(true);
-		textfield_amount.setInvalidAllowed(false);
-		textfield_amount.setNullRepresentation("");
-		textfield_amount.setInputPrompt("z.B. 5.50");	
-		mainLayout.addComponent(textfield_amount, "top:371.0px;left:260.0px;");
+		textfieldAmount = new TextField("Betrag");
+		textfieldAmount.setImmediate(false);
+		textfieldAmount.setWidth("80px");
+		textfieldAmount.setHeight("-1px");
+		textfieldAmount.addValidator(new AmountValidator());
+		textfieldAmount.setRequired(true);
+		textfieldAmount.setInvalidAllowed(false);
+		textfieldAmount.setNullRepresentation("");
+		textfieldAmount.setInputPrompt("z.B. 5.50");	
+		mainLayout.addComponent(textfieldAmount, "top:371.0px;left:260.0px;");
 		
 		// button_add
-		button_add = new Button();
-		button_add.setCaption("+");
-		button_add.setImmediate(true);
-		button_add.setWidth("-1px");
-		button_add.setHeight("-1px");
-		button_add.addClickListener(new Button.ClickListener() {
+		buttonAdd = new Button();
+		buttonAdd.setCaption("+");
+		buttonAdd.setImmediate(true);
+		buttonAdd.setWidth("-1px");
+		buttonAdd.setHeight("-1px");
+		buttonAdd.addClickListener(new Button.ClickListener() {
 			/**
 			 * generated serial
 			 */
@@ -134,73 +134,73 @@ public class ExpensesGuiHandler extends DetailGuiHandler {
 			public void buttonClick(ClickEvent event) {
 				
 				String expensetype = null;
-				if( textfield_expensetype.getValue() != null ) {
-					expensetype = textfield_expensetype.getValue();
+				if( textfieldExpensetype.getValue() != null ) {
+					expensetype = textfieldExpensetype.getValue();
 				}
 			
-				String value = textfield_amount.getValue();
+				String value = textfieldAmount.getValue();
 				
 				
 				AppointmentController.Codes returnvalue = controller.addExpensetoCurrentPatient(expensetype, value);
 				
 				switch(returnvalue) {
 				case SUCCESS:  // all OK, reload expenses
-					textfield_amount.setComponentError(null);
-					textfield_expensetype.setComponentError(null);
-					button_add.setComponentError(null);
+					textfieldAmount.setComponentError(null);
+					textfieldExpensetype.setComponentError(null);
+					buttonAdd.setComponentError(null);
 					
-					textfield_amount.removeAllValidators();
-					textfield_expensetype.removeAllValidators();
+					textfieldAmount.removeAllValidators();
+					textfieldExpensetype.removeAllValidators();
 					
-					textfield_amount.setValue("");
-					textfield_expensetype.setValue("");
+					textfieldAmount.setValue("");
+					textfieldExpensetype.setValue("");
 					
-					textfield_expensetype.addValidator(new StringLengthValidator("Die Beschreibung muss mindestens 3 Zeichen lang sein!", 3, null, false));
-					textfield_amount.addValidator(new AmountValidator());
+					textfieldExpensetype.addValidator(new StringLengthValidator("Die Beschreibung muss mindestens 3 Zeichen lang sein!", 3, null, false));
+					textfieldAmount.addValidator(new AmountValidator());
 					
 					reload_expenses();
 					break;
 				case INVALID_AMOUNT:
 				case INVALID_DESCRIPTION:
-					textfield_amount.setComponentError(new UserError(returnvalue.getMessage()));
+					textfieldAmount.setComponentError(new UserError(returnvalue.getMessage()));
 					break;
 				default:
-					button_add.setComponentError(new SystemError(returnvalue.getMessage()));
+					buttonAdd.setComponentError(new SystemError(returnvalue.getMessage()));
 					break;					
 				}
 			}
 		}); 
-		mainLayout.addComponent(button_add, "top:371.0px;left:420.0px;");
+		mainLayout.addComponent(buttonAdd, "top:371.0px;left:420.0px;");
 		
 		// label_waehrung
-		label_currency = new Label();
-		label_currency.setImmediate(false);
-		label_currency.setWidth("-1px");
-		label_currency.setHeight("-1px");
-		label_currency.setValue("CHF");
-		mainLayout.addComponent(label_currency, "top:373.0px;left:342.0px;");
+		labelCurrency = new Label();
+		labelCurrency.setImmediate(false);
+		labelCurrency.setWidth("-1px");
+		labelCurrency.setHeight("-1px");
+		labelCurrency.setValue("CHF");
+		mainLayout.addComponent(labelCurrency, "top:373.0px;left:342.0px;");
 		
 		// label_new
-		label_new = new Label();
-		label_new.setImmediate(false);
-		label_new.setWidth("-1px");
-		label_new.setHeight("-1px");
-		label_new.setValue("Neuer Speseneintrag:");
-		mainLayout.addComponent(label_new, "top:330.0px;left:9.0px;");
+		labelNew = new Label();
+		labelNew.setImmediate(false);
+		labelNew.setWidth("-1px");
+		labelNew.setHeight("-1px");
+		labelNew.setValue("Neuer Speseneintrag:");
+		mainLayout.addComponent(labelNew, "top:330.0px;left:9.0px;");
 
 		// button_delete
-		button_delete = new Button();
-		button_delete.setCaption("Auswahl löschen");
-		button_delete.setImmediate(true);
-		button_delete.setEnabled(false);
-		button_delete.setWidth("-1px");
-		button_delete.setHeight("-1px");
-		button_delete.addClickListener(new Button.ClickListener() {
+		buttonDelete = new Button();
+		buttonDelete.setCaption("Auswahl löschen");
+		buttonDelete.setImmediate(true);
+		buttonDelete.setEnabled(false);
+		buttonDelete.setWidth("-1px");
+		buttonDelete.setHeight("-1px");
+		buttonDelete.addClickListener(new Button.ClickListener() {
 
 			private static final long serialVersionUID = 4045911914165531751L;
 
 			public void buttonClick(ClickEvent event) {
-				Long id_to_delete = (Long)table_expenses.getValue();
+				Long id_to_delete = (Long)tableExpenses.getValue();
 				
 				AppointmentController.Codes returnvalue = controller.deleteExepenseOfCurrentPatient(id_to_delete);
 				switch(returnvalue) {
@@ -210,12 +210,12 @@ public class ExpensesGuiHandler extends DetailGuiHandler {
 					reload_expenses();
 					break;
 				default:
-					button_delete.setComponentError(new SystemError("Löschen fehlgeschlagen! Aufgetretener Fehler (Code " + String.valueOf(returnvalue.getCode()) + "): " + returnvalue.getMessage()));
+					buttonDelete.setComponentError(new SystemError("Löschen fehlgeschlagen! Aufgetretener Fehler (Code " + String.valueOf(returnvalue.getCode()) + "): " + returnvalue.getMessage()));
 					break;
 				}
 			}
 		}); 
-		mainLayout.addComponent(button_delete, "top:17.0px;left:420.0px;");
+		mainLayout.addComponent(buttonDelete, "top:17.0px;left:420.0px;");
 		
 		return mainLayout;
 	}
@@ -237,23 +237,23 @@ public class ExpensesGuiHandler extends DetailGuiHandler {
 	public void reload_expenses() {
 		Patient patient = this.controller.getCurrentAppointment().getPatient();
 		
-		table_expenses.removeAllItems();
+		tableExpenses.removeAllItems();
 		
 		List<ExpensesEntry> expenses = patient.getExpenses();
 		if(expenses == null) {
-			table_expenses.setCaption("Ungültige Speseneinträge!");
+			tableExpenses.setCaption("Ungültige Speseneinträge!");
 		}
 		else {
 			try { 
-				table_expenses.setCaption("Speseneinträge: " + Integer.toString(expenses.size()));
+				tableExpenses.setCaption("Speseneinträge: " + Integer.toString(expenses.size()));
 		
 				for(ExpensesEntry entry : expenses) {
 					// Add a row into the table as object array
-					table_expenses.addItem(new Object[] { entry.getExpensesDescription(), entry.getPrice() }, entry.getExpensesId());
+					tableExpenses.addItem(new Object[] { entry.getExpensesDescription(), entry.getPrice() }, entry.getExpensesId());
 				}	
 			}
 			catch(Exception ex) {
-				label_new.setValue(ex.toString());
+				labelNew.setValue(ex.toString());
 			}
 		}
 	}
